@@ -1,0 +1,18 @@
+/* Design tokens. The palette is taken from the reference drawing, with no
+   whites or greys. Contrast checked against the text that sits on each:
+     ink on cream 12:1 · ink on skin 9:1 · yellow on deep blue 7.1:1
+     deep red on yellow 6.5:1 · red on yellow 3.4:1 (large text and decoration only) */
+@theme {
+  --color-desk: #ffea35; /* desktop */
+  --color-red: #eb3230;
+  --color-red-deep: #952a25;
+  --color-rust: #c2523d; /* bevel shadow */
+  --color-blue: #3773a5;
+  --color-blue-deep: #2a4a84;
+  --color-skin: #f9b288; /* window face */
+  --color-cream: #ebd4c1; /* text areas, bevel highlight */
+  --color-ink: #1a222c;
+
+  --font-ui: Tahoma, Verdana, 'Segoe UI', system-ui, sans-serif;
+  --font-ui-ja: Meiryo, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', Tahoma, sans-serif;
+}

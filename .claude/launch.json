@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5179"],
+      "cwd": "/Users/nabilrobert/Desktop/my-kerjaan-aku/nabilrobert-portfolio-site",
+      "port": 5179
+    }
+  ]
+}

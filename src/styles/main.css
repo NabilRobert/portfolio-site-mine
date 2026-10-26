@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@import './theme.css';
+@import './win98.css';
+@import './prose.css';
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-desk);
+    color: var(--color-ink);
+    font-family: var(--font-ui);
+  }
+  html:lang(ja) body {
+    font-family: var(--font-ui-ja);
+  }
+  a {
+    color: var(--color-blue-deep);
+  }
+  a:hover {
+    color: var(--color-red-deep);
+  }
+  :focus-visible {
+    outline: 2px dotted var(--color-ink);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}

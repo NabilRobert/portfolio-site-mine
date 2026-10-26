@@ -1,0 +1,55 @@
+/* Markdown write-ups (project pages), styled to sit inside a sunken panel. */
+.win-prose > * + * {
+  margin-top: 0.75rem;
+}
+.win-prose h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+}
+.win-prose h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.win-prose ul {
+  display: grid;
+  gap: 0.4rem;
+}
+.win-prose ul > li {
+  position: relative;
+  padding-left: 18px;
+}
+.win-prose ul > li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  background: var(--color-blue-deep);
+}
+.win-prose ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.win-prose code {
+  background: var(--color-skin);
+  border: 1px solid var(--color-rust);
+  padding: 0 0.25rem;
+  font-size: 0.9em;
+}
+.win-prose pre {
+  background: var(--color-ink);
+  color: var(--color-desk);
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+.win-prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.win-prose img {
+  border: 2px solid var(--color-ink);
+  max-width: 100%;
+}
