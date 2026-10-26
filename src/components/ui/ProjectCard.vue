@@ -20,7 +20,7 @@ const name = computed(() => shortTitle(props.project.title))
 <template>
   <RouterLink :to="localePath(`/projects/${project.slug}`)" class="group block focus-visible:outline-offset-8">
     <CoverImage :src="project.cover" :glyph="name.charAt(0)">
-      <span v-if="project.featured" class="eyebrow absolute top-4 right-4 bg-yellow px-2.5 py-1 text-ink">{{
+      <span v-if="project.featured" class="eyebrow absolute right-4 bottom-4 bg-yellow px-2.5 py-1 text-ink">{{
         t.featured.label
       }}</span>
     </CoverImage>
