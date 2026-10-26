@@ -91,8 +91,9 @@ describe('ProjectArticle', () => {
   })
 
   it('leaves the section out for a project without screenshots', async () => {
-    const project = getProject('en', 'pitstop')
-    if (!project) throw new Error('pitstop is missing')
+    const pitstop = getProject('en', 'pitstop')
+    if (!pitstop) throw new Error('pitstop is missing')
+    const project = { ...pitstop, screenshots: [] }
     const { wrapper } = await withRouter(ProjectArticle, '/projects/pitstop', { project })
     expect(wrapper.find('figure').exists()).toBe(false)
   })

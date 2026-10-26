@@ -1,0 +1,5 @@
+run-inspector-model-call.webp: a screenshot of the Pitstop demo, on synthetic advertising data.
+
+Copied unchanged from docs/images/run-inspector-model-call.webp in the public repository
+https://github.com/NabilRobert/pitstop-crew-public (on main; last changed in
+commit 34ba7ac), where the case study (docs/case-study.md) also shows it.

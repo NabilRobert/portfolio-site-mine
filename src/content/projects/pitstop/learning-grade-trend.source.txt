@@ -1,0 +1,5 @@
+learning-grade-trend.webp: a screenshot of the Pitstop demo, on synthetic advertising data.
+
+Copied unchanged from docs/images/learning-grade-trend.webp in the public repository
+https://github.com/NabilRobert/pitstop-crew-public (on main; last changed in
+commit f14678a), where the case study (docs/case-study.md) also shows it.

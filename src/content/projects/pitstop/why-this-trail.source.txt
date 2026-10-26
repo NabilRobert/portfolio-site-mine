@@ -1,0 +1,5 @@
+why-this-trail.webp: a screenshot of the Pitstop demo, on synthetic advertising data.
+
+Copied unchanged from docs/images/why-this-trail.webp in the public repository
+https://github.com/NabilRobert/pitstop-crew-public (on main; last changed in
+commit 62651df), where the case study (docs/case-study.md) also shows it.

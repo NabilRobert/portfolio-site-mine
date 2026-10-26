@@ -1,0 +1,7 @@
+dashboard-overview.webp: a screenshot of the Pitstop demo's dashboard, on
+synthetic advertising data.
+
+Copied unchanged from docs/images/dashboard-overview.webp in the public
+repository https://github.com/NabilRobert/pitstop-crew-public (on main; last
+changed in commit 62651df). It used to sit inside the cover; it is now shown
+on the project page instead.

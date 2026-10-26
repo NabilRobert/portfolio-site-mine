@@ -1,9 +1,13 @@
-cover.svg: a poster cover drawn for this site in the style of the other two
-covers ("PIT" at the top, "STOP" letter-spaced at the bottom, on the site's
-red), framing a real screenshot of the Pitstop demo (synthetic advertising data).
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other two covers ("PIT" at the top, "STOP" letter-spaced at the
+bottom, on the site's red), using only the site's palette.
 
-The screenshot: docs/images/dashboard-overview.webp in the public repository
-https://github.com/NabilRobert/pitstop-crew-public (on main; last changed in
-commit 62651df). Cropped to 1160 x 790 px (left 420, top 176: the performance
-figures and the trend chart), scaled to 856 px wide and embedded in the SVG as
-a JPEG at quality 80. No other edits to the screenshot.
+It shows Pitstop's four agents as a pit crew around a car marked "AI", each
+with an initial and a prop for their role: Anna (analysis) a tablet with a
+chart, Rico (recommendations) a sign with an arrow, Sammy (summaries) a
+clipboard, and Ciri (the critic) the chequered flag. The idea of a pit crew
+servicing a car came from a stock illustration Arthur shared as a mood
+reference; no figures, poses, car or layout were traced or copied from it.
+
+The dashboard screenshot that the previous cover framed is now on the project
+page: see dashboard-overview.source.txt.
