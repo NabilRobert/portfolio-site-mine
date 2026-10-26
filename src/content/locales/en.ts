@@ -45,6 +45,7 @@ export default {
     notFound: 'This project could not be found.',
     stack: 'Stack',
     status: 'Status',
+    screenshots: 'Screenshots',
     links: 'Links',
   },
   contact: {

@@ -18,6 +18,13 @@ export type Category = (typeof categories)[number]
 
 export type ProjectStatus = keyof LocaleStrings['status']
 
+/** A screenshot as written in the front matter: `src` is a file in the project's folder. */
+export interface ProjectScreenshot {
+  src: string
+  alt: string
+  caption?: string
+}
+
 export interface ProjectLink {
   label: string
   href: string
@@ -36,6 +43,8 @@ export interface ProjectFrontMatter {
   links: ProjectLink[]
   /** Describes the cover for screen readers, when it shows something real (a screenshot, a chart). */
   coverAlt?: string
+  /** Shown on the project's page, after the write-up. The same files in every language. */
+  screenshots?: ProjectScreenshot[]
 }
 
 /** A project ready for display in one locale. */
@@ -52,6 +61,8 @@ export interface Project {
   cover: string | null
   /** '' when the cover is decorative, such as a typographic placeholder. */
   coverAlt: string
+  /** `src` is the built URL here. */
+  screenshots: Required<ProjectScreenshot>[]
   html: string
 }
 

@@ -11,6 +11,7 @@ import TextLink from '../src/components/ui/TextLink.vue'
 import LanguageSwitch from '../src/components/ui/LanguageSwitch.vue'
 import ProjectCard from '../src/components/ui/ProjectCard.vue'
 import SiteHeader from '../src/components/layout/SiteHeader.vue'
+import ProjectArticle from '../src/components/sections/ProjectArticle.vue'
 
 async function withRouter(
   component: Component,
@@ -73,6 +74,25 @@ describe('ProjectCard', () => {
   it('tags the featured project', async () => {
     const { wrapper } = await withRouter(ProjectCard, '/ja', { project: { ...project, featured: true }, number: 1 })
     expect(wrapper.text()).toContain('注目')
+  })
+})
+
+describe('ProjectArticle', () => {
+  it('shows screenshots with their alt text and caption, under a heading', async () => {
+    const project = getProject('id', 'mcp-backbone')
+    if (!project) throw new Error('mcp-backbone is missing')
+    const { wrapper } = await withRouter(ProjectArticle, '/id/projects/mcp-backbone', { project })
+    expect(wrapper.find('#screenshots-heading').text()).toBe('Tangkapan layar')
+    const figure = wrapper.find('figure')
+    expect(figure.find('img').attributes('alt')).toBe(project.screenshots[0]?.alt)
+    expect(figure.find('figcaption').text()).toContain('26 Oktober 2026')
+  })
+
+  it('leaves the section out for a project without screenshots', async () => {
+    const project = getProject('en', 'pitstop')
+    if (!project) throw new Error('pitstop is missing')
+    const { wrapper } = await withRouter(ProjectArticle, '/projects/pitstop', { project })
+    expect(wrapper.find('figure').exists()).toBe(false)
   })
 })
 

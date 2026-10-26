@@ -10,6 +10,10 @@ links:
   - { label: Situs daring, href: "https://mcp.my.id" }
   - { label: Red team, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/RED_TEAM.md" }
   - { label: Tolok ukur, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/BENCHMARK.md" }
+screenshots:
+  - src: landing.webp
+    alt: "Halaman utama mcp.my.id: judul “Database MCP Server”, kalimat yang menjelaskan bahwa AI dapat membaca dan menjelaskan data tetapi tidak pernah dapat mengubahnya, serta terminal tempat Claude Code menjawab pertanyaan dengan tabel tiga film yang paling sering disewa."
+    caption: "Halaman utama publik mcp.my.id, diambil pada 26 Oktober 2026."
 ---
 
 Server MCP yang memungkinkan model AI menelusuri dan mengajukan kueri ke basis data Postgres secara aman.

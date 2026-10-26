@@ -48,6 +48,7 @@ export default {
     notFound: 'お探しのプロジェクトは見つかりませんでした。',
     stack: '使用技術',
     status: 'ステータス',
+    screenshots: 'スクリーンショット',
     links: '関連リンク',
   },
   contact: {

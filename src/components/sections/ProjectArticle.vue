@@ -4,11 +4,13 @@ import { splitTitle } from '@/content'
 import type { Project } from '@/content'
 import CoverImage from '@/components/ui/CoverImage.vue'
 import TextLink from '@/components/ui/TextLink.vue'
+import SectionLabel from '@/components/ui/SectionLabel.vue'
+import ScreenshotFigure from '@/components/ui/ScreenshotFigure.vue'
 import { useLocale } from '@/composables/useLocale'
 
 // A project's own page, laid out like a magazine feature: the name as the
 // headline and the rest of the title as its subtitle, then the cover with the
-// facts and links beside the Markdown write-up.
+// facts and links beside the Markdown write-up, and any screenshots after it.
 const props = defineProps<{
   project: Project
 }>()
@@ -62,8 +64,17 @@ const links = computed(() => [...props.project.links].sort((a, b) => Number(!!b.
         </ul>
       </div>
 
-      <!-- Trusted content: Markdown written in this repo, rendered at build time. -->
-      <div class="prose-editorial md:col-span-7 lg:col-start-6" v-html="project.html"></div>
+      <div class="md:col-span-7 lg:col-start-6">
+        <!-- Trusted content: Markdown written in this repo, rendered at build time. -->
+        <div class="prose-editorial" v-html="project.html"></div>
+
+        <section v-if="project.screenshots.length" aria-labelledby="screenshots-heading" class="mt-16 max-w-[48rem]">
+          <SectionLabel id="screenshots-heading">{{ t.project.screenshots }}</SectionLabel>
+          <div class="mt-6 grid gap-12">
+            <ScreenshotFigure v-for="s in project.screenshots" :key="s.src" v-bind="s" />
+          </div>
+        </section>
+      </div>
     </div>
   </article>
 </template>

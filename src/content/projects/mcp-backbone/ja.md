@@ -10,6 +10,10 @@ links:
   - { label: 公開サイト, href: "https://mcp.my.id" }
   - { label: レッドチーム, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/RED_TEAM.md" }
   - { label: ベンチマーク, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/BENCHMARK.md" }
+screenshots:
+  - src: landing.webp
+    alt: "mcp.my.idのランディングページです。「Database MCP Server」という見出しと、AIはデータを読み取って説明することはできても、変更することはできないという説明文があり、その下のターミナルでは、Claude Codeが質問に答え、貸し出し回数の多い映画3本を表にまとめています。"
+    caption: "mcp.my.idの公開ランディングページ（2026年10月26日撮影）"
 ---
 
 AIモデルがPostgresデータベースの構造を調べ、安全に問い合わせを行えるようにするMCPサーバーです。

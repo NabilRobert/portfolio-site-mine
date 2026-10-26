@@ -4,7 +4,9 @@
 //   src/content/projects/<slug>/ja.md   (required)
 //   src/content/projects/<slug>/id.md   (required)
 //   src/content/projects/<slug>/cover.(webp|png|jpg|svg)   (optional, 5:7 portrait)
-//   src/content/projects/<slug>/cover.source.txt   (where the cover came from; required with a cover)
+//   src/content/projects/<slug>/<name>.(webp|png|jpg)   (optional screenshots, listed under
+//                                                        `screenshots` in the front matter)
+//   src/content/projects/<slug>/<name>.source.txt   (where each image came from; required)
 //
 // Adding a project is adding a folder; nothing else needs to change.
 // tests/content.spec.ts checks every project is complete in every language.
@@ -34,7 +36,8 @@ const files = import.meta.glob<{ data: Record<string, unknown>; html: string }>(
   import: 'default',
   eager: true,
 })
-const covers = import.meta.glob<string>('./projects/*/cover.{webp,png,jpg,jpeg,svg}', {
+// Every image in a project folder, as its built URL.
+const images = import.meta.glob<string>('./projects/*/*.{webp,png,jpg,jpeg,svg}', {
   import: 'default',
   eager: true,
 })
@@ -43,8 +46,13 @@ const segments = (path: string) => path.split('/')
 const slugOf = (path: string) => segments(path).at(-2) ?? ''
 
 function coverFor(slug: string): string | null {
-  const key = Object.keys(covers).find((p) => slugOf(p) === slug)
-  return key ? (covers[key] ?? null) : null
+  const key = Object.keys(images).find((p) => slugOf(p) === slug && /\/cover\.\w+$/.test(p))
+  return key ? (images[key] ?? null) : null
+}
+
+/** A file named in a project's front matter, as its built URL ('' if it is missing). */
+function imageFor(slug: string, file: string): string {
+  return images[`./projects/${slug}/${file}`] ?? ''
 }
 
 function load(): Record<LocaleCode, Project[]> {
@@ -66,6 +74,11 @@ function load(): Record<LocaleCode, Project[]> {
       links: fm.links ?? [],
       cover: coverFor(slug),
       coverAlt: fm.coverAlt ?? '',
+      screenshots: (fm.screenshots ?? []).map((s) => ({
+        src: imageFor(slug, s.src),
+        alt: s.alt,
+        caption: s.caption ?? '',
+      })),
       html,
     })
   }

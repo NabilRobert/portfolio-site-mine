@@ -5,7 +5,7 @@ import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { parseMarkdown } from '../build/markdown'
-import { categories, locales, splitTitle } from '../src/content'
+import { categories, getProject, locales, splitTitle } from '../src/content'
 import type { LocaleCode, ProjectFrontMatter } from '../src/content'
 
 const PROJECTS = join(__dirname, '../src/content/projects')
@@ -60,14 +60,24 @@ describe('projects', () => {
         hrefs: (d.links ?? []).map((l) => l.href),
         primary: (d.links ?? []).map((l) => Boolean(l.primary)),
         coverAlt: Boolean(d.coverAlt),
+        screenshots: (d.screenshots ?? []).map((s) => s.src),
       })
       for (const other of rest) expect(shape(other)).toEqual(shape(first))
     })
 
-    it('records where its cover came from', () => {
-      const cover = readdirSync(join(PROJECTS, slug)).find((f) => /^cover\.(webp|png|jpe?g|svg)$/.test(f))
-      if (!cover) return
-      expect(existsSync(join(PROJECTS, slug, 'cover.source.txt')), `${slug}/cover.source.txt`).toBe(true)
+    it('records where every image came from', () => {
+      const images = readdirSync(join(PROJECTS, slug)).filter((f) => /\.(webp|png|jpe?g|svg)$/.test(f))
+      for (const image of images) {
+        const record = image.replace(/\.\w+$/, '.source.txt')
+        expect(existsSync(join(PROJECTS, slug, record)), `${slug}/${record}`).toBe(true)
+      }
+    })
+
+    it.each(LANGS)('%s: every screenshot exists and has alt text', (lang) => {
+      for (const shot of read(slug, lang).data.screenshots ?? []) {
+        expect(existsSync(join(PROJECTS, slug, shot.src)), `${slug}/${shot.src}`).toBe(true)
+        expect(shot.alt?.trim(), `alt for ${shot.src} in ${lang}`).toBeTruthy()
+      }
     })
   })
 
@@ -101,5 +111,14 @@ describe('splitTitle', () => {
 
   it('keeps a title without a colon whole', () => {
     expect(splitTitle('Pitstop')).toEqual({ name: 'Pitstop', rest: '' })
+  })
+})
+
+describe('screenshots', () => {
+  it('resolve to built files, with their alt text and caption', () => {
+    const [shot] = getProject('ja', 'mcp-backbone')?.screenshots ?? []
+    expect(shot?.src).toMatch(/landing.*\.webp/)
+    expect(shot?.alt).toContain('mcp.my.id')
+    expect(shot?.caption).toContain('2026')
   })
 })
