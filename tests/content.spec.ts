@@ -5,7 +5,7 @@ import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { parseMarkdown } from '../build/markdown'
-import { categories, locales } from '../src/content'
+import { categories, locales, splitTitle } from '../src/content'
 import type { LocaleCode, ProjectFrontMatter } from '../src/content'
 
 const PROJECTS = join(__dirname, '../src/content/projects')
@@ -90,5 +90,16 @@ describe('locale strings', () => {
 
   it('the "how they fit together" steps point at real projects', () => {
     for (const slug of Object.keys(locales.en.strings.flow.steps)) expect(slugs).toContain(slug)
+  })
+})
+
+describe('splitTitle', () => {
+  it('splits a title at its first colon, Latin or Japanese', () => {
+    expect(splitTitle('MCP-backbone: a server: safe')).toEqual({ name: 'MCP-backbone', rest: 'a server: safe' })
+    expect(splitTitle('Pitstop：無人で稼働')).toEqual({ name: 'Pitstop', rest: '無人で稼働' })
+  })
+
+  it('keeps a title without a colon whole', () => {
+    expect(splitTitle('Pitstop')).toEqual({ name: 'Pitstop', rest: '' })
   })
 })

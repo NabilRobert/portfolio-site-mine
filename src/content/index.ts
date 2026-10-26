@@ -87,9 +87,19 @@ export function getFeatured(lang: LocaleCode): Project | null {
   return getProjects(lang).find((p) => p.featured) ?? null
 }
 
+/**
+ * "MCP-backbone: a database server..." -> { name: "MCP-backbone", rest: "a database server..." }.
+ * Splits at the first colon, Latin or Japanese; `rest` is '' when there is none.
+ */
+export function splitTitle(title: string): { name: string; rest: string } {
+  const at = title.search(/[:：]/)
+  if (at < 0) return { name: title.trim(), rest: '' }
+  return { name: title.slice(0, at).trim() || title, rest: title.slice(at + 1).trim() }
+}
+
 /** "MCP-backbone: a database server..." -> "MCP-backbone": a project's short name. */
 export function shortTitle(title: string): string {
-  return title.split(/[:：]/)[0]?.trim() || title
+  return splitTitle(title).name
 }
 
 /** The categories that have at least one project, in display order. */
