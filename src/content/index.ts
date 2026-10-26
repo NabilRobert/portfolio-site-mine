@@ -80,6 +80,7 @@ function load(): Record<LocaleCode, Project[]> {
         still: s.still ? imageFor(slug, s.still) : '',
         alt: s.alt,
         caption: s.caption ?? '',
+        description: s.description ?? '',
       })),
       html,
     })

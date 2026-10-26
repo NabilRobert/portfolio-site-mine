@@ -48,7 +48,7 @@ export default {
     notFound: 'Proyek yang Anda cari tidak ditemukan.',
     stack: 'Teknologi',
     status: 'Status',
-    screenshots: 'Tangkapan layar',
+    screenshots: 'Tur singkat',
     links: 'Tautan',
   },
   contact: {

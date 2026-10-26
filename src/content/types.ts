@@ -24,7 +24,10 @@ export interface ProjectScreenshot {
   /** For an animation: a still frame, shown instead when the visitor prefers reduced motion. */
   still?: string
   alt: string
+  /** The stop's title on the project's guided tour. */
   caption?: string
+  /** What the reader is looking at, as a short walk-through; paragraphs separated by a blank line. */
+  description?: string
 }
 
 export interface ProjectLink {

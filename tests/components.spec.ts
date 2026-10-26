@@ -78,16 +78,20 @@ describe('ProjectCard', () => {
 })
 
 describe('ProjectArticle', () => {
-  it('shows screenshots with their alt text, caption and reduced-motion still, under a heading', async () => {
+  it('shows the screenshots as a numbered tour, with title, alt text, walk-through and reduced-motion still', async () => {
     const project = getProject('id', 'mcp-backbone')
     if (!project) throw new Error('mcp-backbone is missing')
     const { wrapper } = await withRouter(ProjectArticle, '/id/projects/mcp-backbone', { project })
-    expect(wrapper.find('#screenshots-heading').text()).toBe('Tangkapan layar')
-    const figure = wrapper.find('figure')
-    expect(figure.find('img').attributes('alt')).toBe(project.screenshots[0]?.alt)
-    expect(figure.find('figcaption').text()).toContain('Ajukan pertanyaan')
-    expect(figure.find('source').attributes('media')).toBe('(prefers-reduced-motion: reduce)')
-    expect(figure.find('source').attributes('srcset')).toBe(project.screenshots[0]?.still)
+    expect(wrapper.find('#screenshots-heading').text()).toBe('Tur singkat')
+    const stops = wrapper.findAll('section[aria-labelledby="screenshots-heading"] ol > li')
+    expect(stops).toHaveLength(project.screenshots.length)
+    const first = stops[0]!
+    expect(first.find('h3').text()).toContain('01')
+    expect(first.find('h3').text()).toContain('Ajukan pertanyaan')
+    expect(first.find('img').attributes('alt')).toBe(project.screenshots[0]?.alt)
+    expect(first.find('p').text()).toContain('Claude Code')
+    expect(first.find('source').attributes('media')).toBe('(prefers-reduced-motion: reduce)')
+    expect(first.find('source').attributes('srcset')).toBe(project.screenshots[0]?.still)
   })
 
   it('leaves the section out for a project without screenshots', async () => {
@@ -95,7 +99,7 @@ describe('ProjectArticle', () => {
     if (!pitstop) throw new Error('pitstop is missing')
     const project = { ...pitstop, screenshots: [] }
     const { wrapper } = await withRouter(ProjectArticle, '/projects/pitstop', { project })
-    expect(wrapper.find('figure').exists()).toBe(false)
+    expect(wrapper.find('#screenshots-heading').exists()).toBe(false)
   })
 })
 

@@ -60,7 +60,7 @@ describe('projects', () => {
         hrefs: (d.links ?? []).map((l) => l.href),
         primary: (d.links ?? []).map((l) => Boolean(l.primary)),
         coverAlt: Boolean(d.coverAlt),
-        screenshots: (d.screenshots ?? []).map((s) => [s.src, s.still ?? '']),
+        screenshots: (d.screenshots ?? []).map((s) => [s.src, s.still ?? '', Boolean(s.description)]),
       })
       for (const other of rest) expect(shape(other)).toEqual(shape(first))
     })

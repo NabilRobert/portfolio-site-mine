@@ -10,19 +10,24 @@ coverAlt: "Illustration: Pitstop’s four agents as a pit crew around a car mark
 screenshots:
   - src: dashboard-overview.webp
     alt: "The Pitstop dashboard on synthetic advertising data: three months of figures (impressions, clicks, click-through rate and cost), a daily impressions chart, campaigns ranked by conversions, and the AI report by Anna, Rico and Sammy, marked as approved by Ciri, the critic."
-    caption: "The dashboard: the account’s recent performance at a glance, with the day’s AI report from Anna, Rico and Sammy, each approved by Ciri. All the data is synthetic."
+    caption: "The dashboard"
+    description: "This is the first page after signing in to the demo. Along the top are the menu, the language switch and a “Demo mode” marker, a reminder that everything here runs on sample data. The cards summarise the last three months: impressions, clicks, click-through rate, cost, impression share and Google’s optimisation score, and the period can be changed from one week to five years. Below them, the trend chart shows impressions day by day and can switch to clicks, cost or conversions. At the bottom left, campaigns are ranked by conversions; on the right is the day’s AI report, with a tab each for Anna, Rico and Sammy, all marked as approved by Ciri."
   - src: why-this-trail.webp
     alt: "A daily report in three columns, Anna’s analysis, Rico’s recommendation and Sammy’s summary, each graded A and approved by Ciri, with the “Why this?” panel open beside them showing the original draft."
-    caption: "A daily report, with the “Why this?” trail open: it shows how each section was drafted, critiqued by Ciri and revised."
+    caption: "A daily report, and “Why this?”"
+    description: "Each day’s report sets the three agents’ work side by side: Anna’s analysis, Rico’s recommendation and Sammy’s summary. The line above them shows how they connect: the analysis informs the recommendation, and the summary brings both together. Every column carries Ciri’s grade and approval, with two links beneath it: “Why this?” to trace where the text came from, and “Ask about this” to put a follow-up question. Here “Why this?” is open on Anna’s analysis. The panel on the right starts from the original draft and continues through Ciri’s critique to the version that was approved."
   - src: learning-grade-trend.webp
     alt: "The Learning page: a stacked bar chart of Ciri’s verdicts on Anna’s final reports over eight weeks, mostly flagged at first and mostly approved by the last week shown."
-    caption: "The Learning page: how Ciri’s verdicts on the final reports changed from week to week."
+    caption: "The Learning page"
+    description: "The Learning page shows how the critic’s judgements develop over time. The chart counts each week’s final reports by Ciri’s verdict: green for approved without notes, yellow for approved with notes, red for flagged, and grey for not reviewed. It can be switched between Anna, Rico and Sammy, and between verdicts and quality grades. Here, for Anna, almost every week until late September is red. The dotted line on 28 September marks a change to the approval rule, and the note beneath it says plainly that more approvals after that date are not, on their own, proof of better reports. Further down, the grading criteria explain what each grade from A to F means."
   - src: run-inspector-overview.webp
     alt: "The Run Inspector for one daily run: summary figures for its duration, model calls, tokens and cost, then a timeline of every step, from preparing the data to each agent’s work."
-    caption: "The Run Inspector: every step of a run, in order, with its timing and cost."
+    caption: "The Run Inspector"
+    description: "Every run of the pipeline can be opened in the Run Inspector. The cards at the top give the run’s totals: how long it took, how many times it called the language model, the tokens sent and received, its cost and its number of steps. Below, the timeline lists every step in order, from preparing the data to each agent’s work and every model call within it, with a bar showing when each step ran and for how long. Any step can be expanded to see exactly what happened."
   - src: run-inspector-model-call.webp
     alt: "The Run Inspector with one of Anna’s model calls open, showing its token counts, cost and settings, and the full prompt and response."
-    caption: "A single model call in the Run Inspector, with its full prompt and response, so any output can be traced back to what produced it."
+    caption: "Inside one model call"
+    description: "Here one model call within Anna’s step has been expanded. It shows the call’s settings and token counts, then the full instructions the agent received and the full response it gave. Nothing in a report has to be taken on trust: any sentence can be traced back to the call that produced it."
 links:
   - { label: Case study, href: "https://github.com/NabilRobert/pitstop-crew-public/blob/main/docs/case-study.md", primary: true }
   - { label: Live demo, href: "https://pitcrew-public.my.id" }

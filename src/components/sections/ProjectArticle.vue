@@ -5,12 +5,13 @@ import type { Project } from '@/content'
 import CoverImage from '@/components/ui/CoverImage.vue'
 import TextLink from '@/components/ui/TextLink.vue'
 import SectionLabel from '@/components/ui/SectionLabel.vue'
-import ScreenshotFigure from '@/components/ui/ScreenshotFigure.vue'
+import TourStop from '@/components/ui/TourStop.vue'
 import { useLocale } from '@/composables/useLocale'
 
 // A project's own page, laid out like a magazine feature: the name as the
 // headline and the rest of the title as its subtitle, then the cover with the
-// facts and links beside the Markdown write-up, and any screenshots after it.
+// facts and links beside the Markdown write-up, and a guided tour of any
+// screenshots after it.
 const props = defineProps<{
   project: Project
 }>()
@@ -70,9 +71,11 @@ const links = computed(() => [...props.project.links].sort((a, b) => Number(!!b.
 
         <section v-if="project.screenshots.length" aria-labelledby="screenshots-heading" class="mt-16 max-w-[48rem]">
           <SectionLabel id="screenshots-heading">{{ t.project.screenshots }}</SectionLabel>
-          <div class="mt-6 grid gap-12">
-            <ScreenshotFigure v-for="s in project.screenshots" :key="s.src" v-bind="s" />
-          </div>
+          <ol class="mt-8 grid gap-16">
+            <li v-for="(s, i) in project.screenshots" :key="s.src">
+              <TourStop :number="i + 1" v-bind="s" />
+            </li>
+          </ol>
         </section>
       </div>
     </div>
