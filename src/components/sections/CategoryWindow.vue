@@ -1,13 +1,15 @@
-<script setup>
+<script setup lang="ts">
+import { shortTitle } from '@/content'
+import type { Category, Project } from '@/content'
 import WinWindow from '@/components/win98/WinWindow.vue'
 import WinIconTile from '@/components/win98/WinIconTile.vue'
 import { useLocale } from '@/composables/useLocale'
 
 // One category of projects as a grid of desktop-icon tiles.
-defineProps({
-  category: { type: String, required: true },
-  projects: { type: Array, required: true },
-})
+defineProps<{
+  category: Category
+  projects: Project[]
+}>()
 const { t, localePath } = useLocale()
 </script>
 
@@ -17,7 +19,7 @@ const { t, localePath } = useLocale()
       <li v-for="p in projects" :key="p.slug" class="grid">
         <WinIconTile
           :to="localePath(`/projects/${p.slug}`)"
-          :label="p.title.split(/[:：]/)[0]"
+          :label="shortTitle(p.title)"
           :caption="p.summary"
           :image="p.cover"
           :glyph="p.title.charAt(0)"

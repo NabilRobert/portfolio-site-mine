@@ -1,6 +1,8 @@
 // Indonesian interface strings, in formal standard Indonesian (bahasa baku,
 // addressing the reader as "Anda"). Written for meaning rather than
-// translated word for word. tests/content.spec.js keeps its keys in step with en.js.
+// translated word for word. tests/content.spec.ts keeps its keys in step with en.ts.
+import type { LocaleStrings } from '../types'
+
 export default {
   meta: {
     title: 'Nabil Robert | AI & Backend Engineer',
@@ -41,4 +43,4 @@ export default {
     links: { github: 'GitHub', email: 'Surel', linkedin: 'LinkedIn', cv: 'CV (PDF)' },
   },
   notFound: { window: 'Galat', text: 'Halaman yang Anda minta tidak ditemukan.', home: 'Kembali ke beranda' },
-}
+} satisfies LocaleStrings

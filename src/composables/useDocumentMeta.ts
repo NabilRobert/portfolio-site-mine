@@ -1,8 +1,14 @@
 import { toValue, watchEffect } from 'vue'
+import type { MaybeRefOrGetter } from 'vue'
 
-// Keeps <html lang>, the title and the meta description in step with the page.
-// `meta` is a ref or getter returning { lang, title, description }.
-export function useDocumentMeta(meta) {
+export interface DocumentMeta {
+  lang: string
+  title: string
+  description: string
+}
+
+/** Keeps <html lang>, the title and the meta description in step with the page. */
+export function useDocumentMeta(meta: MaybeRefOrGetter<DocumentMeta>) {
   watchEffect(() => {
     const { lang, title, description } = toValue(meta)
     document.documentElement.lang = lang

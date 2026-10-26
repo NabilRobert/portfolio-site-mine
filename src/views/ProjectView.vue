@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import ProjectDetailWindow from '@/components/sections/ProjectDetailWindow.vue'
 import WinWindow from '@/components/win98/WinWindow.vue'
@@ -6,7 +6,7 @@ import WinButton from '@/components/win98/WinButton.vue'
 import { getProject } from '@/content'
 import { useLocale } from '@/composables/useLocale'
 
-const props = defineProps({ slug: { type: String, required: true } })
+const props = defineProps<{ slug: string }>()
 const { lang, t, localePath } = useLocale()
 const project = computed(() => getProject(lang.value, props.slug))
 </script>

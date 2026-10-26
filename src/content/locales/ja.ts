@@ -1,6 +1,8 @@
 // Japanese interface strings, in formal です・ます style. Written for meaning
-// rather than translated word for word from en.js. TODO: a native speaker
-// should review it before launch. tests/content.spec.js keeps its keys in step.
+// rather than translated word for word from en.ts. TODO: a native speaker
+// should review it before launch. tests/content.spec.ts keeps its keys in step.
+import type { LocaleStrings } from '../types'
+
 export default {
   meta: {
     title: 'ナビル・ロバート｜AI・バックエンドエンジニア',
@@ -41,4 +43,4 @@ export default {
     links: { github: 'GitHub', email: 'メール', linkedin: 'LinkedIn', cv: '履歴書（PDF）' },
   },
   notFound: { window: 'エラー', text: 'お探しのページは見つかりませんでした。', home: 'ホームに戻る' },
-}
+} satisfies LocaleStrings

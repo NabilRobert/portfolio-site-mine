@@ -1,12 +1,15 @@
-<script setup>
+<script setup lang="ts">
 // A window's title bar: icon, title and the caption buttons (decorative).
-defineProps({
-  title: { type: String, required: true },
-  icon: { type: String, default: '' },
-  inactive: { type: Boolean, default: false },
-  closeOnly: { type: Boolean, default: false },
-  headingTag: { type: String, default: 'h2' },
-})
+withDefaults(
+  defineProps<{
+    title: string
+    icon?: string
+    inactive?: boolean
+    closeOnly?: boolean
+    headingTag?: string
+  }>(),
+  { icon: '', inactive: false, closeOnly: false, headingTag: 'h2' },
+)
 </script>
 
 <template>

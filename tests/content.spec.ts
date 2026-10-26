@@ -4,20 +4,24 @@
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { parseMarkdown } from '../build/markdown.js'
-import { categories, locales } from '../src/content/index.js'
+import { parseMarkdown } from '../build/markdown'
+import { categories, locales } from '../src/content'
+import type { LocaleCode, ProjectFrontMatter } from '../src/content'
 
 const PROJECTS = join(__dirname, '../src/content/projects')
-const LANGS = Object.keys(locales)
+const LANGS = Object.keys(locales) as LocaleCode[]
 const slugs = readdirSync(PROJECTS, { withFileTypes: true })
   .filter((d) => d.isDirectory())
   .map((d) => d.name)
 
-const read = (slug, lang) => parseMarkdown(readFileSync(join(PROJECTS, slug, `${lang}.md`), 'utf8'))
+const read = (slug: string, lang: LocaleCode) => {
+  const { data, html } = parseMarkdown(readFileSync(join(PROJECTS, slug, `${lang}.md`), 'utf8'))
+  return { data: data as Partial<ProjectFrontMatter>, html }
+}
 
-function keyPaths(obj, prefix = '') {
+function keyPaths(obj: object, prefix = ''): string[] {
   return Object.entries(obj).flatMap(([k, v]) =>
-    v && typeof v === 'object' && !Array.isArray(v) ? keyPaths(v, `${prefix}${k}.`) : [`${prefix}${k}`],
+    v && typeof v === 'object' && !Array.isArray(v) ? keyPaths(v as object, `${prefix}${k}.`) : [`${prefix}${k}`],
   )
 }
 
@@ -38,7 +42,7 @@ describe('projects', () => {
       expect(categories, `category "${data.category}"`).toContain(data.category)
       expect(data.order, 'order').toBeTypeOf('number')
       expect(Array.isArray(data.links) && data.links.length > 0, 'at least one link').toBe(true)
-      for (const link of data.links) {
+      for (const link of data.links ?? []) {
         expect(link.label, 'link label').toBeTypeOf('string')
         expect(link.href, `link href in ${lang}`).toMatch(/^https:\/\//)
       }
@@ -47,13 +51,14 @@ describe('projects', () => {
 
     it('has the same links and settings in every language', () => {
       const [first, ...rest] = LANGS.map((lang) => read(slug, lang).data)
-      const shape = (d) => ({
+      if (!first) throw new Error('no locales')
+      const shape = (d: Partial<ProjectFrontMatter>) => ({
         category: d.category,
         order: d.order,
         featured: Boolean(d.featured),
         status: d.status,
-        hrefs: d.links.map((l) => l.href),
-        primary: d.links.map((l) => Boolean(l.primary)),
+        hrefs: (d.links ?? []).map((l) => l.href),
+        primary: (d.links ?? []).map((l) => Boolean(l.primary)),
       })
       for (const other of rest) expect(shape(other)).toEqual(shape(first))
     })

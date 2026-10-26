@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import AboutWindow from '@/components/sections/AboutWindow.vue'
 import FeaturedWindow from '@/components/sections/FeaturedWindow.vue'

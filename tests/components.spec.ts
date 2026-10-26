@@ -2,12 +2,19 @@ import { describe, expect, it } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createMemoryHistory } from 'vue-router'
 import { defineComponent, h } from 'vue'
-import { createAppRouter } from '../src/router/index.js'
-import { useLocale } from '../src/composables/useLocale.js'
+import type { Component } from 'vue'
+import type { VueWrapper } from '@vue/test-utils'
+import { createAppRouter } from '../src/router'
+import { useLocale } from '../src/composables/useLocale'
 import WinWindow from '../src/components/win98/WinWindow.vue'
 import WinButton from '../src/components/win98/WinButton.vue'
 
-async function withRouter(component, path = '/', props = {}, slots = {}) {
+async function withRouter(
+  component: Component,
+  path = '/',
+  props: Record<string, unknown> = {},
+  slots: Record<string, string> = {},
+) {
   const router = createAppRouter(createMemoryHistory())
   router.push(path)
   await router.isReady()
@@ -70,7 +77,7 @@ describe('useLocale', () => {
         )
     },
   })
-  const read = (wrapper) => JSON.parse(wrapper.find('pre').text())
+  const read = (wrapper: VueWrapper) => JSON.parse(wrapper.find('pre').text())
 
   it('reads the language from the path and keeps links in it', async () => {
     const { wrapper } = await withRouter(Probe, '/ja/projects/pitstop')

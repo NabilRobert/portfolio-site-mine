@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import WinWindow from '@/components/win98/WinWindow.vue'
 import WinButton from '@/components/win98/WinButton.vue'

@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="ts">
+import type { MenuItem } from './types'
 import WinTitleBar from './WinTitleBar.vue'
 import WinMenuBar from './WinMenuBar.vue'
 import WinStatusBar from './WinStatusBar.vue'
@@ -6,17 +7,29 @@ import WinStatusBar from './WinStatusBar.vue'
 // A Windows 98 window. The default slot goes inside a sunken panel unless
 // `flush` is set (for grids of tiles); `buttons` sits bottom-right like a
 // dialog's OK / Cancel row.
-defineProps({
-  title: { type: String, required: true },
-  icon: { type: String, default: '' },
-  inactive: { type: Boolean, default: false },
-  closeOnly: { type: Boolean, default: false },
-  menu: { type: Array, default: () => [] },
-  status: { type: Array, default: () => [] },
-  flush: { type: Boolean, default: false },
-  as: { type: String, default: 'section' },
-  headingTag: { type: String, default: 'h2' },
-})
+withDefaults(
+  defineProps<{
+    title: string
+    icon?: string
+    inactive?: boolean
+    closeOnly?: boolean
+    menu?: MenuItem[]
+    status?: string[]
+    flush?: boolean
+    as?: string
+    headingTag?: string
+  }>(),
+  {
+    icon: '',
+    inactive: false,
+    closeOnly: false,
+    menu: () => [],
+    status: () => [],
+    flush: false,
+    as: 'section',
+    headingTag: 'h2',
+  },
+)
 </script>
 
 <template>

@@ -1,22 +1,24 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import WinWindow from '@/components/win98/WinWindow.vue'
 import WinButton from '@/components/win98/WinButton.vue'
 import { profile } from '@/content'
+import type { LocaleStrings } from '@/content'
 import { useLocale } from '@/composables/useLocale'
 
 // Contact links from content/profile.js; empty ones are left out.
 const { t } = useLocale()
-const links = computed(() =>
-  [
+type ContactKey = keyof LocaleStrings['contact']['links']
+
+const links = computed(() => {
+  const entries: [ContactKey, string][] = [
     ['github', profile.github],
     ['email', profile.email && `mailto:${profile.email}`],
     ['linkedin', profile.linkedin],
     ['cv', profile.cv],
   ]
-    .filter(([, href]) => href)
-    .map(([key, href]) => ({ key, href, label: t.value.contact.links[key] })),
-)
+  return entries.filter(([, href]) => href).map(([key, href]) => ({ key, href, label: t.value.contact.links[key] }))
+})
 </script>
 
 <template>

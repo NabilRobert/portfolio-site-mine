@@ -1,11 +1,15 @@
-<script setup>
+<script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
 // A Windows 98 push button, as a link: `to` for a page on this site, `href`
 // for anywhere else. `primary` adds the default-button ring.
-defineProps({
-  to: { type: [String, Object], default: undefined },
-  href: { type: String, default: undefined },
-  primary: { type: Boolean, default: false },
-})
+withDefaults(
+  defineProps<{
+    to?: RouteLocationRaw
+    href?: string
+    primary?: boolean
+  }>(),
+  { to: undefined, href: undefined, primary: false },
+)
 </script>
 
 <template>

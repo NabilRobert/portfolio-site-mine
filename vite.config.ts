@@ -1,8 +1,8 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
-import { markdownContent } from './build/markdown.js'
+import { markdownContent } from './build/markdown.ts'
 
 export default defineConfig({
   plugins: [markdownContent(), vue(), tailwindcss()],

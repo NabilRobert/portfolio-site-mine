@@ -1,4 +1,5 @@
-<script setup>
+<script setup lang="ts">
+import type { Project } from '@/content'
 import { computed } from 'vue'
 import WinWindow from '@/components/win98/WinWindow.vue'
 import WinButton from '@/components/win98/WinButton.vue'
@@ -6,11 +7,13 @@ import { useLocale } from '@/composables/useLocale'
 
 // A project's own page: its links as a menu bar, the Markdown write-up, and
 // a status bar with the stack and status.
-const props = defineProps({
-  project: { type: Object, required: true },
-})
+const props = defineProps<{
+  project: Project
+}>()
 const { t, localePath } = useLocale()
-const status = computed(() => [props.project.stack, t.value.status[props.project.status] ?? ''].filter(Boolean))
+const status = computed(() =>
+  [props.project.stack, props.project.status ? t.value.status[props.project.status] : ''].filter(Boolean),
+)
 </script>
 
 <template>

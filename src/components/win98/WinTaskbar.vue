@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
-import { getProjects, locales } from '@/content'
+import { getProjects, locales, shortTitle } from '@/content'
 import { useLocale } from '@/composables/useLocale'
 import { useClock } from '@/composables/useClock'
 
@@ -8,9 +8,7 @@ import { useClock } from '@/composables/useClock'
 // language switch and a clock in the visitor's own time.
 const { lang, t, localePath, switchPath } = useLocale()
 const clock = useClock(lang)
-const tasks = computed(() =>
-  getProjects(lang.value).map((p) => ({ slug: p.slug, label: p.title.split(':')[0].split('：')[0] })),
-)
+const tasks = computed(() => getProjects(lang.value).map((p) => ({ slug: p.slug, label: shortTitle(p.title) })))
 </script>
 
 <template>
@@ -20,7 +18,7 @@ const tasks = computed(() =>
   >
     <RouterLink
       :to="localePath('/')"
-      class="bevel-raised flex items-center gap-1.5 bg-skin px-2.5 py-0.5 text-sm font-bold text-ink no-underline hover:text-ink"
+      class="bevel-raised flex flex-none items-center gap-1.5 bg-skin px-2.5 py-0.5 text-sm font-bold whitespace-nowrap text-ink no-underline hover:text-ink"
     >
       <span
         aria-hidden="true"
@@ -36,7 +34,7 @@ const tasks = computed(() =>
       class="bevel-raised hidden max-w-44 truncate px-2.5 py-0.5 text-[13px] text-ink no-underline hover:bg-cream hover:text-ink md:block"
       >{{ task.label }}</RouterLink
     >
-    <div class="bevel-thin ml-auto flex items-center gap-2 px-2.5 py-0.5 text-[13px]">
+    <div class="bevel-thin ml-auto flex flex-none items-center gap-2 px-2.5 py-0.5 text-[13px] whitespace-nowrap">
       <RouterLink
         v-for="(l, code) in locales"
         :key="code"

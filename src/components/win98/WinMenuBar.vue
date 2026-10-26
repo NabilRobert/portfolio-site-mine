@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
+import type { MenuItem } from './types'
 // A window's menu bar. Items link out (`href`) or within the site (`to`).
 // The first letter is underlined, as in 98's access keys.
-defineProps({
-  items: { type: Array, required: true }, // [{ label, href } | { label, to }]
-  label: { type: String, required: true },
-})
+defineProps<{
+  items: MenuItem[]
+  label: string
+}>()
 </script>
 
 <template>

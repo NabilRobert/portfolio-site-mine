@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 // A status bar: sunken fields along the bottom of a window. The first one stretches.
-defineProps({
-  fields: { type: Array, required: true }, // strings
-})
+defineProps<{
+  fields: string[]
+}>()
 </script>
 
 <template>

@@ -1,13 +1,17 @@
-<script setup>
+<script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
 // A desktop-icon style tile: a picture (or a lettered placeholder) and a
 // label underneath, the whole tile linking to `to`.
-defineProps({
-  to: { type: [String, Object], required: true },
-  label: { type: String, required: true },
-  caption: { type: String, default: '' },
-  image: { type: String, default: null },
-  glyph: { type: String, default: '?' },
-})
+withDefaults(
+  defineProps<{
+    to: RouteLocationRaw
+    label: string
+    caption?: string
+    image?: string | null
+    glyph?: string
+  }>(),
+  { caption: '', image: null, glyph: '?' },
+)
 </script>
 
 <template>
