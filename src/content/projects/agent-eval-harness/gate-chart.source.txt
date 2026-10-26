@@ -1,0 +1,22 @@
+gate-chart.svg: a chart drawn for this site from the published results of
+agent-eval-harness. It adds no data of its own.
+
+Data: the "Comparisons (the regression gate)" table in RESULTS.md, in the
+public repository https://github.com/NabilRobert/agent-eval-harness (on
+main; RESULTS.md last changed in commit 59cdbcb). For each of the eight
+comparisons it plots the change in strict pass rate (dot) and its 95%
+interval (bar), coloured by the gate's verdict, and marks the three that were
+expected to be flagged and were not. Values, in points:
+
+  Pagila, same agent twice (A/A)          +0.5  (-3.0 to +4.5)   not flagged
+  Pagila, schema tools removed            -3.0  (-9.5 to +2.5)   not flagged (expected a flag)
+  Pagila, gpt-5-mini -> gpt-5-nano        -4.5  (-10.0 to +0.5)  not flagged (expected a flag)
+  Pagila, final-query line removed        -2.5  (-7.5 to +2.0)   not flagged (expected a flag)
+  Filesystem, same agent twice (A/A)      +0.0  (-3.5 to +3.5)   not flagged
+  Filesystem, discovery tools removed     -61.2 (-82.4 to -37.6) flagged
+  Filesystem, message cap 20 -> 12        -20.0 (-34.1 to -7.1)  flagged
+  Filesystem, gpt-5-mini -> gpt-5-nano    -20.0 (-35.3 to -7.1)  flagged
+
+Generated as SVG by a short script on 27 October 2026, in the site's palette
+(colours checked for colour-blind separation and contrast against the dark
+background).
