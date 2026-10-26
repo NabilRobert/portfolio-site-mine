@@ -6,7 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
-coverAlt: "Dasbor Pitstop: angka kinerja dan grafik tren harian, dengan data iklan sintetis."
+coverAlt: "Sampul bertuliskan “Pit Stop” dan “11 weeks unattended” (sebelas minggu tanpa pengawasan), yang membingkai tangkapan layar dasbor: angka kinerja dan grafik tren harian, dengan data iklan sintetis."
 links:
   - { label: Studi kasus, href: "https://github.com/NabilRobert/pitstop-crew-public/blob/main/docs/case-study.md", primary: true }
   - { label: Demo daring, href: "https://pitcrew-public.my.id" }

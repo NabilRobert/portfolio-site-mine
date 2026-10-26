@@ -1,6 +1,9 @@
-cover.webp: a real screenshot of the Pitstop demo (synthetic advertising data).
+cover.svg: a poster cover drawn for this site in the style of the other two
+covers ("PIT" at the top, "STOP" letter-spaced at the bottom, on the site's
+red), framing a real screenshot of the Pitstop demo (synthetic advertising data).
 
-Source: docs/images/dashboard-overview.webp in the public repository
+The screenshot: docs/images/dashboard-overview.webp in the public repository
 https://github.com/NabilRobert/pitstop-crew-public (on main; last changed in
-commit 62651df). Cropped to 815 x 1141 px (left 418, top 0) to fit the 5:7
-cover frame, and re-encoded as WebP at quality 82. No other edits.
+commit 62651df). Cropped to 1160 x 790 px (left 420, top 176: the performance
+figures and the trend chart), scaled to 856 px wide and embedded in the SVG as
+a JPEG at quality 80. No other edits to the screenshot.

@@ -6,7 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
-coverAlt: "The Pitstop dashboard: performance figures and a daily trend chart, on synthetic advertising data."
+coverAlt: "Cover reading “Pit Stop” and “11 weeks unattended”, framing a screenshot of the dashboard: performance figures and a daily trend chart, on synthetic advertising data."
 links:
   - { label: Case study, href: "https://github.com/NabilRobert/pitstop-crew-public/blob/main/docs/case-study.md", primary: true }
   - { label: Live demo, href: "https://pitcrew-public.my.id" }

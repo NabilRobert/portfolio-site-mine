@@ -6,7 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
-coverAlt: "Pitstopのダッシュボード画面。合成した広告データをもとに、主要な指標と日ごとの推移を表示しています。"
+coverAlt: "「PIT STOP」「11 WEEKS UNATTENDED（11週間無人で稼働）」の文字とともに、ダッシュボード画面のスクリーンショットを配したカバー画像です。合成した広告データをもとに、主要な指標と日ごとの推移を表示しています。"
 links:
   - { label: ケーススタディ, href: "https://github.com/NabilRobert/pitstop-crew-public/blob/main/docs/case-study.md", primary: true }
   - { label: デモ, href: "https://pitcrew-public.my.id" }
