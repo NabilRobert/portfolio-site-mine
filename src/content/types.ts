@@ -34,6 +34,8 @@ export interface ProjectFrontMatter {
   status?: ProjectStatus
   stack?: string
   links: ProjectLink[]
+  /** Describes the cover for screen readers, when it shows something real (a screenshot, a chart). */
+  coverAlt?: string
 }
 
 /** A project ready for display in one locale. */
@@ -48,6 +50,8 @@ export interface Project {
   stack: string
   links: ProjectLink[]
   cover: string | null
+  /** '' when the cover is decorative, such as a typographic placeholder. */
+  coverAlt: string
   html: string
 }
 

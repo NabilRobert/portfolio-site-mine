@@ -1,0 +1,6 @@
+cover.webp: a real screenshot of the Pitstop demo (synthetic advertising data).
+
+Source: docs/images/dashboard-overview.webp in the public repository
+https://github.com/NabilRobert/pitstop-crew-public (on main; last changed in
+commit 62651df). Cropped to 815 x 1141 px (left 418, top 0) to fit the 5:7
+cover frame, and re-encoded as WebP at quality 82. No other edits.

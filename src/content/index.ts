@@ -3,7 +3,8 @@
 //   src/content/projects/<slug>/en.md   (required)
 //   src/content/projects/<slug>/ja.md   (required)
 //   src/content/projects/<slug>/id.md   (required)
-//   src/content/projects/<slug>/cover.(webp|png|jpg|svg)   (optional thumbnail)
+//   src/content/projects/<slug>/cover.(webp|png|jpg|svg)   (optional, 5:7 portrait)
+//   src/content/projects/<slug>/cover.source.txt   (where the cover came from; required with a cover)
 //
 // Adding a project is adding a folder; nothing else needs to change.
 // tests/content.spec.ts checks every project is complete in every language.
@@ -64,6 +65,7 @@ function load(): Record<LocaleCode, Project[]> {
       stack: fm.stack ?? '',
       links: fm.links ?? [],
       cover: coverFor(slug),
+      coverAlt: fm.coverAlt ?? '',
       html,
     })
   }

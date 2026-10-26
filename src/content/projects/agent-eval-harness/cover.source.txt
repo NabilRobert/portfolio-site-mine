@@ -1,0 +1,5 @@
+cover.svg: a typographic placeholder drawn for this site in the site's palette.
+It uses no outside material.
+
+To be replaced once Arthur picks a real image: a screenshot of the live site,
+a chart drawn from the published results, or this cover kept as it is.

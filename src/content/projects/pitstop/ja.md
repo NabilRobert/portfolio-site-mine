@@ -6,6 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
+coverAlt: "Pitstopのダッシュボード画面。合成した広告データをもとに、主要な指標と日ごとの推移を表示しています。"
 links:
   - { label: ケーススタディ, href: "https://github.com/NabilRobert/pitstop-crew-public/blob/main/docs/case-study.md", primary: true }
   - { label: デモ, href: "https://pitcrew-public.my.id" }

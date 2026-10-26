@@ -59,8 +59,15 @@ describe('projects', () => {
         status: d.status,
         hrefs: (d.links ?? []).map((l) => l.href),
         primary: (d.links ?? []).map((l) => Boolean(l.primary)),
+        coverAlt: Boolean(d.coverAlt),
       })
       for (const other of rest) expect(shape(other)).toEqual(shape(first))
+    })
+
+    it('records where its cover came from', () => {
+      const cover = readdirSync(join(PROJECTS, slug)).find((f) => /^cover\.(webp|png|jpe?g|svg)$/.test(f))
+      if (!cover) return
+      expect(existsSync(join(PROJECTS, slug, 'cover.source.txt')), `${slug}/cover.source.txt`).toBe(true)
     })
   })
 
