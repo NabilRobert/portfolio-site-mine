@@ -11,9 +11,17 @@ links:
   - { label: レッドチーム, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/RED_TEAM.md" }
   - { label: ベンチマーク, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/BENCHMARK.md" }
 screenshots:
-  - src: landing.webp
-    alt: "mcp.my.idのランディングページです。「Database MCP Server」という見出しと、AIはデータを読み取って説明することはできても、変更することはできないという説明文があり、その下のターミナルでは、Claude Codeが質問に答え、貸し出し回数の多い映画3本を表にまとめています。"
-    caption: "mcp.my.idの公開ランディングページ（2026年10月26日撮影）"
+  - src: step1.gif
+    still: step1-still.png
+    alt: "Claude Codeがquery-databaseスキルを読み込み、list_tablesとdescribe_tableを呼び出したうえで、貸し出し回数の多い映画3本を回答する様子です。"
+    caption: "質問する：Claudeがスキーマを調べたうえで、読み取り専用のクエリを1回だけ実行します。"
+  - src: step2.gif
+    still: step2-still.png
+    alt: "DELETE FROM rentalの実行を求められたサーバーが、SELECT文のみが許可されているとしてこれを拒否し、データが一切削除されなかった様子です。"
+    caption: "データの変更を試みる：サーバーは、単一のSELECT文以外をすべて拒否します。"
+  - src: step3.png
+    alt: "コンソールの監査ログ画面です。拒否されたDELETEがその理由とともに赤字で、成功したクエリがそのコストとともに表示され、14日間の推移を示すグラフもあります。"
+    caption: "実行内容を確認する：拒否されたものも含め、すべてのクエリが監査ログに記録されます。"
 ---
 
 AIモデルがPostgresデータベースの構造を調べ、安全に問い合わせを行えるようにするMCPサーバーです。

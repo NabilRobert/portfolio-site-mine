@@ -4,9 +4,10 @@
 //   src/content/projects/<slug>/ja.md   (required)
 //   src/content/projects/<slug>/id.md   (required)
 //   src/content/projects/<slug>/cover.(webp|png|jpg|svg)   (optional, 5:7 portrait)
-//   src/content/projects/<slug>/<name>.(webp|png|jpg)   (optional screenshots, listed under
-//                                                        `screenshots` in the front matter)
-//   src/content/projects/<slug>/<name>.source.txt   (where each image came from; required)
+//   src/content/projects/<slug>/<name>.(webp|png|jpg|gif)   (optional screenshots, listed under
+//                                                            `screenshots` in the front matter)
+//   src/content/projects/<slug>/<name>.source.txt   (where each image came from; required, and
+//                                                    shared by <name>-still.* for an animation)
 //
 // Adding a project is adding a folder; nothing else needs to change.
 // tests/content.spec.ts checks every project is complete in every language.
@@ -37,7 +38,7 @@ const files = import.meta.glob<{ data: Record<string, unknown>; html: string }>(
   eager: true,
 })
 // Every image in a project folder, as its built URL.
-const images = import.meta.glob<string>('./projects/*/*.{webp,png,jpg,jpeg,svg}', {
+const images = import.meta.glob<string>('./projects/*/*.{webp,png,jpg,jpeg,gif,svg}', {
   import: 'default',
   eager: true,
 })
@@ -76,6 +77,7 @@ function load(): Record<LocaleCode, Project[]> {
       coverAlt: fm.coverAlt ?? '',
       screenshots: (fm.screenshots ?? []).map((s) => ({
         src: imageFor(slug, s.src),
+        still: s.still ? imageFor(slug, s.still) : '',
         alt: s.alt,
         caption: s.caption ?? '',
       })),

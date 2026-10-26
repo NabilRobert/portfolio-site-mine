@@ -1,0 +1,5 @@
+step3.png: step 3 of the demo on the public landing page https://mcp.my.id.
+
+Copied unchanged from app/console/static/demo/ in the MCP-backbone repository
+https://github.com/NabilRobert/MCP-backbone (on main; added in commit e8c8ae8,
+"feat(landing): a three-step demo with trimmed GIFs").

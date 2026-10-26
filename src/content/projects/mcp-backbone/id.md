@@ -11,9 +11,17 @@ links:
   - { label: Red team, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/RED_TEAM.md" }
   - { label: Tolok ukur, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/BENCHMARK.md" }
 screenshots:
-  - src: landing.webp
-    alt: "Halaman utama mcp.my.id: judul “Database MCP Server”, kalimat yang menjelaskan bahwa AI dapat membaca dan menjelaskan data tetapi tidak pernah dapat mengubahnya, serta terminal tempat Claude Code menjawab pertanyaan dengan tabel tiga film yang paling sering disewa."
-    caption: "Halaman utama publik mcp.my.id, diambil pada 26 Oktober 2026."
+  - src: step1.gif
+    still: step1-still.png
+    alt: "Claude Code memuat skill query-database, memanggil list_tables dan describe_table, lalu menjawab dengan tiga film yang paling sering disewa."
+    caption: "Ajukan pertanyaan. Claude menelusuri skema, lalu menjalankan satu kueri baca-saja."
+  - src: step2.gif
+    still: step2-still.png
+    alt: "Ketika diminta menjalankan DELETE FROM rental, server menolaknya karena hanya pernyataan SELECT yang diizinkan, sehingga tidak ada data yang terhapus."
+    caption: "Coba ubah data. Server menolak apa pun selain satu pernyataan SELECT."
+  - src: step3.png
+    alt: "Jejak audit di konsol: DELETE yang ditolak ditampilkan dengan warna merah beserta alasannya, kueri yang berhasil beserta biayanya, dan grafik 14 hari."
+    caption: "Periksa apa yang dijalankan. Setiap kueri, termasuk yang ditolak, tercatat dalam jejak audit."
 ---
 
 Server MCP yang memungkinkan model AI menelusuri dan mengajukan kueri ke basis data Postgres secara aman.

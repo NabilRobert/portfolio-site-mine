@@ -1,0 +1,5 @@
+step1.gif (animated) and step1-still.png (its still, shown when the visitor prefers reduced motion): step 1 of the demo on the public landing page https://mcp.my.id.
+
+Copied unchanged from app/console/static/demo/ in the MCP-backbone repository
+https://github.com/NabilRobert/MCP-backbone (on main; added in commit e8c8ae8,
+"feat(landing): a three-step demo with trimmed GIFs").

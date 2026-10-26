@@ -21,6 +21,8 @@ export type ProjectStatus = keyof LocaleStrings['status']
 /** A screenshot as written in the front matter: `src` is a file in the project's folder. */
 export interface ProjectScreenshot {
   src: string
+  /** For an animation: a still frame, shown instead when the visitor prefers reduced motion. */
+  still?: string
   alt: string
   caption?: string
 }

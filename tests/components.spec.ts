@@ -78,14 +78,16 @@ describe('ProjectCard', () => {
 })
 
 describe('ProjectArticle', () => {
-  it('shows screenshots with their alt text and caption, under a heading', async () => {
+  it('shows screenshots with their alt text, caption and reduced-motion still, under a heading', async () => {
     const project = getProject('id', 'mcp-backbone')
     if (!project) throw new Error('mcp-backbone is missing')
     const { wrapper } = await withRouter(ProjectArticle, '/id/projects/mcp-backbone', { project })
     expect(wrapper.find('#screenshots-heading').text()).toBe('Tangkapan layar')
     const figure = wrapper.find('figure')
     expect(figure.find('img').attributes('alt')).toBe(project.screenshots[0]?.alt)
-    expect(figure.find('figcaption').text()).toContain('26 Oktober 2026')
+    expect(figure.find('figcaption').text()).toContain('Ajukan pertanyaan')
+    expect(figure.find('source').attributes('media')).toBe('(prefers-reduced-motion: reduce)')
+    expect(figure.find('source').attributes('srcset')).toBe(project.screenshots[0]?.still)
   })
 
   it('leaves the section out for a project without screenshots', async () => {

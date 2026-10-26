@@ -11,9 +11,17 @@ links:
   - { label: Red team, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/RED_TEAM.md" }
   - { label: Benchmark, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/BENCHMARK.md" }
 screenshots:
-  - src: landing.webp
-    alt: "The landing page of mcp.my.id: the heading “Database MCP Server”, a sentence explaining that an AI can read and explain the data but never change it, and a terminal in which Claude Code answers a question with a table of the three most rented films."
-    caption: "The public landing page at mcp.my.id, captured on 26 October 2026."
+  - src: step1.gif
+    still: step1-still.png
+    alt: "Claude Code loads the query-database skill, calls list_tables and describe_table, then answers with the three most rented films."
+    caption: "Ask a question. Claude explores the schema, then runs one read-only query."
+  - src: step2.gif
+    still: step2-still.png
+    alt: "Asked to run DELETE FROM rental, the server rejects it: only SELECT statements are allowed, so nothing was deleted."
+    caption: "Try to change data. The server refuses anything but a single SELECT."
+  - src: step3.png
+    alt: "The console's audit trail: the refused DELETE in red with its reason, the successful query with its cost, and a 14-day chart."
+    caption: "Check what ran. Every query, including refused ones, appears in the audit trail."
 ---
 
 An MCP server that allows an AI model to explore and query a Postgres database safely.

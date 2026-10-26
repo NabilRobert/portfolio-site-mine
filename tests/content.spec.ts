@@ -60,15 +60,16 @@ describe('projects', () => {
         hrefs: (d.links ?? []).map((l) => l.href),
         primary: (d.links ?? []).map((l) => Boolean(l.primary)),
         coverAlt: Boolean(d.coverAlt),
-        screenshots: (d.screenshots ?? []).map((s) => s.src),
+        screenshots: (d.screenshots ?? []).map((s) => [s.src, s.still ?? '']),
       })
       for (const other of rest) expect(shape(other)).toEqual(shape(first))
     })
 
     it('records where every image came from', () => {
-      const images = readdirSync(join(PROJECTS, slug)).filter((f) => /\.(webp|png|jpe?g|svg)$/.test(f))
+      const images = readdirSync(join(PROJECTS, slug)).filter((f) => /\.(webp|png|jpe?g|gif|svg)$/.test(f))
       for (const image of images) {
-        const record = image.replace(/\.\w+$/, '.source.txt')
+        // An animation's still (step1-still.png) shares its record (step1.source.txt).
+        const record = image.replace(/(-still)?\.\w+$/, '.source.txt')
         expect(existsSync(join(PROJECTS, slug, record)), `${slug}/${record}`).toBe(true)
       }
     })
@@ -76,6 +77,7 @@ describe('projects', () => {
     it.each(LANGS)('%s: every screenshot exists and has alt text', (lang) => {
       for (const shot of read(slug, lang).data.screenshots ?? []) {
         expect(existsSync(join(PROJECTS, slug, shot.src)), `${slug}/${shot.src}`).toBe(true)
+        if (shot.still) expect(existsSync(join(PROJECTS, slug, shot.still)), `${slug}/${shot.still}`).toBe(true)
         expect(shot.alt?.trim(), `alt for ${shot.src} in ${lang}`).toBeTruthy()
       }
     })
@@ -115,10 +117,11 @@ describe('splitTitle', () => {
 })
 
 describe('screenshots', () => {
-  it('resolve to built files, with their alt text and caption', () => {
+  it('resolve to built files, with their still, alt text and caption', () => {
     const [shot] = getProject('ja', 'mcp-backbone')?.screenshots ?? []
-    expect(shot?.src).toMatch(/landing.*\.webp/)
-    expect(shot?.alt).toContain('mcp.my.id')
-    expect(shot?.caption).toContain('2026')
+    expect(shot?.src).toMatch(/step1.*\.gif/)
+    expect(shot?.still).toMatch(/step1-still.*\.png/)
+    expect(shot?.alt).toContain('Claude Code')
+    expect(shot?.caption).toContain('質問する')
   })
 })

@@ -1,9 +1,0 @@
-landing.webp: a screenshot of the public landing page https://mcp.my.id.
-
-Captured on 26 October 2026 at 23:50 (UTC+7) with Google Chrome 156, headless,
-driven by puppeteer-core, at a 1440 x 900 desktop viewport and 2x pixel density.
-The page's first demo is an animated GIF; the frame shown was captured about
-13 seconds after the page loaded, when it shows the answer table.
-
-Cropped to the page's content column (CSS pixels x 300-1140, y 0-900), scaled
-to 1400 x 1500 px and saved as WebP at quality 80. No other edits.
