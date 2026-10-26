@@ -1,55 +1,72 @@
-/* Markdown write-ups (project pages), styled to sit inside a sunken panel. */
-.win-prose > * + * {
-  margin-top: 0.75rem;
+/* Markdown write-ups on the project pages: a readable column of cream text. */
+.prose-editorial {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  max-width: 64ch;
 }
-.win-prose h2 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-top: 1.25rem;
+.prose-editorial > * + * {
+  margin-top: 1.1rem;
 }
-.win-prose h3 {
-  font-size: 1rem;
-  font-weight: 700;
+.prose-editorial > p:first-child {
+  font-size: 1.25rem;
+  line-height: 1.6;
 }
-.win-prose ul {
+.prose-editorial h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+}
+.prose-editorial h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+.prose-editorial strong {
+  color: var(--color-yellow);
+  font-weight: 600;
+}
+.prose-editorial a {
+  color: var(--color-yellow);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.prose-editorial ul {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.9rem;
+  border-top: 1px solid var(--color-rust);
+  padding-top: 1.25rem;
 }
-.win-prose ul > li {
+.prose-editorial ul > li {
   position: relative;
-  padding-left: 18px;
+  padding-left: 1.5rem;
 }
-.win-prose ul > li::before {
+.prose-editorial ul > li::before {
   content: '';
   position: absolute;
-  left: 2px;
-  top: 0.55em;
-  width: 7px;
-  height: 7px;
-  background: var(--color-blue-deep);
+  left: 0;
+  top: 0.7em;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-red);
 }
-.win-prose ol {
+.prose-editorial ol {
   list-style: decimal;
   padding-left: 1.5rem;
 }
-.win-prose code {
-  background: var(--color-skin);
-  border: 1px solid var(--color-rust);
-  padding: 0 0.25rem;
+.prose-editorial code {
+  background: var(--color-blue-deep);
+  color: var(--color-cream);
+  padding: 0.1em 0.35em;
   font-size: 0.9em;
 }
-.win-prose pre {
-  background: var(--color-ink);
-  color: var(--color-desk);
-  padding: 0.75rem 1rem;
+.prose-editorial pre {
+  background: var(--color-blue-deep);
+  padding: 1rem 1.25rem;
   overflow-x: auto;
 }
-.win-prose pre code {
-  background: none;
-  border: none;
+.prose-editorial pre code {
   padding: 0;
 }
-.win-prose img {
-  border: 2px solid var(--color-ink);
+.prose-editorial img {
   max-width: 100%;
 }

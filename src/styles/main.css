@@ -1,29 +1,38 @@
 @import 'tailwindcss';
 @import './theme.css';
-@import './win98.css';
 @import './prose.css';
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: dark;
+    background: var(--color-ink);
   }
   body {
-    background: var(--color-desk);
-    color: var(--color-ink);
-    font-family: var(--font-ui);
+    background: var(--color-ink);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   html:lang(ja) body {
-    font-family: var(--font-ui-ja);
+    font-family: var(--font-ja);
   }
-  a {
-    color: var(--color-blue-deep);
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
-  a:hover {
-    color: var(--color-red-deep);
+  html:lang(ja) :is(h1, h2, h3) {
+    word-break: auto-phrase;
   }
   :focus-visible {
-    outline: 2px dotted var(--color-ink);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-yellow);
+    outline-offset: 4px;
+  }
+  ::selection {
+    background: var(--color-yellow);
+    color: var(--color-ink);
   }
   @media (prefers-reduced-motion: reduce) {
     html {

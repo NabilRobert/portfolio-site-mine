@@ -9,17 +9,24 @@ export default {
     description:
       'AI・バックエンドエンジニア、ナビル・ロバートのポートフォリオです。AIによる誤用を防ぐデータベースMCPサーバー、エージェント評価ハーネス、11週間無人で稼働したエージェントパイプラインを紹介しています。',
   },
-  nav: { home: 'ホーム', projects: 'プロジェクト', contact: 'お問い合わせ', start: 'スタート', taskbar: 'タスクバー' },
+  nav: {
+    label: 'メインメニュー',
+    skip: '本文へ移動',
+    work: '制作実績',
+    about: 'プロフィール',
+    contact: 'お問い合わせ',
+    language: '表示言語',
+  },
   about: {
-    window: 'プロフィール：ナビル・ロバート',
+    heading: 'プロフィール',
     name: 'ナビル・ロバート',
     role: 'AI・バックエンドエンジニア',
     lead: 'AIシステムの設計・開発を行い、それが正しく機能することを根拠をもって示しています。本ポートフォリオでは、AIによる誤用を防ぐデータベースサーバー、エージェントの性能の向上や低下を測定するハーネス、そして11週間にわたり無人で稼働し、その稼働記録をもとに検証したエージェントパイプラインをご紹介します。',
     seeking: '',
   },
-  featured: { window: '注目のプロジェクト', open: 'プロジェクトを見る' },
+  featured: { label: '注目' },
   flow: {
-    window: '3つのプロジェクトの関係',
+    heading: '3つのプロジェクトの関係',
     steps: {
       'mcp-backbone': 'AIが利用するシステム',
       'agent-eval-harness': 'そうしたシステムを評価する仕組み',
@@ -33,14 +40,24 @@ export default {
   },
   status: { live: '公開中', ci: 'CI', archived: 'アーカイブ', wip: '開発中' },
   projectsPage: {
-    window: 'プロジェクト一覧',
+    heading: 'プロジェクト一覧',
     lead: 'いずれのプロジェクトも、ソースコードと、記載内容を裏付ける資料をご覧いただけます。',
   },
-  project: { back: 'プロジェクト一覧', notFound: 'お探しのプロジェクトは見つかりませんでした。' },
+  project: {
+    back: 'プロジェクト一覧',
+    notFound: 'お探しのプロジェクトは見つかりませんでした。',
+    stack: '使用技術',
+    status: 'ステータス',
+    links: '関連リンク',
+  },
   contact: {
-    window: 'お問い合わせ',
+    heading: 'お問い合わせ',
     text: 'いずれのプロジェクトについても、お気軽にお問い合わせください。詳細は各リポジトリに、裏付けとなる資料はケーススタディに掲載しています。',
     links: { github: 'GitHub', email: 'メール', linkedin: 'LinkedIn', cv: '履歴書（PDF）' },
   },
-  notFound: { window: 'エラー', text: 'お探しのページは見つかりませんでした。', home: 'ホームに戻る' },
+  notFound: {
+    heading: 'ページが見つかりません',
+    text: 'アドレスに誤りがあるか、ページが移動した可能性があります。',
+    home: 'ホームに戻る',
+  },
 } satisfies LocaleStrings

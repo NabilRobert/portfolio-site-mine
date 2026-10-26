@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import ProjectDetailWindow from '@/components/sections/ProjectDetailWindow.vue'
-import WinWindow from '@/components/win98/WinWindow.vue'
-import WinButton from '@/components/win98/WinButton.vue'
+import ProjectArticle from '@/components/sections/ProjectArticle.vue'
+import NotFoundNotice from '@/components/sections/NotFoundNotice.vue'
 import { getProject } from '@/content'
 import { useLocale } from '@/composables/useLocale'
 
@@ -12,11 +11,6 @@ const project = computed(() => getProject(lang.value, props.slug))
 </script>
 
 <template>
-  <ProjectDetailWindow v-if="project" :project />
-  <WinWindow v-else :title="t.notFound.window" icon="!" inactive close-only heading-tag="h1">
-    <p>{{ t.project.notFound }}</p>
-    <template #buttons>
-      <WinButton :to="localePath('/projects')" primary>{{ t.project.back }}</WinButton>
-    </template>
-  </WinWindow>
+  <ProjectArticle v-if="project" :project />
+  <NotFoundNotice v-else :text="t.project.notFound" :back="localePath('/projects')" :back-label="t.project.back" />
 </template>

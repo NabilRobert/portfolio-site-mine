@@ -1,18 +1,59 @@
-/* Design tokens. The palette is taken from the reference drawing, with no
-   whites or greys. Contrast checked against the text that sits on each:
-     ink on cream 12:1 · ink on skin 9:1 · yellow on deep blue 7.1:1
-     deep red on yellow 6.5:1 · red on yellow 3.4:1 (large text and decoration only) */
+/* Design tokens. Arthur's palette, taken from the reference drawing, with no
+   whites or greys (Tailwind's default colours are switched off). The page is
+   ink and the text cream. WCAG contrast on ink:
+     cream 11.2:1 · skin 9.0:1 · yellow 13.0:1   (body text and links)
+     red 3.8:1 · rust 3.5:1                     (large type, rules and decoration only)
+   On coloured blocks: ink on yellow 13.0:1 · cream on deep blue 6.1:1. */
 @theme {
-  --color-desk: #ffea35; /* desktop */
+  --color-*: initial;
+  --color-ink: #1a222c;
+  --color-cream: #ebd4c1;
+  --color-skin: #f9b288;
+  --color-yellow: #ffea35;
   --color-red: #eb3230;
   --color-red-deep: #952a25;
-  --color-rust: #c2523d; /* bevel shadow */
+  --color-rust: #c2523d;
   --color-blue: #3773a5;
   --color-blue-deep: #2a4a84;
-  --color-skin: #f9b288; /* window face */
-  --color-cream: #ebd4c1; /* text areas, bevel highlight */
-  --color-ink: #1a222c;
 
-  --font-ui: Tahoma, Verdana, 'Segoe UI', system-ui, sans-serif;
-  --font-ui-ja: Meiryo, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', Tahoma, sans-serif;
+  /* Archivo (self-hosted, variable width) for Latin; Japanese falls through
+     to the system's Japanese gothic. */
+  --font-sans: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-ja:
+    'Archivo Variable', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif;
+}
+
+/* Small letter-spaced capitals: labels, captions, the masthead's links. */
+@utility eyebrow {
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-stretch: 112%;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  &:lang(ja) {
+    letter-spacing: 0.08em;
+  }
+}
+
+/* Wide capitals for the wordmark and display headings. */
+@utility display {
+  font-stretch: 125%;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* The page's width and side margins, shared by the masthead, main and footer. */
+@utility frame {
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 3rem;
+  }
 }

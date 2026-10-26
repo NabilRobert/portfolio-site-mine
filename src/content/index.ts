@@ -83,10 +83,6 @@ export function getProject(lang: LocaleCode, slug: string): Project | null {
   return getProjects(lang).find((p) => p.slug === slug) ?? null
 }
 
-export function getFeatured(lang: LocaleCode): Project | null {
-  return getProjects(lang).find((p) => p.featured) ?? null
-}
-
 /**
  * "MCP-backbone: a database server..." -> { name: "MCP-backbone", rest: "a database server..." }.
  * Splits at the first colon, Latin or Japanese; `rest` is '' when there is none.

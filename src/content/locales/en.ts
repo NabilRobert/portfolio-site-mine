@@ -6,17 +6,24 @@ export default {
     description:
       'Portfolio of Nabil Robert, AI and backend engineer: a database MCP server that an AI cannot misuse, an agent evaluation harness, and an agent pipeline that ran unattended for eleven weeks.',
   },
-  nav: { home: 'Home', projects: 'Projects', contact: 'Contact', start: 'Start', taskbar: 'Taskbar' },
+  nav: {
+    label: 'Main',
+    skip: 'Skip to content',
+    work: 'Work',
+    about: 'About',
+    contact: 'Contact',
+    language: 'Language',
+  },
   about: {
-    window: 'About: Nabil Robert',
+    heading: 'About',
     name: 'Nabil Robert',
     role: 'AI & Backend Engineer',
     lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, and an agent pipeline that ran unattended for eleven weeks, documented from its own run records.',
     seeking: '',
   },
-  featured: { window: 'Current project', open: 'Open project' },
+  featured: { label: 'Featured' },
   flow: {
-    window: 'How the three projects relate',
+    heading: 'How the three projects relate',
     steps: {
       'mcp-backbone': 'A system that an AI uses',
       'agent-eval-harness': 'Measures systems of this kind',
@@ -30,14 +37,24 @@ export default {
   },
   status: { live: 'Live', ci: 'CI', archived: 'Archived', wip: 'In progress' },
   projectsPage: {
-    window: 'All projects',
+    heading: 'All projects',
     lead: 'Each project links to its source code and to the evidence behind its claims.',
   },
-  project: { back: 'All projects', notFound: 'This project could not be found.' },
+  project: {
+    back: 'All projects',
+    notFound: 'This project could not be found.',
+    stack: 'Stack',
+    status: 'Status',
+    links: 'Links',
+  },
   contact: {
-    window: 'Contact',
+    heading: 'Contact',
     text: 'I welcome enquiries about any of this work. Each repository documents the details, and the case study presents the evidence.',
     links: { github: 'GitHub', email: 'Email', linkedin: 'LinkedIn', cv: 'CV (PDF)' },
   },
-  notFound: { window: 'Error', text: 'The page you requested could not be found.', home: 'Return home' },
+  notFound: {
+    heading: 'Page not found',
+    text: 'The address may be mistyped, or the page may have moved.',
+    home: 'Return home',
+  },
 }

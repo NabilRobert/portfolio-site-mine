@@ -8,7 +8,7 @@ export type LocaleCode = 'en' | 'ja' | 'id'
 export interface Locale {
   /** Route prefix: '' for the default locale, '/ja' and so on for others. */
   prefix: string
-  /** Label in the taskbar's language switch. */
+  /** Label in the language switch. */
   label: string
   strings: LocaleStrings
 }

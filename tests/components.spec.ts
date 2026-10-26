@@ -6,8 +6,11 @@ import type { Component } from 'vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { createAppRouter } from '../src/router'
 import { useLocale } from '../src/composables/useLocale'
-import WinWindow from '../src/components/win98/WinWindow.vue'
-import WinButton from '../src/components/win98/WinButton.vue'
+import { getProject } from '../src/content'
+import TextLink from '../src/components/ui/TextLink.vue'
+import LanguageSwitch from '../src/components/ui/LanguageSwitch.vue'
+import ProjectCard from '../src/components/ui/ProjectCard.vue'
+import SiteHeader from '../src/components/layout/SiteHeader.vue'
 
 async function withRouter(
   component: Component,
@@ -23,40 +26,68 @@ async function withRouter(
   return { wrapper, router }
 }
 
-describe('WinWindow', () => {
-  it('renders its title, menu, body and status bar', async () => {
-    const { wrapper } = await withRouter(
-      WinWindow,
-      '/',
-      {
-        title: 'Hello',
-        icon: 'H',
-        menu: [{ label: 'Repository', href: 'https://example.com' }],
-        status: ['left', 'right'],
-      },
-      { default: '<p>body text</p>' },
-    )
-    expect(wrapper.find('h2').text()).toBe('Hello')
-    expect(wrapper.find('nav a').attributes('href')).toBe('https://example.com')
-    expect(wrapper.text()).toContain('body text')
-    expect(wrapper.text()).toContain('right')
+describe('TextLink', () => {
+  it('links within the site with `to`, without the outward arrow', async () => {
+    const { wrapper } = await withRouter(TextLink, '/', { to: '/projects' }, { default: 'Go' })
+    expect(wrapper.find('a').attributes('href')).toBe('/projects')
+    expect(wrapper.text()).toBe('Go')
   })
 
-  it('shows only a close button when closeOnly is set', async () => {
-    const { wrapper } = await withRouter(WinWindow, '/', { title: 'Dialog', closeOnly: true })
-    expect(wrapper.findAll('[aria-hidden="true"] > span')).toHaveLength(1)
+  it('links out with `href`, with an arrow hidden from screen readers', async () => {
+    const { wrapper } = await withRouter(TextLink, '/', { href: 'https://example.com' }, { default: 'Out' })
+    expect(wrapper.find('a').attributes('href')).toBe('https://example.com')
+    expect(wrapper.find('[aria-hidden="true"]').text()).toBe('↗')
   })
 })
 
-describe('WinButton', () => {
-  it('links within the site with `to`', async () => {
-    const { wrapper } = await withRouter(WinButton, '/', { to: '/projects' }, { default: 'Go' })
-    expect(wrapper.find('a').attributes('href')).toBe('/projects')
+describe('LanguageSwitch', () => {
+  it('offers the same page in each language and marks the current one', async () => {
+    const { wrapper } = await withRouter(LanguageSwitch, '/ja/projects/pitstop')
+    const links = wrapper.findAll('a')
+    expect(links.map((a) => a.attributes('href'))).toEqual([
+      '/projects/pitstop',
+      '/ja/projects/pitstop',
+      '/id/projects/pitstop',
+    ])
+    expect(links.map((a) => a.attributes('lang'))).toEqual(['en', 'ja', 'id'])
+    expect(links.filter((a) => a.attributes('aria-current')).map((a) => a.text())).toEqual(['日本語'])
+  })
+})
+
+describe('ProjectCard', () => {
+  const project = getProject('ja', 'pitstop')
+  if (!project) throw new Error('pitstop is missing')
+
+  it('links to the project in the current language and names it in a heading', async () => {
+    const { wrapper } = await withRouter(ProjectCard, '/ja', { project, number: 3 })
+    expect(wrapper.find('a').attributes('href')).toBe('/ja/projects/pitstop')
+    expect(wrapper.find('h3').text()).toBe('Pitstop')
+    expect(wrapper.text()).toContain('03')
   })
 
-  it('links out with `href`', async () => {
-    const { wrapper } = await withRouter(WinButton, '/', { href: 'https://example.com' }, { default: 'Out' })
-    expect(wrapper.find('a').attributes('href')).toBe('https://example.com')
+  it('keeps the cover decorative, since the caption names the project', async () => {
+    const { wrapper } = await withRouter(ProjectCard, '/', { project, number: 1 })
+    expect(wrapper.find('img').attributes('alt')).toBe('')
+  })
+
+  it('tags the featured project', async () => {
+    const { wrapper } = await withRouter(ProjectCard, '/ja', { project: { ...project, featured: true }, number: 1 })
+    expect(wrapper.text()).toContain('注目')
+  })
+})
+
+describe('SiteHeader', () => {
+  it('makes the wordmark the h1 on the home page only', async () => {
+    const home = await withRouter(SiteHeader, '/id')
+    expect(home.wrapper.find('h1').text()).toContain('Nabil Robert')
+    const other = await withRouter(SiteHeader, '/id/projects')
+    expect(other.wrapper.find('h1').exists()).toBe(false)
+  })
+
+  it('marks "Work" as the current page on the project list', async () => {
+    const { wrapper } = await withRouter(SiteHeader, '/projects')
+    const current = wrapper.findAll('a[aria-current="page"]')
+    expect(current.map((a) => a.text())).toEqual(['Work'])
   })
 })
 

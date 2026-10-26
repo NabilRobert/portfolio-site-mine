@@ -9,17 +9,24 @@ export default {
     description:
       'Portofolio Nabil Robert, AI & backend engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, harness evaluasi agen, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
   },
-  nav: { home: 'Beranda', projects: 'Proyek', contact: 'Kontak', start: 'Mulai', taskbar: 'Bilah tugas' },
+  nav: {
+    label: 'Navigasi utama',
+    skip: 'Langsung ke konten',
+    work: 'Karya',
+    about: 'Profil',
+    contact: 'Kontak',
+    language: 'Bahasa',
+  },
   about: {
-    window: 'Profil: Nabil Robert',
+    heading: 'Profil',
     name: 'Nabil Robert',
     role: 'AI & Backend Engineer',
     lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, yang didokumentasikan dari catatan operasionalnya sendiri.',
     seeking: '',
   },
-  featured: { window: 'Proyek unggulan', open: 'Buka proyek' },
+  featured: { label: 'Unggulan' },
   flow: {
-    window: 'Keterkaitan ketiga proyek',
+    heading: 'Keterkaitan ketiga proyek',
     steps: {
       'mcp-backbone': 'Sistem yang digunakan oleh AI',
       'agent-eval-harness': 'Mengukur sistem semacam itu',
@@ -33,14 +40,24 @@ export default {
   },
   status: { live: 'Aktif', ci: 'CI', archived: 'Diarsipkan', wip: 'Dalam pengerjaan' },
   projectsPage: {
-    window: 'Semua proyek',
+    heading: 'Semua proyek',
     lead: 'Setiap proyek menautkan kode sumbernya serta bukti yang mendukung klaimnya.',
   },
-  project: { back: 'Semua proyek', notFound: 'Proyek yang Anda cari tidak ditemukan.' },
+  project: {
+    back: 'Semua proyek',
+    notFound: 'Proyek yang Anda cari tidak ditemukan.',
+    stack: 'Teknologi',
+    status: 'Status',
+    links: 'Tautan',
+  },
   contact: {
-    window: 'Kontak',
+    heading: 'Kontak',
     text: 'Silakan menghubungi saya mengenai karya mana pun di sini. Rincian setiap proyek tersedia di repositorinya, dan buktinya disajikan dalam studi kasus.',
     links: { github: 'GitHub', email: 'Surel', linkedin: 'LinkedIn', cv: 'CV (PDF)' },
   },
-  notFound: { window: 'Galat', text: 'Halaman yang Anda minta tidak ditemukan.', home: 'Kembali ke beranda' },
+  notFound: {
+    heading: 'Halaman tidak ditemukan',
+    text: 'Alamat tersebut mungkin keliru, atau halamannya telah dipindahkan.',
+    home: 'Kembali ke beranda',
+  },
 } satisfies LocaleStrings
