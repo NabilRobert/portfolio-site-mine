@@ -92,6 +92,9 @@ describe('ProjectArticle', () => {
     expect(first.find('p').text()).toContain('Claude Code')
     expect(first.find('source').attributes('media')).toBe('(prefers-reduced-motion: reduce)')
     expect(first.find('source').attributes('srcset')).toBe(project.screenshots[0]?.still)
+    expect(first.find('h4').text()).toBe('Keterangan')
+    expect(first.findAll('dt')).toHaveLength(project.screenshots[0]?.terms.length ?? -1)
+    expect(first.find('dt').text()).toContain('MCP')
   })
 
   it('leaves the section out for a project without screenshots', async () => {

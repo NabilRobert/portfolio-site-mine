@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 772" width="640" height="772">
 <!-- Generated from agent-eval-harness RESULTS.md (Comparisons table); see gate-chart.source.txt. -->
 <rect width="640" height="772" fill="#1a222c"/>
-<g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
 <text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">The regression gate, in eight comparisons</text>
 <text x="24" y="70" font-size="15" fill="#f9b288">Change in strict pass rate (points), with its 95% interval</text>
 <circle cx="32" cy="100" r="7" fill="#eb3230"/>

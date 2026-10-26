@@ -49,6 +49,7 @@ export default {
     stack: '使用技術',
     status: 'ステータス',
     screenshots: '画面のご案内',
+    key: '用語の説明',
     links: '関連リンク',
   },
   contact: {

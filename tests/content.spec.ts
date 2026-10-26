@@ -60,7 +60,12 @@ describe('projects', () => {
         hrefs: (d.links ?? []).map((l) => l.href),
         primary: (d.links ?? []).map((l) => Boolean(l.primary)),
         coverAlt: Boolean(d.coverAlt),
-        screenshots: (d.screenshots ?? []).map((s) => [s.src, s.still ?? '', Boolean(s.description)]),
+        screenshots: (d.screenshots ?? []).map((s) => [
+          s.src,
+          s.still ?? '',
+          Boolean(s.description),
+          s.terms?.length ?? 0,
+        ]),
       })
       for (const other of rest) expect(shape(other)).toEqual(shape(first))
     })
@@ -68,8 +73,9 @@ describe('projects', () => {
     it('records where every image came from', () => {
       const images = readdirSync(join(PROJECTS, slug)).filter((f) => /\.(webp|png|jpe?g|gif|svg)$/.test(f))
       for (const image of images) {
-        // An animation's still (step1-still.png) shares its record (step1.source.txt).
-        const record = image.replace(/(-still)?\.\w+$/, '.source.txt')
+        // An animation's still (step1-still.png) and a language's version (chart.ja.svg)
+        // share the original's record (step1.source.txt, chart.source.txt).
+        const record = image.replace(/(-still)?(\.(?:en|ja|id))?\.\w+$/, '.source.txt')
         expect(existsSync(join(PROJECTS, slug, record)), `${slug}/${record}`).toBe(true)
       }
     })
@@ -79,6 +85,8 @@ describe('projects', () => {
         expect(existsSync(join(PROJECTS, slug, shot.src)), `${slug}/${shot.src}`).toBe(true)
         if (shot.still) expect(existsSync(join(PROJECTS, slug, shot.still)), `${slug}/${shot.still}`).toBe(true)
         expect(shot.alt?.trim(), `alt for ${shot.src} in ${lang}`).toBeTruthy()
+        for (const k of shot.terms ?? [])
+          expect(k.term && k.meaning, `key entry for ${shot.src} in ${lang}`).toBeTruthy()
       }
     })
   })
@@ -123,5 +131,12 @@ describe('screenshots', () => {
     expect(shot?.still).toMatch(/step1-still.*\.png/)
     expect(shot?.alt).toContain('Claude Code')
     expect(shot?.caption).toContain('質問する')
+  })
+
+  it('use a language’s own version of an image when there is one', () => {
+    const src = (lang: LocaleCode) => getProject(lang, 'agent-eval-harness')?.screenshots[0]?.src ?? ''
+    expect(src('ja')).toMatch(/gate-chart\.ja.*\.svg/)
+    expect(src('id')).toMatch(/gate-chart\.id.*\.svg/)
+    expect(src('en')).toMatch(/gate-chart(?!\.(ja|id))/)
   })
 })

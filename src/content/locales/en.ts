@@ -46,6 +46,7 @@ export default {
     stack: 'Stack',
     status: 'Status',
     screenshots: 'A guided tour',
+    key: 'Key',
     links: 'Links',
   },
   contact: {

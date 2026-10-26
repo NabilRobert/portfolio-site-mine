@@ -4,8 +4,10 @@
 //   src/content/projects/<slug>/ja.md   (required)
 //   src/content/projects/<slug>/id.md   (required)
 //   src/content/projects/<slug>/cover.(webp|png|jpg|svg)   (optional, 5:7 portrait)
-//   src/content/projects/<slug>/<name>.(webp|png|jpg|gif)   (optional screenshots, listed under
-//                                                            `screenshots` in the front matter)
+//   src/content/projects/<slug>/<name>.(webp|png|jpg|gif|svg)   (optional screenshots, listed under
+//                                                                `screenshots` in the front matter;
+//                                                                <name>.ja.svg and so on replace it
+//                                                                in that language, e.g. a translated chart)
 //   src/content/projects/<slug>/<name>.source.txt   (where each image came from; required, and
 //                                                    shared by <name>-still.* for an animation)
 //
@@ -51,9 +53,13 @@ function coverFor(slug: string): string | null {
   return key ? (images[key] ?? null) : null
 }
 
-/** A file named in a project's front matter, as its built URL ('' if it is missing). */
-function imageFor(slug: string, file: string): string {
-  return images[`./projects/${slug}/${file}`] ?? ''
+/**
+ * A file named in a project's front matter, as its built URL ('' if it is missing).
+ * A language's own version, such as chart.ja.svg for chart.svg, is preferred when it exists.
+ */
+function imageFor(slug: string, file: string, lang: LocaleCode): string {
+  const localised = file.replace(/(\.\w+)$/, `.${lang}$1`)
+  return images[`./projects/${slug}/${localised}`] ?? images[`./projects/${slug}/${file}`] ?? ''
 }
 
 function load(): Record<LocaleCode, Project[]> {
@@ -76,11 +82,12 @@ function load(): Record<LocaleCode, Project[]> {
       cover: coverFor(slug),
       coverAlt: fm.coverAlt ?? '',
       screenshots: (fm.screenshots ?? []).map((s) => ({
-        src: imageFor(slug, s.src),
-        still: s.still ? imageFor(slug, s.still) : '',
+        src: imageFor(slug, s.src, lang),
+        still: s.still ? imageFor(slug, s.still, lang) : '',
         alt: s.alt,
         caption: s.caption ?? '',
         description: s.description ?? '',
+        terms: s.terms ?? [],
       })),
       html,
     })

@@ -1,5 +1,6 @@
-gate-chart.svg: a chart drawn for this site from the published results of
-agent-eval-harness. It adds no data of its own.
+gate-chart.svg (English), gate-chart.ja.svg (Japanese) and gate-chart.id.svg
+(Indonesian): one chart drawn for this site from the published results of
+agent-eval-harness, with its labels translated. It adds no data of its own.
 
 Data: the "Comparisons (the regression gate)" table in RESULTS.md, in the
 public repository https://github.com/NabilRobert/agent-eval-harness (on
@@ -17,6 +18,7 @@ expected to be flagged and were not. Values, in points:
   Filesystem, message cap 20 -> 12        -20.0 (-34.1 to -7.1)  flagged
   Filesystem, gpt-5-mini -> gpt-5-nano    -20.0 (-35.3 to -7.1)  flagged
 
-Generated as SVG by a short script on 27 October 2026, in the site's palette
+Generated as SVG by a short script on 27 October 2026, the same data and
+layout for all three languages, in the site's palette
 (colours checked for colour-blind separation and contrast against the dark
 background).

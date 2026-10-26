@@ -28,6 +28,13 @@ export interface ProjectScreenshot {
   caption?: string
   /** What the reader is looking at, as a short walk-through; paragraphs separated by a blank line. */
   description?: string
+  /** What each term, number or colour in the picture means, shown beside it. */
+  terms?: KeyEntry[]
+}
+
+export interface KeyEntry {
+  term: string
+  meaning: string
 }
 
 export interface ProjectLink {

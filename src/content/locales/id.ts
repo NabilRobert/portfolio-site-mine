@@ -49,6 +49,7 @@ export default {
     stack: 'Teknologi',
     status: 'Status',
     screenshots: 'Tur singkat',
+    key: 'Keterangan',
     links: 'Tautan',
   },
   contact: {
