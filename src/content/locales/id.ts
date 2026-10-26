@@ -5,9 +5,9 @@ import type { LocaleStrings } from '../types'
 
 export default {
   meta: {
-    title: 'Nabil Robert | AI & Backend Engineer',
+    title: 'Nabil Robert | AI Fullstack Engineer',
     description:
-      'Portofolio Nabil Robert, AI & backend engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, harness evaluasi agen, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
+      'Portofolio Nabil Robert, AI fullstack engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, harness evaluasi agen, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
   },
   nav: {
     label: 'Navigasi utama',
@@ -20,7 +20,7 @@ export default {
   about: {
     heading: 'Profil',
     name: 'Nabil Robert',
-    role: 'AI & Backend Engineer',
+    role: 'AI Fullstack Engineer',
     lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, yang didokumentasikan dari catatan operasionalnya sendiri.',
     seeking: '',
   },

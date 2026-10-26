@@ -2,9 +2,9 @@
 // content/projects/*/en.md. TODO(Arthur): the "seeking" line.
 export default {
   meta: {
-    title: 'Nabil Robert | AI & Backend Engineer',
+    title: 'Nabil Robert | AI Fullstack Engineer',
     description:
-      'Portfolio of Nabil Robert, AI and backend engineer: a database MCP server that an AI cannot misuse, an agent evaluation harness, and an agent pipeline that ran unattended for eleven weeks.',
+      'Portfolio of Nabil Robert, AI fullstack engineer: a database MCP server that an AI cannot misuse, an agent evaluation harness, and an agent pipeline that ran unattended for eleven weeks.',
   },
   nav: {
     label: 'Main',
@@ -17,7 +17,7 @@ export default {
   about: {
     heading: 'About',
     name: 'Nabil Robert',
-    role: 'AI & Backend Engineer',
+    role: 'AI Fullstack Engineer',
     lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, and an agent pipeline that ran unattended for eleven weeks, documented from its own run records.',
     seeking: '',
   },
