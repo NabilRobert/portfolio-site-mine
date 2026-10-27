@@ -6,8 +6,9 @@ Data: the "Comparisons (the regression gate)" table in RESULTS.md, in the
 public repository https://github.com/NabilRobert/agent-eval-harness (on
 main; RESULTS.md last changed in commit 59cdbcb). For each of the eight
 comparisons it plots the change in strict pass rate (dot) and its 95%
-interval (bar), coloured by the gate's verdict, and marks the three that were
-expected to be flagged and were not. Values, in points:
+interval (bar), coloured by the gate's verdict. Rows are grouped by what the
+gate should have done (stay quiet; flag a deliberate decline; no expectation
+set in advance), and each row says whether it did. Values, in points:
 
   Pagila, same agent twice (A/A)          +0.5  (-3.0 to +4.5)   not flagged
   Pagila, schema tools removed            -3.0  (-9.5 to +2.5)   not flagged (expected a flag)
