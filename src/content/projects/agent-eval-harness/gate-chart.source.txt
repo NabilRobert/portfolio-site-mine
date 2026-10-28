@@ -19,7 +19,9 @@ set in advance), and each row says whether it did. Values, in points:
   Filesystem, message cap 20 -> 12        -20.0 (-34.1 to -7.1)  flagged
   Filesystem, gpt-5-mini -> gpt-5-nano    -20.0 (-35.3 to -7.1)  flagged
 
-Generated as SVG by a short script on 27 October 2026, the same data and
-layout for all three languages, in the site's palette
+Drawn with Vega-Lite by charts/gate-chart.ts in this repository, which holds
+the data above and the labels in all three languages; `npm run charts`
+redraws the SVGs and a test fails if they fall out of step with it.
+Same data and layout for all three languages, in the site's palette
 (colours checked for colour-blind separation and contrast against the dark
 background).

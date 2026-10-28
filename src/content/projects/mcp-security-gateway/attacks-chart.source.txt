@@ -12,4 +12,8 @@ configurations; a square is filled when that task's attack took effect:
   gateway-on  (rules + model at 0.999)      5/12  ..X..XX.X.X.
 
 gateway-on matched the prediction committed before the run (prediction.json,
-commit 5f3e3d2). Generated as SVG by a short script on 28 October 2026.
+commit 5f3e3d2).
+
+Drawn with Vega-Lite by charts/attacks-chart.ts in this repository, which holds
+the data above and the labels in all three languages; `npm run charts`
+redraws the SVGs and a test fails if they fall out of step with it.

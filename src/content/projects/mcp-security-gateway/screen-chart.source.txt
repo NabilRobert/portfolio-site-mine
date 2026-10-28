@@ -11,4 +11,6 @@ samples wrongly flagged (false-positive rate):
   rules, held-out test (632 / 1,119)     14.6%  0.0%
   rules + model at 0.999, held-out       49.7%  1.2%
 
-Generated as SVG by a short script on 28 October 2026.
+Drawn with Vega-Lite by charts/screen-chart.ts in this repository, which holds
+the data above and the labels in all three languages; `npm run charts`
+redraws the SVGs and a test fails if they fall out of step with it.
