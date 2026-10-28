@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 744" width="640" height="744">
+<!-- Drawn from juku-agents docs/planning; see the matching .source.txt. -->
+<rect width="640" height="744" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">週次レポートができるまで</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">学習者ごとに毎週、コードが決めた固定の順序で実行します</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
+<rect x="24" y="100" width="400" height="58" rx="8" fill="#ebd4c1"/>
+<text x="40" y="129" font-size="16.5" font-weight="700" fill="#1a222c">事実をコードで算出</text>
+<text x="40" y="150" font-size="14.5" font-weight="400" fill="#1a222c">進捗、間違い、単語の候補をSQLで計算</text>
+<line x1="84" y1="158" x2="84" y2="175" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 174 L84 184 L90 174 Z" fill="#ebd4c1"/>
+<rect x="24" y="184" width="400" height="58" rx="8" fill="#ffea35"/>
+<text x="40" y="213" font-size="16.5" font-weight="700" fill="#1a222c">Keikoが1週間を計画</text>
+<text x="40" y="234" font-size="14.5" font-weight="400" fill="#1a222c">コードが出した候補から選ぶ</text>
+<line x1="84" y1="242" x2="84" y2="259" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 258 L84 268 L90 258 Z" fill="#ebd4c1"/>
+<rect x="24" y="268" width="400" height="58" rx="8" fill="#ffea35"/>
+<text x="40" y="297" font-size="16.5" font-weight="700" fill="#1a222c">Tadashiが計画を確認</text>
+<text x="40" y="318" font-size="14.5" font-weight="400" fill="#1a222c">Keikoに与えられた情報だけと照合</text>
+<line x1="84" y1="326" x2="84" y2="343" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 342 L84 352 L90 342 Z" fill="#ebd4c1"/>
+<rect x="24" y="352" width="400" height="58" rx="8" fill="#ffea35"/>
+<text x="40" y="381" font-size="16.5" font-weight="700" fill="#1a222c">Nikkiがレポートを執筆</text>
+<text x="40" y="402" font-size="14.5" font-weight="400" fill="#1a222c">事実と計画をもとにインドネシア語で</text>
+<line x1="84" y1="410" x2="84" y2="427" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 426 L84 436 L90 426 Z" fill="#ebd4c1"/>
+<rect x="24" y="436" width="400" height="58" rx="8" fill="#ffea35"/>
+<text x="40" y="465" font-size="16.5" font-weight="700" fill="#1a222c">Tadashiがレポートを確認</text>
+<text x="40" y="486" font-size="14.5" font-weight="400" fill="#1a222c">すべての記述を事実と照合</text>
+<line x1="84" y1="494" x2="84" y2="511" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 510 L84 520 L90 510 Z" fill="#ebd4c1"/>
+<rect x="24" y="520" width="400" height="58" rx="8" fill="#ebd4c1"/>
+<text x="40" y="549" font-size="16.5" font-weight="700" fill="#1a222c">コードが判定</text>
+<text x="40" y="570" font-size="14.5" font-weight="400" fill="#1a222c">すべての数値、単語、引用を再確認</text>
+<path d="M424 297 H460 V213 H434" fill="none" stroke="#f9b288" stroke-width="2.5" stroke-dasharray="6 5"/>
+<path d="M436 207 L426 213 L436 219 Z" fill="#f9b288"/>
+<path d="M424 465 H460 V381 H434" fill="none" stroke="#f9b288" stroke-width="2.5" stroke-dasharray="6 5"/>
+<path d="M436 375 L426 381 L436 387 Z" fill="#f9b288"/>
+<text x="470" y="258" font-size="13.5" fill="#f9b288">問題あり：修正（最大2回）:</text>
+<text x="470" y="276" font-size="13.5" fill="#f9b288"></text>
+<line x1="84" y1="578" x2="84" y2="595" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 594 L84 604 L90 594 Z" fill="#ebd4c1"/>
+<rect x="24" y="604" width="400" height="44" rx="8" fill="#f9b288"/>
+<text x="40" y="633" font-size="16.5" font-weight="700" fill="#1a222c">学習者に公開</text>
+<rect x="24" y="654" width="3" height="40" fill="#ebd4c1"/>
+<text x="38" y="670" font-size="14" fill="#ebd4c1">2回修正しても不合格の場合は、</text>
+<text x="38" y="690" font-size="14" fill="#ebd4c1">事実のみのレポートを代わりに公開します。</text>
+<text x="24" y="728" font-size="13" fill="#f9b288">出典：juku-agentsのADR-002およびADR-007（計画段階）</text>
+</g>
+</svg>

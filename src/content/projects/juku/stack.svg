@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 666" width="640" height="666">
+<!-- Drawn from juku-agents docs/planning; see the matching .source.txt. -->
+<rect width="640" height="666" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">How Juku fits together</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">Every call to a tool passes through the security gateway</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">PLANNED</text>
+<rect x="24" y="100" width="592" height="70" rx="8" fill="#ebd4c1"/>
+<text x="40" y="129" font-size="16.5" font-weight="700" fill="#1a222c">The learner’s phone</text>
+<text x="40" y="150" font-size="14.5" font-weight="400" fill="#1a222c">A light web page</text>
+<line x1="320" y1="158" x2="320" y2="179" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M314 178 L320 188 L326 178 Z" fill="#ebd4c1"/>
+<rect x="24" y="188" width="410" height="134" rx="8" fill="#ebd4c1"/>
+<text x="40" y="217" font-size="16.5" font-weight="700" fill="#1a222c">Juku app</text>
+<text x="40" y="238" font-size="14.5" fill="#1a222c">Python and FastAPI</text>
+<rect x="40" y="252" width="180" height="56" rx="8" fill="#ffea35"/>
+<text x="56" y="281" font-size="16.5" font-weight="700" fill="#1a222c">Shiori</text>
+<text x="56" y="302" font-size="14.5" font-weight="400" fill="#1a222c">the chat</text>
+<rect x="234" y="252" width="184" height="56" rx="8" fill="#ffea35"/>
+<text x="250" y="281" font-size="16.5" font-weight="700" fill="#1a222c">Weekly reports</text>
+<text x="250" y="302" font-size="14.5" font-weight="400" fill="#1a222c">Keiko, Nikki, Tadashi</text>
+<rect x="450" y="216" width="166" height="72" rx="8" fill="#f9b288"/>
+<text x="466" y="245" font-size="16.5" font-weight="700" fill="#1a222c">AI model</text>
+<text x="466" y="266" font-size="14.5" font-weight="400" fill="#1a222c">through one provider</text>
+<line x1="434" y1="252" x2="442" y2="252" stroke="#ebd4c1" stroke-width="2.5"/><path d="M440 246 L450 252 L440 258 Z" fill="#ebd4c1"/>
+<line x1="229" y1="322" x2="229" y2="343" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M223 342 L229 352 L235 342 Z" fill="#ebd4c1"/>
+<rect x="25.5" y="353.5" width="589" height="67" rx="8" fill="none" stroke="#eb3230" stroke-width="3"/>
+<text x="40" y="381" font-size="16.5" font-weight="700" fill="#ebd4c1">mcp-security-gateway</text>
+<text x="40" y="402" font-size="14.5" font-weight="400" fill="#ebd4c1">Keys, an allow-list per agent, screening and an audit record</text>
+<line x1="170" y1="410" x2="170" y2="431" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M164 430 L170 440 L176 430 Z" fill="#ebd4c1"/>
+<line x1="470" y1="410" x2="470" y2="431" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M464 430 L470 440 L476 430 Z" fill="#ebd4c1"/>
+<rect x="24" y="440" width="286" height="70" rx="8" fill="#2a4a84"/>
+<text x="40" y="469" font-size="16.5" font-weight="700" fill="#ebd4c1">MCP-backbone</text>
+<text x="40" y="490" font-size="14.5" font-weight="400" fill="#ebd4c1">Read-only SQL</text>
+<rect x="330" y="440" width="286" height="70" rx="8" fill="#2a4a84"/>
+<text x="346" y="469" font-size="16.5" font-weight="700" fill="#ebd4c1">Juku’s MCP server</text>
+<text x="346" y="490" font-size="14.5" font-weight="400" fill="#ebd4c1">One learner only, read-only</text>
+<line x1="170" y1="498" x2="170" y2="519" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M164 518 L170 528 L176 518 Z" fill="#ebd4c1"/>
+<line x1="470" y1="498" x2="470" y2="519" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M464 518 L470 528 L476 518 Z" fill="#ebd4c1"/>
+<line x1="400" y1="498" x2="250" y2="520" stroke="#ebd4c1" stroke-width="2.5"/><path d="M255 514 L243 523 L258 525 Z" fill="#ebd4c1"/>
+<rect x="24" y="528" width="286" height="70" rx="8" fill="#f9b288"/>
+<text x="40" y="557" font-size="16.5" font-weight="700" fill="#1a222c">Dictionaries</text>
+<text x="40" y="578" font-size="14.5" font-weight="400" fill="#1a222c">JMdict, KANJIDIC2, Tatoeba</text>
+<rect x="330" y="528" width="286" height="70" rx="8" fill="#f9b288"/>
+<text x="346" y="557" font-size="16.5" font-weight="700" fill="#1a222c">Learner data</text>
+<text x="346" y="578" font-size="14.5" font-weight="400" fill="#1a222c">Progress and memory</text>
+<text x="24" y="620" font-size="14" fill="#ebd4c1">Traced by agent-observability; quality measured by agent-eval-harness.</text>
+<text x="24" y="650" font-size="13" fill="#f9b288">Source: juku-agents, architecture decisions (planning).</text>
+</g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 556" width="640" height="556">
+<!-- Drawn from juku-agents docs/planning; see the matching .source.txt. -->
+<rect width="640" height="556" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">学習者が確認できる記憶</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">エージェントが学習者について記憶する内容と、その正しさを保つ仕組み</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
+<rect x="24" y="100" width="400" height="58" rx="8" fill="#ffea35"/>
+<text x="40" y="129" font-size="16.5" font-weight="700" fill="#1a222c">エージェントがメモを提案</text>
+<text x="40" y="150" font-size="14.5" font-weight="400" fill="#1a222c">根拠となる学習者の学習記録を添えて</text>
+<line x1="84" y1="158" x2="84" y2="175" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 174 L84 184 L90 174 Z" fill="#ebd4c1"/>
+<rect x="24" y="184" width="400" height="79" rx="8" fill="#ebd4c1"/>
+<text x="40" y="213" font-size="16.5" font-weight="700" fill="#1a222c">コードが確認</text>
+<text x="40" y="234" font-size="14.5" font-weight="400" fill="#1a222c">学習に関する内容か、根拠はこの学習者のものか、</text>
+<text x="40" y="255" font-size="14.5" font-weight="400" fill="#1a222c">根拠は本当にその内容を示しているか</text>
+<line x1="84" y1="263" x2="84" y2="284" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 283 L84 293 L90 283 Z" fill="#ebd4c1"/>
+<text x="96" y="283" font-size="13.5" text-anchor="start" fill="#f9b288">合格</text>
+<line x1="424" y1="224" x2="474" y2="224" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M468 218 L478 224 L468 230 Z" fill="#ebd4c1"/>
+<text x="451" y="214" font-size="13.5" text-anchor="middle" fill="#f9b288">不合格</text>
+<rect x="482" y="192" width="134" height="64" rx="8" fill="#f9b288"/>
+<text x="498" y="221" font-size="16.5" font-weight="700" fill="#1a222c">却下し、</text>
+<text x="498" y="242" font-size="14.5" font-weight="400" fill="#1a222c">件数を記録</text>
+<rect x="24" y="293" width="400" height="44" rx="8" fill="#f9b288"/>
+<text x="40" y="322" font-size="16.5" font-weight="700" fill="#1a222c">メモとして保存</text>
+<line x1="84" y1="337" x2="84" y2="354" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M78 353 L84 363 L90 353 Z" fill="#ebd4c1"/>
+<rect x="24" y="363" width="400" height="79" rx="8" fill="#ebd4c1"/>
+<text x="40" y="392" font-size="16.5" font-weight="700" fill="#1a222c">学習者がすべてのメモを確認</text>
+<text x="40" y="413" font-size="14.5" font-weight="400" fill="#1a222c">根拠とともに表示され、削除や</text>
+<text x="40" y="434" font-size="14.5" font-weight="400" fill="#1a222c">誤りとしての指摘ができます</text>
+<rect x="24" y="466" width="3" height="40" fill="#ebd4c1"/>
+<text x="38" y="482" font-size="14" fill="#ebd4c1">毎週、根拠が30日以上前のもので、その後</text>
+<text x="38" y="502" font-size="14" fill="#ebd4c1">同じことが起きていないメモは失効します。</text>
+<text x="24" y="540" font-size="13" fill="#f9b288">出典：juku-agentsのADR-008（計画段階）</text>
+</g>
+</svg>

@@ -1,0 +1,9 @@
+stack.svg (English), stack.ja.svg (Japanese) and stack.id.svg (Indonesian): a
+diagram drawn for this site of Juku's plan. Juku is not built yet; the diagram
+shows what is planned, and is marked "Planned".
+
+Drawn from docs/planning/phase-5-architecture-decisions.md in juku-agents
+(branch docs/planning at b34b8a4; not yet public): the system overview diagram and ADR-005, ADR-006 (the app, the two MCP servers, the gateway).
+Arthur settled these decisions on 27 October 2026 ("go with your
+recommendations"). Generated as SVG by a short script on 28 October 2026, in
+the site's palette.
