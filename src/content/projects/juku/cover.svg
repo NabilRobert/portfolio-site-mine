@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="500" height="700">
+  <!-- Original illustration, drawn for this site in the poster set's style: the
+       crew of Juku as four name cards, each with the kanji its name puns on:
+       栞 Shiori (a bookmark; the lead, so it carries a ribbon), 稽 Keiko
+       (practice), 日 Nikki (a diary) and 正 Tadashi (correct). -->
+  <rect width="500" height="700" fill="#c2523d"/>
+  <g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif" font-weight="700">
+    <text x="28" y="196" font-size="170" letter-spacing="-6" fill="#ebd4c1">JUKU</text>
+    <text x="470" y="238" font-size="18" letter-spacing="3" text-anchor="end" fill="#1a222c">JLPT N5 → N2</text>
+
+    <rect x="40" y="276" width="200" height="132" rx="6" fill="#ebd4c1"/>
+    <rect x="260" y="276" width="200" height="132" rx="6" fill="#ebd4c1"/>
+    <rect x="40" y="424" width="200" height="132" rx="6" fill="#ebd4c1"/>
+    <rect x="260" y="424" width="200" height="132" rx="6" fill="#ebd4c1"/>
+    <path d="M206 276 V322 L216 312 L226 322 V276 Z" fill="#eb3230"/>
+
+    <text x="140" y="368" font-size="76" text-anchor="middle" fill="#1a222c">栞</text>
+    <text x="360" y="368" font-size="76" text-anchor="middle" fill="#1a222c">稽</text>
+    <text x="140" y="516" font-size="76" text-anchor="middle" fill="#1a222c">日</text>
+    <text x="360" y="516" font-size="76" text-anchor="middle" fill="#1a222c">正</text>
+    <text x="140" y="396" font-size="14" letter-spacing="4" text-anchor="middle" fill="#1a222c">SHIORI</text>
+    <text x="360" y="396" font-size="14" letter-spacing="4" text-anchor="middle" fill="#1a222c">KEIKO</text>
+    <text x="140" y="544" font-size="14" letter-spacing="4" text-anchor="middle" fill="#1a222c">NIKKI</text>
+    <text x="360" y="544" font-size="14" letter-spacing="4" text-anchor="middle" fill="#1a222c">TADASHI</text>
+
+    <text x="36" y="644" font-size="30" letter-spacing="12" fill="#1a222c">AGENTS</text>
+  </g>
+</svg>

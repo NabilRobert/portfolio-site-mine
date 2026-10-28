@@ -1,0 +1,9 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("JUKU" at the top, "AGENTS" letter-spaced at the
+bottom), using only the site's palette. It uses no outside material.
+
+It shows Juku's crew as four name cards, each with the kanji its name puns on,
+as described in the project's README (juku-agents, branch docs/planning at
+b34b8a4; not yet public): 栞 Shiori (a bookmark; the lead, marked with a
+ribbon), 稽 Keiko (practice), 日 Nikki (a diary) and 正 Tadashi (correct).
+The caption "JLPT N5 -> N2" is the range of levels the platform is planned for.
