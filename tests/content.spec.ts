@@ -69,7 +69,7 @@ describe('projects', () => {
     it('records where every image came from', () => {
       const images = readdirSync(join(PROJECTS, slug)).filter((f) => /\.(webp|png|jpe?g|gif|svg)$/.test(f))
       for (const image of images) {
-        // An animation's still (step1-still.png), a chart's phone version (chart-narrow.svg)
+        // An animation's still (step1-still.webp), a chart's phone version (chart-narrow.svg)
         // and a language's version (chart.ja.svg) share the original's record.
         const record = image.replace(/(-still|-narrow)?(\.(?:en|ja|id))?\.\w+$/, '.source.txt')
         expect(existsSync(join(PROJECTS, slug, record)), `${slug}/${record}`).toBe(true)
@@ -128,7 +128,7 @@ describe('screenshots', () => {
   it('resolve to built files, with their still, alt text and caption', () => {
     const [shot] = getProject('ja', 'mcp-backbone')?.screenshots ?? []
     expect(shot?.src).toMatch(/step1.*\.gif/)
-    expect(shot?.still).toMatch(/step1-still.*\.png/)
+    expect(shot?.still).toMatch(/step1-still.*\.webp/)
     expect(shot?.alt).toContain('Claude Code')
     expect(shot?.caption).toContain('質問する')
   })

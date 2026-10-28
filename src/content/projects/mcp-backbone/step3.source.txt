@@ -1,5 +1,8 @@
-step3.png: step 3 of the demo on the public landing page https://mcp.my.id.
+step3.webp: step 3 of the demo on the public landing page https://mcp.my.id.
 
 Copied unchanged from app/console/static/demo/ in the MCP-backbone repository
 https://github.com/NabilRobert/MCP-backbone (on main; added in commit e8c8ae8,
 "feat(landing): a three-step demo with trimmed GIFs").
+
+The image was converted from PNG to WebP (quality 90) on 29 October
+2026, to load faster; its text reads the same.
