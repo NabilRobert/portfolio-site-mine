@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useLocale } from '@/composables/useLocale'
-import { useDocumentMeta } from '@/composables/useDocumentMeta'
+import { useHead } from '@unhead/vue'
 import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
 
 const { lang, t } = useLocale()
-useDocumentMeta(computed(() => ({ lang: lang.value, ...t.value.meta })))
+// The site-wide language, title and description; pages override the title
+// and description with their own (see the views).
+useHead(() => ({
+  htmlAttrs: { lang: lang.value },
+  title: t.value.meta.title,
+  meta: [{ name: 'description', content: t.value.meta.description }],
+}))
 </script>
 
 <template>
