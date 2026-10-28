@@ -33,8 +33,14 @@
 .prose-editorial ul {
   display: grid;
   gap: 0.9rem;
+}
+.prose-editorial > ul {
   border-top: 1px solid var(--color-rust);
   padding-top: 1.25rem;
+}
+.prose-editorial li > ul {
+  gap: 0.6rem;
+  margin-top: 0.6rem;
 }
 .prose-editorial ul > li {
   position: relative;
