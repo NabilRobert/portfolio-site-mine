@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { parseMarkdown } from '../build/markdown'
+import { parseMarkdown, typesetFrontMatter } from '../build/markdown'
 import { z } from 'zod'
 import { categories, getProject, locales, splitTitle, statuses } from '../src/content'
 import { projectFrontMatter } from '../src/content/schema'
@@ -148,5 +148,42 @@ describe('screenshots', () => {
 
   it('leave `narrow` empty when there is no phone version', () => {
     expect(getProject('en', 'mcp-backbone')?.screenshots[0]?.narrow).toBe('')
+  })
+})
+
+describe('typography', () => {
+  const raw = (body: string) => `---\ntitle: x\n---\n${body}`
+  // The text a reader sees: the extension writes quotes as HTML entities.
+  const rendered = (html: string) => {
+    const element = document.createElement('div')
+    element.innerHTML = html
+    return element
+  }
+
+  it('turns straight quotes in Markdown into typographic ones', () => {
+    expect(rendered(parseMarkdown(raw(`Anna's "agents"`)).html).textContent).toContain('Anna’s “agents”')
+  })
+
+  it('leaves quotes inside code alone', () => {
+    expect(rendered(parseMarkdown(raw("Run `echo 'hi'` now")).html).querySelector('code')?.textContent).toBe(
+      "echo 'hi'",
+    )
+  })
+
+  it('typesets reader-facing front matter but not links or file names', () => {
+    const data = typesetFrontMatter({
+      title: `Pitstop: Anna's crew`,
+      summary: 'A "small" crew',
+      category: 'portfolio',
+      order: 1,
+      links: [{ label: `Arthur's repo`, href: "https://example.com/it's" }],
+      screenshots: [{ src: "it's.png", alt: `The crew's board`, terms: [{ term: '"Gate"', meaning: `It's a check` }] }],
+    })
+    expect(data.title).toBe('Pitstop: Anna’s crew')
+    expect(data.summary).toBe('A “small” crew')
+    expect(data.links[0]).toEqual({ label: 'Arthur’s repo', href: "https://example.com/it's" })
+    expect(data.screenshots?.[0]?.src).toBe("it's.png")
+    expect(data.screenshots?.[0]?.alt).toBe('The crew’s board')
+    expect(data.screenshots?.[0]?.terms?.[0]).toEqual({ term: '“Gate”', meaning: 'It’s a check' })
   })
 })

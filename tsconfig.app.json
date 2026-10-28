@@ -10,5 +10,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "env.d.ts", "tests/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.vue", "env.d.ts", "tests/**/*.ts", "build/*.d.ts"]
 }
