@@ -3,7 +3,6 @@ title: "mcp-security-gateway: a measured guard for AI agents' tools"
 summary: A small gateway that checks who may use an AI agent's tools, records every call, and screens tool output for prompt injection, with every claim measured.
 category: portfolio
 order: 4
-draft: true
 status: ci
 stack: Python · MCP SDK · FastAPI · ONNX Runtime
 coverAlt: "Illustration: an AI agent on the left, tool servers on the right and the gateway between them, under the word “Gate”. Outputs from the tools pass through the gateway, but one marked with a warning is stopped, and a chain of linked records runs along the ground. A caption reads “Attacks that worked: 12 → 5”, and “Security” is spelled out below."

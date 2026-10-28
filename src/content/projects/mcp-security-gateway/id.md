@@ -3,7 +3,6 @@ title: "mcp-security-gateway: pengaman alat agen AI yang terukur"
 summary: Gateway kecil yang memeriksa siapa yang boleh memakai alat agen AI, mencatat setiap pemanggilan, dan menyaring keluaran alat dari prompt injection, dengan setiap klaim dibuktikan lewat pengukuran.
 category: portfolio
 order: 4
-draft: true
 status: ci
 stack: Python · MCP SDK · FastAPI · ONNX Runtime
 coverAlt: "Ilustrasi agen AI di sebelah kiri, server alat di sebelah kanan, dan gateway di antara keduanya, di bawah kata “Gate”. Keluaran dari alat melewati gateway, tetapi satu yang bertanda peringatan dihentikan, dan rantai catatan yang saling terhubung membentang di bagian bawah. Keterangan bertuliskan “Attacks that worked: 12 → 5” (serangan yang berhasil: 12 → 5), dan kata “Security” tertulis di bawahnya."

@@ -3,7 +3,6 @@ title: "mcp-security-gateway：測定で裏付けたAIエージェントのツ�
 summary: AIエージェントのツール利用を誰に許すかを確認し、すべての呼び出しを記録し、ツールの出力に含まれるプロンプトインジェクションを検査する小規模なゲートウェイです。主張はすべて測定で裏付けています。
 category: portfolio
 order: 4
-draft: true
 status: ci
 stack: Python · MCP SDK · FastAPI · ONNX Runtime
 coverAlt: "左にAIエージェント、右にツールを提供するサーバー、その間にゲートウェイを描いたイラストで、上部に「GATE」の文字があります。ツールからの出力はゲートウェイを通過しますが、警告の印が付いた1つは止められ、地面には連なった記録の鎖が描かれています。「ATTACKS THAT WORKED: 12 → 5（成功した攻撃：12件→5件）」の説明と、下部に「SECURITY」の文字があります。"
