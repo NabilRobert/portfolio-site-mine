@@ -23,11 +23,13 @@ export default {
   },
   featured: { label: 'Featured', draft: 'Draft, not published' },
   flow: {
-    heading: 'How the three projects relate',
+    heading: 'How the five projects relate',
     steps: {
       'mcp-backbone': 'A system that an AI uses',
       'agent-eval-harness': 'Measures systems of this kind',
       pitstop: 'One such system in operation, with evidence',
+      'mcp-security-gateway': 'Guards the tools such a system offers an AI',
+      'inspect-strict-tools': 'A bug the harness found, reported upstream',
     },
   },
   categories: {

@@ -26,11 +26,13 @@ export default {
   },
   featured: { label: 'Unggulan', draft: 'Draf, belum diterbitkan' },
   flow: {
-    heading: 'Keterkaitan ketiga proyek',
+    heading: 'Keterkaitan kelima proyek',
     steps: {
       'mcp-backbone': 'Sistem yang digunakan oleh AI',
       'agent-eval-harness': 'Mengukur sistem semacam itu',
       pitstop: 'Satu sistem yang telah beroperasi, beserta buktinya',
+      'mcp-security-gateway': 'Mengamankan alat yang disediakan sistem semacam itu bagi AI',
+      'inspect-strict-tools': 'Bug yang ditemukan harness, dilaporkan ke hulu',
     },
   },
   categories: {

@@ -5,7 +5,7 @@ import type { Project } from '@/content'
 import SectionLabel from '@/components/ui/SectionLabel.vue'
 import { useLocale } from '@/composables/useLocale'
 
-// Who the author is, in one large paragraph, then how the core projects connect.
+// Who the author is, in one large paragraph, then how the published projects connect.
 // The steps are keyed by project slug in the locale strings; a step whose
 // project is missing is skipped.
 const { lang, t, localePath } = useLocale()

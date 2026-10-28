@@ -26,11 +26,13 @@ export default {
   },
   featured: { label: '注目', draft: '下書き（非公開）' },
   flow: {
-    heading: '3つのプロジェクトの関係',
+    heading: '5つのプロジェクトの関係',
     steps: {
       'mcp-backbone': 'AIが利用するシステム',
       'agent-eval-harness': 'そうしたシステムを評価する仕組み',
       pitstop: '実際に稼働したシステムとその根拠',
+      'mcp-security-gateway': 'AIが使うツールを守る仕組み',
+      'inspect-strict-tools': 'ハーネスが見つけた不具合の上流への報告',
     },
   },
   categories: {
