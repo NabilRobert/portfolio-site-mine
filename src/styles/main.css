@@ -15,16 +15,30 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  /* Japanese: strict line-breaking rules (no small kana or closing marks at
+     the start of a line), a quarter-em gap where Latin letters or digits meet
+     Japanese, and no half-empty bracket at the start of a line. Browsers that
+     lack the newer properties simply ignore them. */
   html:lang(ja) body {
     font-family: var(--font-ja);
+    line-break: strict;
+    text-autospace: normal;
+    text-spacing-trim: trim-start;
   }
   h1,
   h2,
   h3 {
     text-wrap: balance;
   }
+  /* Avoid a last line of one word (or one or two characters in Japanese). */
+  :is(p, li, dd, figcaption) {
+    text-wrap: pretty;
+  }
+  /* Headings break between phrases and set kana proportionally, as Japanese
+     editorial type does. */
   html:lang(ja) :is(h1, h2, h3) {
     word-break: auto-phrase;
+    font-feature-settings: 'palt';
   }
   :focus-visible {
     outline: 2px solid var(--color-yellow);
