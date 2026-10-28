@@ -71,6 +71,11 @@ describe('ProjectCard', () => {
     expect(wrapper.find('img').attributes('alt')).toBe('')
   })
 
+  it('tags a draft, which is left out of production builds', async () => {
+    const { wrapper } = await withRouter(ProjectCard, '/', { project: { ...project, draft: true }, number: 1 })
+    expect(wrapper.text()).toContain('Draft, not published')
+  })
+
   it('tags the featured project', async () => {
     const { wrapper } = await withRouter(ProjectCard, '/ja', { project: { ...project, featured: true }, number: 1 })
     expect(wrapper.text()).toContain('注目')

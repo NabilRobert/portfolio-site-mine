@@ -56,6 +56,7 @@ describe('projects', () => {
         category: d.category,
         order: d.order,
         featured: Boolean(d.featured),
+        draft: Boolean(d.draft),
         status: d.status,
         hrefs: (d.links ?? []).map((l) => l.href),
         primary: (d.links ?? []).map((l) => Boolean(l.primary)),

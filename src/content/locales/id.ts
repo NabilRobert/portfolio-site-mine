@@ -24,7 +24,7 @@ export default {
     lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, yang didokumentasikan dari catatan operasionalnya sendiri.',
     seeking: '',
   },
-  featured: { label: 'Unggulan' },
+  featured: { label: 'Unggulan', draft: 'Draf, belum diterbitkan' },
   flow: {
     heading: 'Keterkaitan ketiga proyek',
     steps: {

@@ -11,7 +11,8 @@
 //   src/content/projects/<slug>/<name>.source.txt   (where each image came from; required, and
 //                                                    shared by <name>-still.* for an animation)
 //
-// Adding a project is adding a folder; nothing else needs to change.
+// Adding a project is adding a folder; nothing else needs to change. A project
+// with `draft: true` shows in the dev preview but is left out of production builds.
 // tests/content.spec.ts checks every project is complete in every language.
 import en from './locales/en'
 import ja from './locales/ja'
@@ -69,6 +70,7 @@ function load(): Record<LocaleCode, Project[]> {
     if (!isLocale(lang)) continue
     const slug = slugOf(path)
     const fm = data as unknown as ProjectFrontMatter
+    if (fm.draft && !import.meta.env.DEV) continue
     byLocale[lang].push({
       slug,
       title: fm.title,
@@ -76,6 +78,7 @@ function load(): Record<LocaleCode, Project[]> {
       category: fm.category,
       order: fm.order ?? 999,
       featured: Boolean(fm.featured),
+      draft: Boolean(fm.draft),
       status: fm.status ?? '',
       stack: fm.stack ?? '',
       links: fm.links ?? [],

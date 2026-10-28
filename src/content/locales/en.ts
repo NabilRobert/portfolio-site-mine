@@ -21,7 +21,7 @@ export default {
     lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, and an agent pipeline that ran unattended for eleven weeks, documented from its own run records.',
     seeking: '',
   },
-  featured: { label: 'Featured' },
+  featured: { label: 'Featured', draft: 'Draft, not published' },
   flow: {
     heading: 'How the three projects relate',
     steps: {

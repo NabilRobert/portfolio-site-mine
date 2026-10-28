@@ -3,6 +3,8 @@
 // `export default { data, html }`.
 import { parse as parseYaml } from 'yaml'
 import { marked } from 'marked'
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 import type { Plugin } from 'vite'
 
 const FRONT_MATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/
@@ -32,6 +34,34 @@ export function markdownContent(): Plugin {
       } catch (err) {
         this.error(`${id}: ${(err as Error).message}`)
       }
+    },
+  }
+}
+
+const PROJECT_FILE = /[\\/]src[\\/]content[\\/]projects[\\/][^\\/]+[\\/][^\\/]+$/
+
+/** Whether a project folder's English file marks it `draft: true`. */
+export function isDraftProject(dir: string): boolean {
+  try {
+    return parseMarkdown(readFileSync(join(dir, 'en.md'), 'utf8')).data.draft === true
+  } catch {
+    return false
+  }
+}
+
+// Keeps draft projects out of production builds entirely. Their Markdown
+// becomes an empty draft stub (which the content loader skips) and their
+// images become empty URLs, so no text, figure or image of a draft reaches
+// dist/. The dev server and tests are unaffected, so drafts can be previewed.
+export function draftContent(): Plugin {
+  return {
+    name: 'draft-content',
+    apply: 'build',
+    enforce: 'pre',
+    load(id) {
+      const file = id.split('?')[0] ?? id
+      if (!PROJECT_FILE.test(file) || !isDraftProject(dirname(file))) return null
+      return file.endsWith('.md') ? '---\ndraft: true\n---\n' : "export default ''"
     },
   }
 }

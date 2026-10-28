@@ -50,6 +50,8 @@ export interface ProjectFrontMatter {
   category: Category
   order: number
   featured?: boolean
+  /** Shown in the dev preview, left out of production builds: for work not ready to publish. */
+  draft?: boolean
   status?: ProjectStatus
   stack?: string
   links: ProjectLink[]
@@ -67,6 +69,7 @@ export interface Project {
   category: Category
   order: number
   featured: boolean
+  draft: boolean
   status: ProjectStatus | ''
   stack: string
   links: ProjectLink[]
