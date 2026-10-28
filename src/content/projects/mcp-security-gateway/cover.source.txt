@@ -1,0 +1,12 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("GATE" at the top, "SECURITY" letter-spaced at the
+bottom), using only the site's palette. It uses no outside material.
+
+It shows an AI agent (left), tool servers (right) and the gateway between them,
+with a keyhole (callers need a key). Tool outputs pass through the gateway;
+one marked "!" (a prompt injection) is stopped at it. The chain along the ground
+is the tamper-evident record, each entry linked to the one before.
+
+The caption "Attacks that worked: 12 -> 5" is the published result on main in
+https://github.com/NabilRobert/mcp-security-gateway: of 12 planted attacks, 12
+took effect through the gateway with screening off, and 5 with it on.
