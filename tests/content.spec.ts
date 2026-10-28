@@ -5,7 +5,9 @@ import { readdirSync, readFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { parseMarkdown } from '../build/markdown'
-import { categories, getProject, locales, splitTitle } from '../src/content'
+import { z } from 'zod'
+import { categories, getProject, locales, splitTitle, statuses } from '../src/content'
+import { projectFrontMatter } from '../src/content/schema'
 import type { LocaleCode, ProjectFrontMatter } from '../src/content'
 
 const PROJECTS = join(__dirname, '../src/content/projects')
@@ -35,17 +37,10 @@ describe('projects', () => {
       expect(existsSync(join(PROJECTS, slug, `${lang}.md`))).toBe(true)
     })
 
-    it.each(LANGS)('%s has valid front matter and a body', (lang) => {
+    it.each(LANGS)('%s matches the front-matter schema and has a body', (lang) => {
       const { data, html } = read(slug, lang)
-      expect(data.title, 'title').toBeTypeOf('string')
-      expect(data.summary, 'summary').toBeTypeOf('string')
-      expect(categories, `category "${data.category}"`).toContain(data.category)
-      expect(data.order, 'order').toBeTypeOf('number')
-      expect(Array.isArray(data.links) && data.links.length > 0, 'at least one link').toBe(true)
-      for (const link of data.links ?? []) {
-        expect(link.label, 'link label').toBeTypeOf('string')
-        expect(link.href, `link href in ${lang}`).toMatch(/^https:\/\//)
-      }
+      const result = projectFrontMatter.safeParse(data)
+      expect(result.success, result.success ? '' : z.prettifyError(result.error)).toBe(true)
       expect(html.trim().length, 'body').toBeGreaterThan(0)
     })
 
@@ -107,6 +102,10 @@ describe('locale strings', () => {
 
   it.each(LANGS)('%s names every category', (lang) => {
     for (const c of categories) expect(locales[lang].strings.categories[c]).toBeTruthy()
+  })
+
+  it.each(LANGS)('%s names every status', (lang) => {
+    for (const s of statuses) expect(locales[lang].strings.status[s], s).toBeTruthy()
   })
 
   it('the "how they fit together" steps point at real projects', () => {

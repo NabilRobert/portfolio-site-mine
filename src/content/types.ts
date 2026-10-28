@@ -1,4 +1,7 @@
+import type { z } from 'zod'
 import type en from './locales/en'
+import type { categories, statuses } from './constants'
+import type { projectFrontMatter } from './schema'
 
 /** Interface strings: every locale must have exactly the shape of English. */
 export type LocaleStrings = typeof en
@@ -13,53 +16,14 @@ export interface Locale {
   strings: LocaleStrings
 }
 
-export const categories = ['portfolio', 'opensource', 'other'] as const
 export type Category = (typeof categories)[number]
+export type ProjectStatus = (typeof statuses)[number]
 
-export type ProjectStatus = keyof LocaleStrings['status']
-
-/** A screenshot as written in the front matter: `src` is a file in the project's folder. */
-export interface ProjectScreenshot {
-  src: string
-  /** For an animation: a still frame, shown instead when the visitor prefers reduced motion. */
-  still?: string
-  alt: string
-  /** The stop's title on the project's guided tour. */
-  caption?: string
-  /** What the reader is looking at, as a short walk-through; paragraphs separated by a blank line. */
-  description?: string
-  /** What each term, number or colour in the picture means, shown beside it. */
-  terms?: KeyEntry[]
-}
-
-export interface KeyEntry {
-  term: string
-  meaning: string
-}
-
-export interface ProjectLink {
-  label: string
-  href: string
-  primary?: boolean
-}
-
-/** A project as written in its Markdown front matter. */
-export interface ProjectFrontMatter {
-  title: string
-  summary: string
-  category: Category
-  order: number
-  featured?: boolean
-  /** Shown in the dev preview, left out of production builds: for work not ready to publish. */
-  draft?: boolean
-  status?: ProjectStatus
-  stack?: string
-  links: ProjectLink[]
-  /** Describes the cover for screen readers, when it shows something real (a screenshot, a chart). */
-  coverAlt?: string
-  /** Shown on the project's page, after the write-up. The same files in every language. */
-  screenshots?: ProjectScreenshot[]
-}
+/** A project as written in its Markdown front matter: inferred from the schema in schema.ts. */
+export type ProjectFrontMatter = z.output<typeof projectFrontMatter>
+export type ProjectLink = ProjectFrontMatter['links'][number]
+export type ProjectScreenshot = NonNullable<ProjectFrontMatter['screenshots']>[number]
+export type KeyEntry = NonNullable<ProjectScreenshot['terms']>[number]
 
 /** A project ready for display in one locale. */
 export interface Project {

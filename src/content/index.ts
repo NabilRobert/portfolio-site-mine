@@ -17,11 +17,11 @@
 import en from './locales/en'
 import ja from './locales/ja'
 import id from './locales/id'
-import { categories } from './types'
+import { categories, statuses } from './constants'
 import type { Category, Locale, LocaleCode, Project, ProjectFrontMatter } from './types'
 
 export { profile } from './profile'
-export { categories }
+export { categories, statuses }
 export type * from './types'
 
 export const locales: Record<LocaleCode, Locale> = {
@@ -69,6 +69,7 @@ function load(): Record<LocaleCode, Project[]> {
     const lang = (segments(path).at(-1) ?? '').replace(/\.md$/, '')
     if (!isLocale(lang)) continue
     const slug = slugOf(path)
+    // Checked against the schema at build time (build/markdown.ts), so the cast is safe.
     const fm = data as unknown as ProjectFrontMatter
     if (fm.draft && !import.meta.env.DEV) continue
     byLocale[lang].push({
