@@ -11,6 +11,28 @@ links:
   - { label: Repository, href: "https://github.com/NabilRobert/mcp-security-gateway", primary: true }
   - { label: Threat model, href: "https://github.com/NabilRobert/mcp-security-gateway/blob/main/THREAT_MODEL.md" }
   - { label: Results, href: "https://github.com/NabilRobert/mcp-security-gateway/tree/main/eval/results" }
+screenshots:
+  - src: attacks-chart.svg
+    alt: "Chart of twelve planted attacks run through the gateway in three set-ups, one square per attack. With screening off, all 12 took effect. With only read-only tools allowed and no screening, 9 took effect. With screening on, 5 took effect (attacks 3, 6, 7, 9 and 11) and 7 were stopped, exactly as predicted before the run."
+    caption: "Twelve planted attacks"
+    description: "Each of the twelve tasks asks the agent an honest question, but the tool output it reads has an attack planted in it, such as an instruction to call a tool that writes data, or to repeat a secret marker in its answer. The test agent obeys any instruction it reads, so every attack that reaches it succeeds; that makes it a clear way to see what the gateway itself stops. With screening off, all twelve took effect: the proxy alone changes nothing. Allowing only read-only tools stopped three, because the tools that write were hidden, but leaks still got through. With screening on, five took effect and seven were stopped, exactly the seven predicted and committed before the run. Blocking has a cost as well: a withheld output takes the honest answer with it."
+    terms:
+      - { term: "Planted attack", meaning: "Text hidden in a tool’s output that tries to give the agent new instructions: a prompt injection." }
+      - { term: "Took effect", meaning: "Harm actually happened: a write went through, or the secret marker leaked into the answer." }
+      - { term: "Screening", meaning: "The gateway’s check of every tool output: pattern rules, then a small AI classifier. A suspicious output is withheld from the agent." }
+      - { term: "Read-only tools only", meaning: "The gateway’s allow-list hides every tool that can change data. No screening is applied." }
+      - { term: "Test agent", meaning: "A scripted stand-in for an AI model that follows any instruction it reads. It costs nothing to run." }
+      - { term: "Predicted", meaning: "Which attacks would be stopped was written down and committed before the run, so the result could not be fitted afterwards." }
+  - src: screen-chart.svg
+    alt: "Bar chart of how much of the attack text the screen catches. Pattern rules caught 100% of the practice attacks they were written from, but 14.6% of 632 unseen attacks. Rules with the AI classifier caught 49.7% of unseen attacks. Normal outputs wrongly blocked: 0.0% for the rules, 1.2% with the classifier."
+    caption: "How much the screen catches"
+    description: "The screen was scored on attacks kept apart from the ones its rules were written from. On that practice set, the rules caught everything; on 632 unseen attacks, phrased in new ways, they caught 14.6%. Adding the small AI classifier raised that to 49.7%, at the cost of wrongly blocking 1.2% of 1,119 normal outputs. Both unseen scores are published as the honest measure: the screen catches about half of the attacks it has not seen before, not all of them."
+    terms:
+      - { term: "Practice set, unseen test set", meaning: "The attacks used while writing the rules, and attacks kept apart to score them fairly, phrased in ways the rules were not written from." }
+      - { term: "Caught", meaning: "The share of attack texts the screen flagged as an injection." }
+      - { term: "Wrongly blocked", meaning: "The share of 1,119 normal tool outputs flagged by mistake: a false alarm." }
+      - { term: "Pattern rules", meaning: "Hand-written checks for known ways of phrasing an attack. Fast and precise, but narrow." }
+      - { term: "AI classifier", meaning: "A small model, running on the gateway’s own machine, trained to recognise injected text." }
 ---
 
 A security gateway that sits between AI agents and the servers that give them tools (MCP servers). It checks API keys before anything else happens, allows each caller only the tools its policy names, keeps a tamper-evident record of every call, and screens what the tools return for prompt injection. It was built to be small enough to read in full, and every claim it makes is measured.

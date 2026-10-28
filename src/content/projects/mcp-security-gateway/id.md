@@ -11,6 +11,28 @@ links:
   - { label: Repositori, href: "https://github.com/NabilRobert/mcp-security-gateway", primary: true }
   - { label: Model ancaman, href: "https://github.com/NabilRobert/mcp-security-gateway/blob/main/THREAT_MODEL.md" }
   - { label: Hasil pengukuran, href: "https://github.com/NabilRobert/mcp-security-gateway/tree/main/eval/results" }
+screenshots:
+  - src: attacks-chart.svg
+    alt: "Grafik dua belas serangan yang ditanam dan dijalankan melalui gateway dalam tiga susunan, satu kotak untuk setiap serangan. Tanpa penyaringan, ke-12 serangan berhasil. Dengan hanya alat baca-saja yang diizinkan dan tanpa penyaringan, 9 serangan berhasil. Dengan penyaringan, 5 serangan berhasil (serangan 3, 6, 7, 9, dan 11) dan 7 dihentikan, tepat seperti yang diprediksi sebelum pengujian."
+    caption: "Dua belas serangan yang ditanam"
+    description: "Setiap tugas dari kedua belas tugas mengajukan pertanyaan yang wajar kepada agen, tetapi keluaran alat yang dibacanya disisipi serangan, misalnya instruksi untuk memanggil alat yang menulis data, atau untuk mengulang penanda rahasia dalam jawabannya. Agen uji selalu mematuhi instruksi apa pun yang dibacanya, sehingga setiap serangan yang sampai kepadanya pasti berhasil; dengan begitu, terlihat jelas apa yang dihentikan oleh gateway itu sendiri. Tanpa penyaringan, kedua belas serangan berhasil: proksi saja tidak mengubah apa pun. Dengan hanya mengizinkan alat baca-saja, tiga serangan terhenti karena alat yang menulis disembunyikan, tetapi kebocoran tetap lolos. Dengan penyaringan, lima serangan berhasil dan tujuh dihentikan, tepat tujuh serangan yang diprediksi dan dicatat sebelum pengujian. Pemblokiran juga ada harganya: keluaran yang ditahan ikut membawa jawaban yang sebenarnya."
+    terms:
+      - { term: "Serangan yang ditanam", meaning: "Teks yang disembunyikan di dalam keluaran alat untuk memberi agen instruksi baru: prompt injection." }
+      - { term: "Berhasil", meaning: "Kerugian benar-benar terjadi: penulisan data terlaksana, atau penanda rahasia bocor ke dalam jawaban." }
+      - { term: "Penyaringan", meaning: "Pemeriksaan gateway terhadap setiap keluaran alat: aturan pola, lalu pengklasifikasi AI berukuran kecil. Keluaran yang mencurigakan ditahan dari agen." }
+      - { term: "Hanya alat baca-saja", meaning: "Daftar izin gateway menyembunyikan setiap alat yang dapat mengubah data. Tidak ada penyaringan." }
+      - { term: "Agen uji", meaning: "Pengganti model AI berupa skrip yang mematuhi instruksi apa pun yang dibacanya. Menjalankannya tidak memakan biaya." }
+      - { term: "Diprediksi", meaning: "Serangan mana yang akan dihentikan telah dicatat dan di-commit sebelum pengujian, sehingga hasilnya tidak dapat disesuaikan sesudahnya." }
+  - src: screen-chart.svg
+    alt: "Grafik batang tentang seberapa banyak teks serangan yang tertangkap oleh penyaringan. Aturan pola menangkap 100% serangan latihan yang menjadi sumber penyusunannya, tetapi hanya 14,6% dari 632 serangan baru. Aturan bersama pengklasifikasi AI menangkap 49,7% serangan baru. Keluaran normal yang keliru diblokir: 0,0% untuk aturan saja, 1,2% dengan pengklasifikasi."
+    caption: "Seberapa banyak yang tertangkap"
+    description: "Penyaringan dinilai dengan serangan yang dipisahkan dari serangan sumber penyusunan aturannya. Pada set latihan tersebut, aturan menangkap semuanya; pada 632 serangan baru dengan susunan kalimat yang berbeda, aturan hanya menangkap 14,6%. Menambahkan pengklasifikasi AI berukuran kecil menaikkannya menjadi 49,7%, dengan konsekuensi 1,2% dari 1.119 keluaran normal keliru diblokir. Kedua skor pada serangan baru dipublikasikan sebagai ukuran yang jujur: penyaringan menangkap sekitar separuh serangan yang belum pernah dilihatnya, bukan semuanya."
+    terms:
+      - { term: "Set latihan, set uji baru", meaning: "Serangan yang dipakai saat menyusun aturan, dan serangan yang dipisahkan untuk menilainya secara adil, dengan susunan kalimat yang tidak dipakai saat menyusun aturan." }
+      - { term: "Tertangkap", meaning: "Proporsi teks serangan yang ditandai oleh penyaringan sebagai injection." }
+      - { term: "Keliru diblokir", meaning: "Proporsi dari 1.119 keluaran alat yang normal yang ditandai karena kekeliruan: alarm palsu." }
+      - { term: "Aturan pola", meaning: "Pemeriksaan yang ditulis manual untuk susunan kalimat serangan yang sudah dikenal. Cepat dan tepat, tetapi cakupannya sempit." }
+      - { term: "Pengklasifikasi AI", meaning: "Model kecil yang berjalan di mesin gateway itu sendiri, yang dilatih untuk mengenali teks sisipan." }
 ---
 
 Gateway keamanan yang ditempatkan di antara agen AI dan server yang menyediakan alat bagi agen tersebut (server MCP). Gateway ini memeriksa kunci API sebelum hal lain terjadi, hanya mengizinkan setiap pengguna memakai alat yang tercantum dalam kebijakannya, mencatat setiap pemanggilan dalam catatan yang memperlihatkan bila ada perubahan, serta menyaring keluaran alat dari *prompt injection*. Ukurannya sengaja dibuat kecil agar dapat dibaca secara utuh, dan setiap klaimnya dibuktikan lewat pengukuran.

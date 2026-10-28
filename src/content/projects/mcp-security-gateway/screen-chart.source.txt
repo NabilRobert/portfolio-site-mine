@@ -1,0 +1,14 @@
+screen-chart.svg (English), screen-chart.ja.svg and screen-chart.id.svg: a
+chart drawn for this site from mcp-security-gateway's published results. It adds
+no data of its own.
+
+Data: the "Held-out test split" table and the dev numbers in README.md, and
+eval/results/*.json, on main in https://github.com/NabilRobert/mcp-security-gateway
+(commit 414c755). Share of injected samples caught (recall), and of benign
+samples wrongly flagged (false-positive rate):
+
+  rules, dev split (written from it)    100%    0.0%
+  rules, held-out test (632 / 1,119)     14.6%  0.0%
+  rules + model at 0.999, held-out       49.7%  1.2%
+
+Generated as SVG by a short script on 28 October 2026.
