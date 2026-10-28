@@ -6,7 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
-coverAlt: "Ilustrasi empat agen Pitstop sebagai kru pit di sekitar mobil bertanda “AI”, dengan tulisan “Pit Stop” dan “11 weeks unattended” (sebelas minggu tanpa pengawasan). Anna memegang grafik, Rico papan bertanda panah ke atas, Sammy papan klip, dan Ciri, agen pengkritik, bendera kotak-kotak."
+coverAlt: "Ilustrasi empat agen Pitstop sebagai kru pit di sekitar mobil bertanda “AI”, dengan tulisan “Pit Stop” dan “Eleven weeks unattended” (sebelas minggu tanpa pengawasan). Anna memegang grafik, Rico papan bertanda panah ke atas, Sammy papan klip, dan Ciri, agen pengkritik, bendera kotak-kotak."
 screenshots:
   - src: dashboard-overview.webp
     alt: "Dasbor Pitstop dengan data iklan sintetis: angka tiga bulan terakhir (tayangan, klik, rasio klik-tayang, dan biaya), grafik tayangan harian, kampanye yang diurutkan menurut konversi, serta laporan AI dari Anna, Rico, dan Sammy yang ditandai telah disetujui oleh Ciri, agen pengkritik."

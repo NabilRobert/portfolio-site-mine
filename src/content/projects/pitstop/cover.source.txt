@@ -11,3 +11,8 @@ reference; no figures, poses, car or layout were traced or copied from it.
 
 The dashboard screenshot that the previous cover framed is now on the project
 page: see dashboard-overview.source.txt.
+
+Lettering re-set on 28 October 2026 for a simpler, book-cover look: the
+wordmark, the caption and the bottom word are centred and set in Cinzel, the
+other labels in Cinzel and the kanji in Noto Serif JP (both SIL Open Font
+License 1.1), all converted to outlines. The illustration is unchanged.

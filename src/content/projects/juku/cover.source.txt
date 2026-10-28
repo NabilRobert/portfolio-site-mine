@@ -7,3 +7,8 @@ as described in the project's README (juku-agents, branch docs/planning at
 b34b8a4; not yet public): 栞 Shiori (a bookmark; the lead, marked with a
 ribbon), 稽 Keiko (practice), 日 Nikki (a diary) and 正 Tadashi (correct).
 The caption "JLPT N5 -> N2" is the range of levels the platform is planned for.
+
+Lettering re-set on 28 October 2026 for a simpler, book-cover look: the
+wordmark, the caption and the bottom word are centred and set in Cinzel, the
+other labels in Cinzel and the kanji in Noto Serif JP (both SIL Open Font
+License 1.1), all converted to outlines. The illustration is unchanged.

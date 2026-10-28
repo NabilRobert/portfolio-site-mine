@@ -10,3 +10,8 @@ refused step (the ring). It is a picture of the idea, not of a particular trace.
 The caption "+0.39 ms per call" is the measured median overhead of tracing on an
 MCP-backbone tool call, from docs/mcp-backbone-overhead.md in agent-observability
 (branch fix/overhead-tails at d5fb5cc; not yet public).
+
+Lettering re-set on 28 October 2026 for a simpler, book-cover look: the
+wordmark, the caption and the bottom word are centred and set in Cinzel, the
+other labels in Cinzel and the kanji in Noto Serif JP (both SIL Open Font
+License 1.1), all converted to outlines. The illustration is unchanged.

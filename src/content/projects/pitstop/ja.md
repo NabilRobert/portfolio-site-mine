@@ -6,7 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
-coverAlt: "Pitstopの4つのエージェントを、「AI」と記された車を整備するピットクルーとして描いたイラストです。「PIT STOP」「11 WEEKS UNATTENDED（11週間無人で稼働）」の文字とともに、Annaはグラフ、Ricoは上向きの矢印が描かれた看板、Sammyはクリップボード、批評役のCiriはチェッカーフラッグを手にしています。"
+coverAlt: "Pitstopの4つのエージェントを、「AI」と記された車を整備するピットクルーとして描いたイラストです。「PIT STOP」「ELEVEN WEEKS UNATTENDED（11週間無人で稼働）」の文字とともに、Annaはグラフ、Ricoは上向きの矢印が描かれた看板、Sammyはクリップボード、批評役のCiriはチェッカーフラッグを手にしています。"
 screenshots:
   - src: dashboard-overview.webp
     alt: "合成した広告データを表示したPitstopのダッシュボード画面です。過去3か月の表示回数、クリック数、クリック率、費用などの指標、日ごとの表示回数のグラフ、コンバージョン数によるキャンペーンの順位、そしてAnna、Rico、SammyによるAIレポートが表示され、批評役のCiriによる承認済みの印が付いています。"

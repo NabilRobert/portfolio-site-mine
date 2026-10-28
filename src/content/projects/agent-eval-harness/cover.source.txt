@@ -3,3 +3,8 @@ It uses no outside material.
 
 To be replaced once Arthur picks a real image: a screenshot of the live site,
 a chart drawn from the published results, or this cover kept as it is.
+
+Lettering re-set on 28 October 2026 for a simpler, book-cover look: the
+wordmark, the caption and the bottom word are centred and set in Cinzel, the
+other labels in Cinzel and the kanji in Noto Serif JP (both SIL Open Font
+License 1.1), all converted to outlines. The illustration is unchanged. The caption "Five attempts per task" is the harness's published method (RESULTS.md, README).

@@ -6,7 +6,7 @@ order: 3
 featured: true
 status: live
 stack: TypeScript · Node · Vue · Postgres
-coverAlt: "Illustration: Pitstop’s four agents as a pit crew around a car marked “AI”, under the words “Pit Stop” and “11 weeks unattended”. Anna holds a chart, Rico a sign with an upward arrow, Sammy a clipboard, and Ciri, the critic, the chequered flag."
+coverAlt: "Illustration: Pitstop’s four agents as a pit crew around a car marked “AI”, under the words “Pit Stop” and “Eleven weeks unattended”. Anna holds a chart, Rico a sign with an upward arrow, Sammy a clipboard, and Ciri, the critic, the chequered flag."
 screenshots:
   - src: dashboard-overview.webp
     alt: "The Pitstop dashboard on synthetic advertising data: three months of figures (impressions, clicks, click-through rate and cost), a daily impressions chart, campaigns ranked by conversions, and the AI report by Anna, Rico and Sammy, marked as approved by Ciri, the critic."
