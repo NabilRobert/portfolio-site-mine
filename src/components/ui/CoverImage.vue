@@ -14,7 +14,7 @@ withDefaults(
 </script>
 
 <template>
-  <div class="relative aspect-[5/7] overflow-hidden bg-blue-deep">
+  <div class="aspect-[5/7] overflow-hidden bg-blue-deep">
     <img
       v-if="src"
       :src
@@ -28,6 +28,5 @@ withDefaults(
     <span v-else aria-hidden="true" class="display grid size-full place-items-center text-[9rem] text-yellow">{{
       glyph
     }}</span>
-    <slot />
   </div>
 </template>

@@ -19,21 +19,19 @@ const name = computed(() => shortTitle(props.project.title))
 
 <template>
   <RouterLink :to="localePath(`/projects/${project.slug}`)" class="group block focus-visible:outline-offset-8">
-    <CoverImage :src="project.cover" :glyph="name.charAt(0)">
-      <span v-if="project.draft" class="eyebrow absolute top-4 left-4 bg-cream px-2.5 py-1 text-ink">{{
-        t.featured.draft
-      }}</span>
-      <span v-if="project.featured" class="eyebrow absolute right-4 bottom-4 bg-yellow px-2.5 py-1 text-ink">{{
-        t.featured.label
-      }}</span>
-    </CoverImage>
+    <CoverImage :src="project.cover" :glyph="name.charAt(0)" />
     <div class="mt-5 grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-2">
       <span class="eyebrow pt-1 text-skin tabular-nums">{{ String(number).padStart(2, '0') }}</span>
-      <h3
-        class="text-lg leading-snug font-semibold text-cream decoration-yellow underline-offset-[0.25em] group-hover:underline"
-      >
-        {{ name }}
-      </h3>
+      <!-- Tags sit beside the name rather than on the cover, where they would hide its lettering. -->
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1.5">
+        <h3
+          class="text-lg leading-snug font-semibold text-cream decoration-yellow underline-offset-[0.25em] group-hover:underline"
+        >
+          {{ name }}
+        </h3>
+        <span v-if="project.featured" class="eyebrow bg-yellow px-2 py-0.5 text-ink">{{ t.featured.label }}</span>
+        <span v-if="project.draft" class="eyebrow bg-cream px-2 py-0.5 text-ink">{{ t.featured.draft }}</span>
+      </div>
       <p class="col-start-2 mt-1.5 text-[0.9375rem] leading-relaxed text-skin">{{ project.summary }}</p>
     </div>
   </RouterLink>
