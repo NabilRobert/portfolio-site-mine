@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- The site's initial, a wide N in the masthead's yellow on its ink. Drawn by hand for this site. -->
+  <rect width="32" height="32" rx="5" fill="#1a222c"/>
+  <path d="M6.5 25V7h5.25l8.5 11.25V7h5.25v18h-5.25l-8.5-11.25V25z" fill="#ffea35"/>
+</svg>
