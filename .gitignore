@@ -7,3 +7,6 @@ dist/
 HANDOVER*.md
 backups/
 design-refs/
+
+# Local dev-server config for the Claude app; it holds a machine path.
+.claude/launch.json
