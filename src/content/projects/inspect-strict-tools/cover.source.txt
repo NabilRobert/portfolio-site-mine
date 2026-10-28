@@ -1,0 +1,12 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("STRICT" at the top, "UPSTREAM" at the bottom), using
+only the site's palette. It uses no outside material.
+
+It shows a tool schema with one optional, defaulted argument (the highlighted
+line) rejected with a 400, and an arrow rising to an open-issue mark. The
+caption "Issue #6093 · Proposed" is the upstream issue,
+https://github.com/UKGovernmentBEIS/inspect_ai/issues/6093, which was open with
+no labels when this was drawn (28 October 2026).
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers.

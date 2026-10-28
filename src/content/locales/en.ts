@@ -35,7 +35,7 @@ export default {
     opensource: 'Open-source contributions',
     other: 'Other work',
   },
-  status: { live: 'Live', ci: 'CI', archived: 'Archived', wip: 'In progress' },
+  status: { live: 'Live', ci: 'CI', archived: 'Archived', wip: 'In progress', proposed: 'Proposed' },
   projectsPage: {
     heading: 'All projects',
     lead: 'Each project links to its source code and to the evidence behind its claims.',
