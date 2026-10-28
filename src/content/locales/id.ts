@@ -21,16 +21,18 @@ export default {
     heading: 'Profil',
     name: 'Nabil Robert',
     role: 'AI Fullstack Engineer',
-    lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, yang didokumentasikan dari catatan operasionalnya sendiri.',
+    lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, gateway pengaman alat agen AI yang setiap klaimnya dibuktikan lewat pengukuran, serta bug yang ditemukan oleh harness tersebut dan dilaporkan ke kerangka kerja sumber terbuka Inspect AI.',
     seeking: '',
   },
   featured: { label: 'Unggulan', draft: 'Draf, belum diterbitkan' },
   flow: {
-    heading: 'Keterkaitan ketiga proyek',
+    heading: 'Keterkaitan kelima proyek',
     steps: {
       'mcp-backbone': 'Sistem yang digunakan oleh AI',
       'agent-eval-harness': 'Mengukur sistem semacam itu',
       pitstop: 'Satu sistem yang telah beroperasi, beserta buktinya',
+      'mcp-security-gateway': 'Mengamankan alat yang disediakan sistem semacam itu bagi AI',
+      'inspect-strict-tools': 'Bug yang ditemukan harness, dilaporkan ke hulu',
     },
   },
   categories: {

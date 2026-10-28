@@ -18,16 +18,18 @@ export default {
     heading: 'About',
     name: 'Nabil Robert',
     role: 'AI Fullstack Engineer',
-    lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, and an agent pipeline that ran unattended for eleven weeks, documented from its own run records.',
+    lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, an agent pipeline that ran unattended for eleven weeks, a gateway that guards an AI agent’s tools with every claim measured, and a bug the harness found, reported to the open-source Inspect AI framework.',
     seeking: '',
   },
   featured: { label: 'Featured', draft: 'Draft, not published' },
   flow: {
-    heading: 'How the three projects relate',
+    heading: 'How the five projects relate',
     steps: {
       'mcp-backbone': 'A system that an AI uses',
       'agent-eval-harness': 'Measures systems of this kind',
       pitstop: 'One such system in operation, with evidence',
+      'mcp-security-gateway': 'Guards the tools such a system offers an AI',
+      'inspect-strict-tools': 'A bug the harness found, reported upstream',
     },
   },
   categories: {
