@@ -7,7 +7,7 @@ export default {
   meta: {
     title: 'Nabil Robert | AI Fullstack Engineer',
     description:
-      'Portofolio Nabil Robert, AI fullstack engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, harness evaluasi agen, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
+      'Portofolio Nabil Robert, AI fullstack engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, gateway keamanan yang terukur untuk alat agen AI, harness evaluasi agen, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
   },
   nav: {
     label: 'Navigasi utama',

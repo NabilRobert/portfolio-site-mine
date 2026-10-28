@@ -187,3 +187,16 @@ describe('typography', () => {
     expect(data.screenshots?.[0]?.terms?.[0]).toEqual({ term: '“Gate”', meaning: 'It’s a check' })
   })
 })
+
+describe('index.html', () => {
+  it('describes the site as the English locale does, for crawlers that do not run JavaScript', () => {
+    const html = readFileSync(join(__dirname, '../index.html'), 'utf8')
+    const description = html.match(/name="description"\s+content="([^"]*)"/)?.[1]
+    expect(description).toBe(locales.en.strings.meta.description)
+  })
+
+  it('has the English title', () => {
+    const html = readFileSync(join(__dirname, '../index.html'), 'utf8')
+    expect(html).toContain(`<title>${locales.en.strings.meta.title}</title>`)
+  })
+})
