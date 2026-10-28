@@ -14,7 +14,7 @@ links:
 Kontribusi sumber terbuka yang berawal dari pekerjaan dalam portofolio ini sendiri. Ketika harness evaluasi menjalankan agen terhadap MCP-backbone melalui Inspect AI, kerangka kerja yang banyak dipakai untuk mengevaluasi model AI, setiap permintaan gagal dengan galat bahkan sebelum modelnya berjalan.
 
 - **Penyebabnya:** penyedia Inspect yang kompatibel dengan OpenAI menandai setiap alat sebagai *strict* secara bawaan, padahal mode strict OpenAI hanya menerima skema alat yang semua argumennya wajib. Alat dengan argumen opsional atau bernilai bawaan, yang sangat umum, membuat seluruh permintaan gagal.
-- **Diperbaiki di sisi sendiri:** MCP-backbone kini memublikasikan skema yang sesuai dengan mode strict, disertai pengujian yang gagal jika ada skema yang tidak sesuai; untuk sementara, harness mematikan mode strict.
+- **Diperbaiki di sisi sendiri:** MCP-backbone kini memublikasikan skema yang sesuai dengan mode strict, disertai pengujian yang gagal jika ada skema yang tidak sesuai. Harness sengaja tetap mematikan mode strict: semua eksekusi yang dipublikasikan dijalankan tanpanya, dan mengaktifkannya akan mengubah agen yang sedang diukur.
 - **Dilaporkan ke hulu:** MCP Python SDK sebelumnya telah menolak arah perubahan ini, sehingga laporan diajukan ke Inspect AI. Laporan itu menunjukkan baris-baris yang tepat, disertai cara mereproduksinya tanpa kunci API, dan mengusulkan perbaikan: memeriksa skema setiap alat sebelum menandainya sebagai strict. Jalur Responses API milik Inspect sendiri sudah menghindari masalah ini.
 - **Status:** diusulkan. Isu tersebut masih terbuka dan menunggu triase; pull request baru akan diajukan setelah pengelola menerimanya.
 

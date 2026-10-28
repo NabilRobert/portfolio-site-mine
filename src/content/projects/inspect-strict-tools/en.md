@@ -14,7 +14,7 @@ links:
 An open-source contribution that grew out of this portfolio's own work. When the evaluation harness ran agents against MCP-backbone through Inspect AI, a widely used framework for evaluating AI models, every request failed with an error before the model even ran.
 
 - **The cause:** Inspect's OpenAI-compatible provider marks every tool as *strict* by default, but OpenAI's strict mode only accepts tool schemas in which every argument is required. A tool with an optional or defaulted argument, which is common, makes the whole request fail.
-- **Fixed at home:** MCP-backbone now publishes strict-valid schemas, with a test that fails on any schema that is not; the harness turns strict mode off for the time being.
+- **Fixed at home:** MCP-backbone now publishes strict-valid schemas, with a test that fails on any schema that is not. The harness keeps strict mode off on purpose: every published run was made without it, and turning it on would change the agent being measured.
 - **Reported upstream:** the MCP Python SDK had already declined this direction, so the report went to Inspect AI. It points to the exact lines, with a reproduction that needs no API key, and proposes a fix: check each tool's schema before marking it strict. Inspect's own Responses API path already avoids the problem.
 - **Status, stated plainly:** proposed. The issue is open and awaiting triage; a pull request will follow only once the maintainers accept it.
 
