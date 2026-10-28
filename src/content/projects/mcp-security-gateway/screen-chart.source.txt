@@ -13,4 +13,5 @@ samples wrongly flagged (false-positive rate):
 
 Drawn with Vega-Lite by charts/screen-chart.ts in this repository, which holds
 the data above and the labels in all three languages; `npm run charts`
-redraws the SVGs and a test fails if they fall out of step with it.
+redraws the SVGs and a test fails if they fall out of step with it. The
+-narrow files are the same chart drawn 360 px wide, for phones.

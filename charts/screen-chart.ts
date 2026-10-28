@@ -4,8 +4,8 @@
 // *.json, on main (commit 414c755). Recall on injected samples; the false-
 // positive rate is the share of benign samples wrongly flagged.
 import type { TopLevelSpec } from 'vega-lite'
-import { C, config, footnotes } from './theme.ts'
-import type { Lang } from './theme.ts'
+import { C, config, footnotes, heading, innerWidth, splitLines, wrapLabel } from './theme.ts'
+import type { Lang, Size } from './theme.ts'
 
 export const slug = 'mcp-security-gateway'
 export const name = 'screen-chart'
@@ -23,7 +23,8 @@ interface Strings {
   rows: Record<RowId, string>
   fp: (share: string) => string
   axis: string
-  notes: string[]
+  /** One paragraph; it is wrapped to the chart's width. */
+  notes: string
   source: string
 }
 
@@ -47,7 +48,7 @@ const T: Record<Lang, Strings> = {
     },
     fp: (v) => `Normal outputs wrongly blocked: ${v}`,
     axis: 'Attacks caught',
-    notes: ['The practice score is flattering by design; the unseen score is the honest one.'],
+    notes: 'The practice score is flattering by design; the unseen score is the honest one.',
     source: 'Source: README.md and eval/results in mcp-security-gateway.',
   },
   ja: {
@@ -63,7 +64,7 @@ const T: Record<Lang, Strings> = {
     },
     fp: (v) => `正常な出力を誤って遮断した割合：${v}`,
     axis: '検出できた攻撃の割合',
-    notes: ['練習用セットの数値は構造上よく見えるものであり、', '実力を示すのは未知の攻撃での数値です。'],
+    notes: '練習用セットの数値は構造上よく見えるものであり、実力を示すのは未知の攻撃での数値です。',
     source: '出典：mcp-security-gatewayのREADME.mdおよびeval/results',
   },
   id: {
@@ -79,30 +80,45 @@ const T: Record<Lang, Strings> = {
     },
     fp: (v) => `Keluaran normal yang keliru diblokir: ${v}`,
     axis: 'Serangan yang terdeteksi',
-    notes: ['Skor set latihan memang tampak bagus; skor yang jujur adalah skor pada serangan baru.'],
+    notes: 'Skor set latihan memang tampak bagus; skor yang jujur adalah skor pada serangan baru.',
     source: 'Sumber: README.md dan eval/results di mcp-security-gateway.',
   },
 }
 
 const percent = (v: number, dec: string, digits: number) => `${v.toFixed(digits).replace('.', dec)}%`
 
-export function spec(lang: Lang): TopLevelSpec {
+// Room right of the longest bar for its value label, in pixels.
+const VALUE_LABEL_ROOM = 60
+// Width of a legend entry's symbol and the gap after it, in pixels.
+const LEGEND_SYMBOL_ROOM = 32
+
+export function spec(lang: Lang, size: Size): TopLevelSpec {
   const t = T[lang]
+  const width = innerWidth(size)
+  const isNarrow = size.name === 'narrow'
+  const headerSize = isNarrow ? 15 : 16.5
+  const legendSize = size.textSize + 1
+  const practice = wrapLabel(t.practice, width - LEGEND_SYMBOL_ROOM, legendSize)
+  const test = wrapLabel(t.test, width - LEGEND_SYMBOL_ROOM, legendSize)
   const values = rows.map(([id, caught, wronglyBlocked, isPracticeSet], order) => ({
-    label: t.rows[id],
+    label: wrapLabel(t.rows[id], width, headerSize),
     order,
     caught,
-    set: isPracticeSet ? t.practice : t.test,
+    set: isPracticeSet ? practice : test,
     value: percent(caught, t.dec, caught === 100 ? 0 : 1),
     fp: t.fp(percent(wronglyBlocked, t.dec, 1)),
   }))
-  // Room to the right of 100% for the value label.
-  const x = { type: 'quantitative' as const, scale: { domain: [0, 112], nice: false } }
-  const set = { field: 'set', type: 'nominal' as const, scale: { domain: [t.practice, t.test] } }
+  // The scale runs past 100% so a full bar still has room for its label.
+  const x = {
+    type: 'quantitative' as const,
+    scale: { domain: [0, (100 * width) / (width - VALUE_LABEL_ROOM)], nice: false },
+  }
+  const set = { field: 'set', type: 'nominal' as const, scale: { domain: [practice, test] } }
   return {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     config,
-    title: { text: t.title, subtitle: t.sub },
+    padding: size.padding,
+    title: heading(t.title, t.sub, size),
     resolve: { scale: { fill: 'independent', stroke: 'independent', color: 'independent' } },
     vconcat: [
       {
@@ -111,12 +127,19 @@ export function spec(lang: Lang): TopLevelSpec {
           row: {
             field: 'label',
             sort: { field: 'order' },
-            header: { labelFontSize: 16.5, labelFontWeight: 'normal', labelColor: C.cream, labelLimit: 592 },
+            header: {
+              labelExpr: splitLines,
+              labelFontSize: headerSize,
+              labelLineHeight: Math.round(headerSize * 1.3),
+              labelFontWeight: 'normal',
+              labelColor: C.cream,
+              labelLimit: width,
+            },
           },
         },
         spacing: 22,
         spec: {
-          width: 592,
+          width,
           height: 62,
           layer: [
             {
@@ -125,7 +148,13 @@ export function spec(lang: Lang): TopLevelSpec {
                 x: {
                   ...x,
                   field: 'caught',
-                  axis: { values: [0, 25, 50, 75, 100], title: t.axis, grid: false, labelExpr: "datum.value + '%'" },
+                  axis: {
+                    values: [0, 25, 50, 75, 100],
+                    title: t.axis,
+                    grid: false,
+                    labelExpr: "datum.value + '%'",
+                    labelFontSize: size.textSize,
+                  },
                 },
                 y: { value: 14 },
                 fill: {
@@ -137,23 +166,32 @@ export function spec(lang: Lang): TopLevelSpec {
                     symbolStrokeWidth: 3,
                     direction: 'vertical',
                     rowPadding: 8,
+                    labelFontSize: legendSize,
+                    labelExpr: splitLines,
                   },
                 },
                 stroke: { ...set, scale: { ...set.scale, range: [C.blue, C.blue] } },
               },
             },
             {
-              mark: { type: 'text', align: 'left', baseline: 'middle', dx: 10, fontSize: 17, fontWeight: 'bold' },
+              mark: {
+                type: 'text',
+                align: 'left',
+                baseline: 'middle',
+                dx: 10,
+                fontSize: isNarrow ? 15 : 17,
+                fontWeight: 'bold',
+              },
               encoding: { x: { ...x, field: 'caught' }, y: { value: 14 }, text: { field: 'value' } },
             },
             {
-              mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: 14, color: C.skin },
+              mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: size.textSize, color: C.skin },
               encoding: { x: { value: 0 }, y: { value: 48 }, text: { field: 'fp' } },
             },
           ],
         },
       },
-      footnotes(t.notes, t.source),
+      footnotes(t.notes, t.source, size),
     ],
   }
 }

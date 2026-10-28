@@ -40,8 +40,8 @@ export interface Project {
   cover: string | null
   /** '' when the cover is decorative, such as a typographic placeholder. */
   coverAlt: string
-  /** `src` is the built URL here. */
-  screenshots: Required<ProjectScreenshot>[]
+  /** `src` is the built URL here; `narrow` is the phone-width version (<name>-narrow.*), or ''. */
+  screenshots: (Required<ProjectScreenshot> & { narrow: string })[]
   html: string
 }
 

@@ -69,9 +69,9 @@ describe('projects', () => {
     it('records where every image came from', () => {
       const images = readdirSync(join(PROJECTS, slug)).filter((f) => /\.(webp|png|jpe?g|gif|svg)$/.test(f))
       for (const image of images) {
-        // An animation's still (step1-still.png) and a language's version (chart.ja.svg)
-        // share the original's record (step1.source.txt, chart.source.txt).
-        const record = image.replace(/(-still)?(\.(?:en|ja|id))?\.\w+$/, '.source.txt')
+        // An animation's still (step1-still.png), a chart's phone version (chart-narrow.svg)
+        // and a language's version (chart.ja.svg) share the original's record.
+        const record = image.replace(/(-still|-narrow)?(\.(?:en|ja|id))?\.\w+$/, '.source.txt')
         expect(existsSync(join(PROJECTS, slug, record)), `${slug}/${record}`).toBe(true)
       }
     })
@@ -138,5 +138,15 @@ describe('screenshots', () => {
     expect(src('ja')).toMatch(/gate-chart\.ja.*\.svg/)
     expect(src('id')).toMatch(/gate-chart\.id.*\.svg/)
     expect(src('en')).toMatch(/gate-chart(?!\.(ja|id))/)
+  })
+
+  it('pick up a phone-width version of a chart, in the right language', () => {
+    const narrow = (lang: LocaleCode) => getProject(lang, 'agent-eval-harness')?.screenshots[0]?.narrow ?? ''
+    expect(narrow('ja')).toMatch(/gate-chart-narrow\.ja.*\.svg/)
+    expect(narrow('en')).toMatch(/gate-chart-narrow(?!\.(ja|id))/)
+  })
+
+  it('leave `narrow` empty when there is no phone version', () => {
+    expect(getProject('en', 'mcp-backbone')?.screenshots[0]?.narrow).toBe('')
   })
 })

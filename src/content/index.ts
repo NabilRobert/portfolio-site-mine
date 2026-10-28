@@ -7,7 +7,8 @@
 //   src/content/projects/<slug>/<name>.(webp|png|jpg|gif|svg)   (optional screenshots, listed under
 //                                                                `screenshots` in the front matter;
 //                                                                <name>.ja.svg and so on replace it
-//                                                                in that language, e.g. a translated chart)
+//                                                                in that language, e.g. a translated chart,
+//                                                                and <name>-narrow.svg is shown on phones)
 //   src/content/projects/<slug>/<name>.source.txt   (where each image came from; required, and
 //                                                    shared by <name>-still.* for an animation)
 //
@@ -88,6 +89,7 @@ function load(): Record<LocaleCode, Project[]> {
       screenshots: (fm.screenshots ?? []).map((s) => ({
         src: imageFor(slug, s.src, lang),
         still: s.still ? imageFor(slug, s.still, lang) : '',
+        narrow: imageFor(slug, s.src.replace(/(\.\w+)$/, '-narrow$1'), lang),
         alt: s.alt,
         caption: s.caption ?? '',
         description: s.description ?? '',

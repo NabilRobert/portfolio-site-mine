@@ -21,7 +21,8 @@ set in advance), and each row says whether it did. Values, in points:
 
 Drawn with Vega-Lite by charts/gate-chart.ts in this repository, which holds
 the data above and the labels in all three languages; `npm run charts`
-redraws the SVGs and a test fails if they fall out of step with it.
+redraws the SVGs and a test fails if they fall out of step with it. The
+-narrow files are the same chart drawn 360 px wide, for phones.
 Same data and layout for all three languages, in the site's palette
 (colours checked for colour-blind separation and contrast against the dark
 background).

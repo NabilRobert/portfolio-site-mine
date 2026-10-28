@@ -3,8 +3,9 @@
 // regression gate)" table, on main (last changed in 59cdbcb). Points are the
 // change in strict pass rate; the interval is its 95% interval.
 import type { TopLevelSpec } from 'vega-lite'
-import { C, config, footnotes } from './theme.ts'
-import type { Lang } from './theme.ts'
+import { measure, wrap } from './text-width.ts'
+import { C, config, footnotes, heading, innerWidth, splitLines, wrapLabel } from './theme.ts'
+import type { Lang, Size } from './theme.ts'
 
 export const slug = 'agent-eval-harness'
 export const name = 'gate-chart'
@@ -25,7 +26,8 @@ interface Strings {
   rows: Record<RowId, string>
   outcome: Record<Outcome, string>
   axis: string
-  notes: string[]
+  /** One paragraph; it is wrapped to the chart's width. */
+  notes: string
   source: string
 }
 
@@ -64,10 +66,8 @@ const T: Record<Lang, Strings> = {
     },
     outcome: { quiet: '✓ stayed quiet', caught: '✓ caught', missed: '✗ missed', flagged: 'flagged' },
     axis: '← fewer attempts passed (percentage points) · 0 = no change',
-    notes: [
-      'The gate flags a change only when its whole bar lies left of 0.',
-      'A bar that crosses 0 could be chance, so it is not flagged.',
-    ],
+    notes:
+      'The gate flags a change only when its whole bar lies left of 0. A bar that crosses 0 could be chance, so it is not flagged.',
     source: 'Source: RESULTS.md in agent-eval-harness. Five attempts per task.',
   },
   ja: {
@@ -93,10 +93,8 @@ const T: Record<Lang, Strings> = {
     },
     outcome: { quiet: '✓ 反応なし', caught: '✓ 検出', missed: '✗ 見逃し', flagged: '回帰と判定' },
     axis: '← 合格した試行が減少（パーセントポイント）・0 = 変化なし',
-    notes: [
-      'バー全体が0より左にある場合にのみ、回帰と判定します。',
-      'バーが0をまたぐ場合、その変化は偶然の可能性があるため判定しません。',
-    ],
+    notes:
+      'バー全体が0より左にある場合にのみ、回帰と判定します。バーが0をまたぐ場合、その変化は偶然の可能性があるため判定しません。',
     source: '出典：agent-eval-harnessのRESULTS.md。各タスク5回試行。',
   },
   id: {
@@ -122,10 +120,8 @@ const T: Record<Lang, Strings> = {
     },
     outcome: { quiet: '✓ tetap diam', caught: '✓ terdeteksi', missed: '✗ terlewat', flagged: 'ditandai' },
     axis: '← lebih sedikit percobaan yang lulus (poin persentase) · 0 = tidak berubah',
-    notes: [
-      'Gerbang hanya menandai perubahan jika seluruh batangnya berada di kiri 0.',
-      'Batang yang melewati 0 bisa jadi kebetulan, sehingga tidak ditandai.',
-    ],
+    notes:
+      'Gerbang hanya menandai perubahan jika seluruh batangnya berada di kiri 0. Batang yang melewati 0 bisa jadi kebetulan, sehingga tidak ditandai.',
     source: 'Sumber: RESULTS.md di agent-eval-harness. Lima percobaan per tugas.',
   },
 }
@@ -133,13 +129,24 @@ const T: Record<Lang, Strings> = {
 const fmt = (v: number, dec: string) => (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(1).replace('.', dec)
 const groupOrder: Group[] = ['quiet', 'worse', 'none']
 
-export function spec(lang: Lang): TopLevelSpec {
+export function spec(lang: Lang, size: Size): TopLevelSpec {
   const t = T[lang]
+  const width = innerWidth(size)
+  const isNarrow = size.name === 'narrow'
+  const labelSize = isNarrow ? 14 : 16
+  const valueSize = isNarrow ? 13 : 15
+  const headerSize = 13.5
+  // A row's label shares its line with the verdict, so it wraps short of it.
+  const labelLines = (label: string, verdict: string) =>
+    wrap(label, width - measure(verdict, valueSize, true) - 12, labelSize)
+  const labelLineHeight = labelSize + 3
   const values = rows.map(([id, group, d, lo, hi, flagged, outcome], order) => ({
     order,
-    group: t.groups[group].toUpperCase(),
+    group: wrapLabel(t.groups[group].toUpperCase(), width, headerSize, true),
     gorder: groupOrder.indexOf(group),
     label: t.rows[id],
+    labelText: labelLines(t.rows[id], t.outcome[outcome]).join('\n'),
+    labelLineCount: labelLines(t.rows[id], t.outcome[outcome]).length,
     d,
     lo,
     hi,
@@ -153,31 +160,40 @@ export function spec(lang: Lang): TopLevelSpec {
   const y = { y: { field: 'label', type: 'nominal' as const, sort: { field: 'order' }, axis: null } }
   const xAxis = {
     values: [-80, -60, -40, -20, 0],
-    title: t.axis,
+    title: wrap(t.axis, width, size.textSize),
+    titleFontSize: size.textSize,
+    labelFontSize: size.textSize,
     grid: true,
     labelExpr: "datum.value === 0 ? '0' : '−' + abs(datum.value)",
   }
   return {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     config,
-    title: { text: t.title, subtitle: t.sub },
+    padding: size.padding,
+    title: heading(t.title, t.sub, size),
     resolve: { scale: { color: 'independent' } },
     vconcat: [
       {
         data: { values },
-        facet: { row: { field: 'group', sort: { field: 'gorder' }, header: { labelLimit: 592 } } },
+        facet: {
+          row: {
+            field: 'group',
+            sort: { field: 'gorder' },
+            header: { labelExpr: splitLines, labelFontSize: headerSize, labelLineHeight: 17, labelLimit: width },
+          },
+        },
         spacing: 18,
         resolve: { scale: { y: 'independent' } },
         spec: {
-          width: 592,
-          height: { step: 60 },
+          width,
+          height: { step: isNarrow ? 72 : 60 },
           layer: [
             // the zero line, per row, starting below the verdict so it never runs through the words
             {
               mark: { type: 'rule', color: C.cream, strokeWidth: 1.5 },
               encoding: {
                 ...y,
-                y: { ...y.y, bandPosition: 0.3 },
+                y: { ...y.y, bandPosition: 0.35 },
                 y2: { field: 'label', bandPosition: 1 },
                 x: { ...x, datum: 0, axis: xAxis },
               },
@@ -192,7 +208,13 @@ export function spec(lang: Lang): TopLevelSpec {
                   field: 'gate',
                   type: 'nominal',
                   scale: { domain: [t.flag, t.pass], range: [C.red, C.blue] },
-                  legend: { symbolType: 'stroke', symbolSize: 400, symbolStrokeWidth: 6 },
+                  legend: {
+                    symbolType: 'stroke',
+                    symbolSize: 400,
+                    symbolStrokeWidth: 6,
+                    direction: isNarrow ? 'vertical' : 'horizontal',
+                    labelFontSize: size.textSize + 1,
+                  },
                 },
               },
             },
@@ -208,20 +230,38 @@ export function spec(lang: Lang): TopLevelSpec {
             },
             {
               transform: [{ filter: "datum.side === 'left'" }],
-              mark: { type: 'text', align: 'right', dx: -14, fontSize: 15, fontWeight: 'bold' },
+              mark: { type: 'text', align: 'right', dx: -14, fontSize: valueSize, fontWeight: 'bold' },
               encoding: { ...y, x: { ...x, field: 'lo' }, text: { field: 'value' } },
             },
             {
               transform: [{ filter: "datum.side === 'right'" }],
-              mark: { type: 'text', align: 'left', dx: 14, fontSize: 15, fontWeight: 'bold' },
+              mark: { type: 'text', align: 'left', dx: 14, fontSize: valueSize, fontWeight: 'bold' },
               encoding: { ...y, x: { ...x, field: 'hi' }, text: { field: 'value' } },
             },
+            // Row labels sit above their interval; Vega draws extra lines downwards, so a
+            // label of n lines is lifted by n - 1 lines to keep its last line in place.
+            ...[...new Set(values.map((v) => v.labelLineCount))].map((lineCount) => ({
+              transform: [{ filter: `datum.labelLineCount === ${lineCount}` }],
+              mark: {
+                type: 'text' as const,
+                align: 'left' as const,
+                baseline: 'bottom' as const,
+                dy: -14 - (lineCount - 1) * labelLineHeight,
+                fontSize: labelSize,
+                lineHeight: labelLineHeight,
+                lineBreak: '\n',
+              },
+              encoding: { ...y, x: { ...x, datum: -85 }, text: { field: 'labelText' } },
+            })),
             {
-              mark: { type: 'text', align: 'left', dy: -22, fontSize: 16 },
-              encoding: { ...y, x: { ...x, datum: -85 }, text: { field: 'label' } },
-            },
-            {
-              mark: { type: 'text', align: 'right', dy: -22, fontSize: 15, fontWeight: 'bold' },
+              mark: {
+                type: 'text',
+                align: 'right',
+                baseline: 'bottom',
+                dy: -14,
+                fontSize: valueSize,
+                fontWeight: 'bold',
+              },
               encoding: {
                 ...y,
                 x: { ...x, datum: 10 },
@@ -232,7 +272,7 @@ export function spec(lang: Lang): TopLevelSpec {
           ],
         },
       },
-      footnotes(t.notes, t.source),
+      footnotes(t.notes, t.source, size),
     ],
   }
 }

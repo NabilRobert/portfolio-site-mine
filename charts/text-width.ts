@@ -58,3 +58,39 @@ export function textWidth(item: TextItem, line?: string): number {
   // A label longer than its limit is drawn cut short with an ellipsis.
   return item.limit && item.limit > 0 ? Math.min(width, item.limit) : width
 }
+
+// Japanese may break between any two characters, except before closing marks
+// or small kana, and after opening ones (kinsoku); Latin text breaks between
+// words.
+const NO_LINE_START = '、。，．）」』】〕！？：；ー・％ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ'
+const NO_LINE_END = '（「『【〔'
+
+/** The pieces a line may break between. */
+function breakableTokens(text: string): string[] {
+  const tokens: string[] = []
+  for (const piece of text.match(/[^\s\u2e80-\uffef]+\s*|[\u2e80-\uffef]\s*|\s+/g) ?? []) {
+    const previous = tokens.at(-1)
+    const joinsPrevious = NO_LINE_START.includes(piece.charAt(0))
+    const previousIsOpening = previous !== undefined && NO_LINE_END.includes(previous.trimEnd().slice(-1))
+    if (previous !== undefined && (joinsPrevious || previousIsOpening)) tokens[tokens.length - 1] = previous + piece
+    else tokens.push(piece)
+  }
+  return tokens
+}
+
+/** Breaks text into lines no wider than maxWidth pixels. */
+export function wrap(text: string, maxWidth: number, fontSize: number, bold = false): string[] {
+  const lines: string[] = []
+  let line = ''
+  for (const token of breakableTokens(text)) {
+    const candidate = line + token
+    if (line.trim() && measure(candidate.trimEnd(), fontSize, bold) > maxWidth) {
+      lines.push(line.trimEnd())
+      line = token.trimStart()
+    } else {
+      line = candidate
+    }
+  }
+  if (line.trim()) lines.push(line.trimEnd())
+  return lines
+}

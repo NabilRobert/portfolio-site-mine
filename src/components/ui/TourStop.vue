@@ -8,19 +8,21 @@ import { useLocale } from '@/composables/useLocale'
 // that says what each term, number and colour means, for a reader new to the
 // project. The image is framed by a thin rule so a light page still reads as a
 // picture on the dark site; an animation's `still` replaces it for visitors
-// who prefer reduced motion.
+// who prefer reduced motion, and a chart's `narrow` version replaces it on
+// phones, where the wide one would shrink its text out of reading size.
 const props = withDefaults(
   defineProps<{
     number: number
     src: string
     alt: string
     still?: string
+    narrow?: string
     caption?: string
     /** Paragraphs separated by a blank line. */
     description?: string
     terms?: KeyEntry[]
   }>(),
-  { still: '', caption: '', description: '', terms: () => [] },
+  { still: '', narrow: '', caption: '', description: '', terms: () => [] },
 )
 const { t } = useLocale()
 const paragraphs = computed(() =>
@@ -40,6 +42,7 @@ const paragraphs = computed(() =>
       </h3>
       <picture class="mt-4 block">
         <source v-if="still" media="(prefers-reduced-motion: reduce)" :srcset="still" />
+        <source v-if="narrow" media="(width < 40rem)" :srcset="narrow" />
         <img :src :alt loading="lazy" decoding="async" class="block h-auto w-full ring-1 ring-rust" />
       </picture>
       <div v-if="paragraphs.length" class="mt-5 grid max-w-[68ch] gap-3 text-[1.0625rem] leading-relaxed text-cream">

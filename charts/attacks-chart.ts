@@ -3,8 +3,9 @@
 // summary.json on main (commit 414c755); the set-up with screening on matched
 // the prediction committed before the run (prediction.json, commit 5f3e3d2).
 import type { TopLevelSpec } from 'vega-lite'
-import { C, config, footnotes } from './theme.ts'
-import type { Lang } from './theme.ts'
+import { wrap } from './text-width.ts'
+import { C, config, footnotes, heading, innerWidth, splitLines, wrapLabel } from './theme.ts'
+import type { Lang, Size } from './theme.ts'
 
 export const slug = 'mcp-security-gateway'
 export const name = 'attacks-chart'
@@ -20,7 +21,8 @@ interface Strings {
   setups: Record<SetupId, string>
   count: (hits: number) => string
   predicted: string
-  notes: string[]
+  /** One paragraph; it is wrapped to the chart's width. */
+  notes: string
   source: string
 }
 
@@ -43,10 +45,8 @@ const T: Record<Lang, Strings> = {
     },
     count: (n) => `${n} of 12 took effect`,
     predicted: 'Stopped exactly the 7 attacks predicted before the run',
-    notes: [
-      'The test agent obeys any instruction it reads, so this shows what',
-      'the gateway does, not how often a real AI model would be fooled.',
-    ],
+    notes:
+      'The test agent obeys any instruction it reads, so this shows what the gateway does, not how often a real AI model would be fooled.',
     source: 'Source: eval/results/gullible in mcp-security-gateway.',
   },
   ja: {
@@ -61,10 +61,8 @@ const T: Record<Lang, Strings> = {
     },
     count: (n) => `12件中${n}件が成立`,
     predicted: '実行前に予測した7件を、予測どおりに阻止',
-    notes: [
-      'テスト用エージェントは読んだ指示に必ず従うため、これはゲートウェイの',
-      '働きを示すもので、実際のAIモデルがだまされる頻度を示すものではありません。',
-    ],
+    notes:
+      'テスト用エージェントは読んだ指示に必ず従うため、これはゲートウェイの働きを示すもので、実際のAIモデルがだまされる頻度を示すものではありません。',
     source: '出典：mcp-security-gatewayのeval/results/gullible',
   },
   id: {
@@ -79,29 +77,37 @@ const T: Record<Lang, Strings> = {
     },
     count: (n) => `${n} dari 12 berhasil`,
     predicted: 'Menghentikan tepat 7 serangan yang diprediksi sebelum pengujian',
-    notes: [
-      'Agen uji selalu mematuhi instruksi apa pun yang dibacanya, sehingga grafik ini',
-      'menunjukkan kerja gateway, bukan seberapa sering model AI sungguhan tertipu.',
-    ],
+    notes:
+      'Agen uji selalu mematuhi instruksi apa pun yang dibacanya, sehingga grafik ini menunjukkan kerja gateway, bukan seberapa sering model AI sungguhan tertipu.',
     source: 'Sumber: eval/results/gullible di mcp-security-gateway.',
   },
 }
 
-// Squares are drawn as point marks, sized by area in square pixels.
-const SQUARE = 34
+// Gap between neighbouring squares, in pixels.
+const SQUARE_GAP = 12
 
-export function spec(lang: Lang): TopLevelSpec {
+export function spec(lang: Lang, size: Size): TopLevelSpec {
   const t = T[lang]
+  const width = innerWidth(size)
+  const isNarrow = size.name === 'narrow'
+  const headerSize = isNarrow ? 15 : 16.5
+  const countSize = isNarrow ? 14 : 15
+  // Twelve squares across the width; point marks are sized by area.
+  const square = Math.min(31, Math.floor(width / 12) - SQUARE_GAP)
+  const predicted = wrap(t.predicted, width, size.textSize + 0.5)
+  const lineHeight = Math.round(size.textSize * 1.55)
+  const countY = square + 26
+  const predictedY = countY + lineHeight + 2
   const values = setups.flatMap(([id, pattern], order) => {
     const hits = [...pattern].filter((c) => c === 'X').length
     return [...pattern].map((c, i) => ({
-      setup: t.setups[id],
+      setup: wrapLabel(t.setups[id], width, headerSize),
       order,
       attack: i + 1,
       outcome: c === 'X' ? t.hit : t.stopped,
       first: i === 0,
       count: t.count(hits),
-      predicted: id === 'on' ? t.predicted : '',
+      predicted: id === 'on' ? predicted.join('\n') : '',
     }))
   })
   const x = { field: 'attack', type: 'ordinal' as const, scale: { type: 'point' as const, padding: 0.5 } }
@@ -109,8 +115,11 @@ export function spec(lang: Lang): TopLevelSpec {
   return {
     $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
     config,
-    title: { text: t.title, subtitle: t.sub },
+    padding: size.padding,
+    title: heading(t.title, t.sub, size),
     resolve: { scale: { fill: 'independent', stroke: 'independent', color: 'independent' } },
+    // Room between the grid and the notes for the prediction under the last row.
+    spacing: predicted.length * lineHeight + 20,
     vconcat: [
       {
         data: { values },
@@ -118,16 +127,25 @@ export function spec(lang: Lang): TopLevelSpec {
           row: {
             field: 'setup',
             sort: { field: 'order' },
-            header: { labelFontSize: 16.5, labelFontWeight: 'normal', labelColor: C.cream, labelLimit: 592 },
+            header: {
+              labelExpr: splitLines,
+              labelFontSize: headerSize,
+              labelLineHeight: Math.round(headerSize * 1.3),
+              labelFontWeight: 'normal',
+              labelColor: C.cream,
+              labelLimit: width,
+            },
           },
         },
         spacing: 22,
         spec: {
-          width: 592,
-          height: 88,
+          width,
+          // Only the last row has the prediction under its count; it runs into the
+          // space above the notes rather than making every row taller.
+          height: countY + 12,
           layer: [
             {
-              mark: { type: 'square', size: (SQUARE - 3) ** 2, strokeWidth: 3, opacity: 1, strokeJoin: 'round' },
+              mark: { type: 'square', size: square ** 2, strokeWidth: 3, opacity: 1, strokeJoin: 'round' },
               encoding: {
                 x: {
                   ...x,
@@ -140,29 +158,42 @@ export function spec(lang: Lang): TopLevelSpec {
                     labelPadding: 4,
                   },
                 },
-                y: { value: 14 },
+                y: { value: square / 2 },
                 fill: {
                   ...outcome,
                   scale: { ...outcome.scale, range: [C.red, C.ink] },
-                  legend: { symbolType: 'square', symbolSize: 220, symbolStrokeWidth: 3 },
+                  legend: {
+                    symbolType: 'square',
+                    symbolSize: 220,
+                    symbolStrokeWidth: 3,
+                    labelFontSize: size.textSize + 1,
+                  },
                 },
                 stroke: { ...outcome, scale: { ...outcome.scale, range: [C.red, C.cream] } },
               },
             },
             {
               transform: [{ filter: 'datum.first' }],
-              mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: 15, fontWeight: 'bold' },
-              encoding: { x: { value: 0 }, y: { value: 54 }, text: { field: 'count' } },
+              mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: countSize, fontWeight: 'bold' },
+              encoding: { x: { value: 0 }, y: { value: countY }, text: { field: 'count' } },
             },
             {
               transform: [{ filter: "datum.first && datum.predicted !== ''" }],
-              mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: 14.5, color: C.skin },
-              encoding: { x: { value: 0 }, y: { value: 76 }, text: { field: 'predicted' } },
+              mark: {
+                type: 'text',
+                align: 'left',
+                baseline: 'middle',
+                fontSize: size.textSize + 0.5,
+                lineHeight,
+                lineBreak: '\n',
+                color: C.skin,
+              },
+              encoding: { x: { value: 0 }, y: { value: predictedY }, text: { field: 'predicted' } },
             },
           ],
         },
       },
-      footnotes(t.notes, t.source),
+      footnotes(t.notes, t.source, size),
     ],
   }
 }

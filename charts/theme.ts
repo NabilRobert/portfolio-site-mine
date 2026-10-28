@@ -2,6 +2,7 @@
 // own dark colour. Mark colours were checked for colour-blind separation and
 // contrast against it.
 import type { Config, TopLevelSpec } from 'vega-lite'
+import { wrap } from './text-width.ts'
 
 /** One chart inside a vertical stack (vconcat) of charts. */
 export type StackedSpec = Extract<TopLevelSpec, { vconcat: unknown }>['vconcat'][number]
@@ -9,11 +10,34 @@ export type StackedSpec = Extract<TopLevelSpec, { vconcat: unknown }>['vconcat']
 /** The languages every chart is drawn in, as the site's locale codes. */
 export type Lang = 'en' | 'ja' | 'id'
 
-/** A chart module: which project folder it belongs to, its file name, and its spec per language. */
+/**
+ * The widths each chart is drawn at. The page shows the narrow one on phones
+ * (below 40rem), where the wide one would be scaled down to about half size
+ * and its text would be too small to read.
+ */
+export interface Size {
+  name: 'wide' | 'narrow'
+  /** The whole SVG, in pixels. */
+  width: number
+  /** The margin on every side. */
+  padding: number
+  titleSize: number
+  /** Body text: labels, notes and the source line. */
+  textSize: number
+}
+export const sizes: Size[] = [
+  { name: 'wide', width: 640, padding: 24, titleSize: 22, textSize: 14 },
+  { name: 'narrow', width: 360, padding: 16, titleSize: 19, textSize: 13 },
+]
+
+/** The width left for the chart itself, inside the margins. */
+export const innerWidth = (size: Size) => size.width - 2 * size.padding
+
+/** A chart module: which project folder it belongs to, its file name, and its spec per language and size. */
 export interface Chart {
   slug: string
   name: string
-  spec: (lang: Lang) => TopLevelSpec
+  spec: (lang: Lang, size: Size) => TopLevelSpec
 }
 export const C = {
   ink: '#1a222c',
@@ -28,10 +52,9 @@ export const C = {
 export const font =
   "'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif"
 
-/** Common Vega-Lite config: 640 px wide in total, on the page's colour. */
+/** Common Vega-Lite config, on the page's colour. Each spec sets its own padding. */
 export const config: Config = {
   background: C.ink,
-  padding: 24,
   font,
   view: { stroke: null },
   axisY: { minExtent: 0 },
@@ -82,18 +105,32 @@ export const config: Config = {
   text: { font, color: C.cream },
 }
 
-/** Notes under a chart: each entry is a line of text; the last is the source. */
-export function footnotes(lines: string[], source: string): StackedSpec {
-  const values = [...lines.map((t, i) => ({ i, t, kind: 'note' })), { i: lines.length, t: source, kind: 'source' }]
+/** The chart's title and subtitle, wrapped to its width. */
+export function heading(title: string, subtitle: string, size: Size) {
   return {
-    width: 592,
-    height: { step: 22 },
-    data: { values },
-    mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: 14 },
+    text: wrap(title, innerWidth(size), size.titleSize, true),
+    subtitle: wrap(subtitle, innerWidth(size), size.textSize + 0.5),
+    fontSize: size.titleSize,
+    subtitleFontSize: size.textSize + 0.5,
+  }
+}
+
+/** Notes under a chart, wrapped to its width, then the source line. */
+export function footnotes(notes: string, source: string, size: Size): StackedSpec {
+  const width = innerWidth(size)
+  const lines = [
+    ...wrap(notes, width, size.textSize).map((text) => ({ text, kind: 'note' })),
+    ...wrap(source, width, size.textSize).map((text) => ({ text, kind: 'source' })),
+  ]
+  return {
+    width,
+    height: { step: Math.round(size.textSize * 1.6) },
+    data: { values: lines.map((line, i) => ({ ...line, i })) },
+    mark: { type: 'text', align: 'left', baseline: 'middle', fontSize: size.textSize },
     encoding: {
       y: { field: 'i', type: 'ordinal', axis: null },
       x: { datum: 0, type: 'quantitative', scale: { domain: [0, 1] }, axis: null },
-      text: { field: 't' },
+      text: { field: 'text' },
       color: {
         field: 'kind',
         type: 'nominal',
@@ -103,3 +140,11 @@ export function footnotes(lines: string[], source: string): StackedSpec {
     },
   }
 }
+
+/**
+ * Text Vega draws as one label (a facet header or legend entry), wrapped:
+ * lines are joined with a newline, and `labelExpr: splitLines` splits them again.
+ */
+export const wrapLabel = (text: string, maxWidth: number, fontSize: number, bold = false) =>
+  wrap(text, maxWidth, fontSize, bold).join('\n')
+export const splitLines = "split(datum.label, '\\n')"
