@@ -1,0 +1,12 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("TRACE" at the top, "OBSERVABILITY" letter-spaced at
+the bottom), using only the site's palette. It uses no outside material.
+
+It shows a trace as a waterfall of spans, each nested under the step that called
+it: the request and the agent's two tool calls (blues), the MCP server handling
+the first (red) and its stages (rust, ink), and the second call stopping at a
+refused step (the ring). It is a picture of the idea, not of a particular trace.
+
+The caption "+0.39 ms per call" is the measured median overhead of tracing on an
+MCP-backbone tool call, from docs/mcp-backbone-overhead.md in agent-observability
+(branch fix/overhead-tails at d5fb5cc; not yet public).

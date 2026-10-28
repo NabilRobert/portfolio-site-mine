@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="500" height="700">
+  <!-- Original illustration, drawn for this site in the poster set's style: a
+       trace as a waterfall of spans, each nested under the step that called it.
+       Agent steps in blue, the MCP server's in red, its database stages in rust
+       and ink; the second call stops at a refused step (the ring). -->
+  <rect width="500" height="700" fill="#ebd4c1"/>
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">
+    <text x="28" y="196" font-size="132" letter-spacing="-5" fill="#1a222c">TRACE</text>
+    <text x="470" y="238" font-size="18" letter-spacing="3" text-anchor="end" fill="#1a222c">+0.39 MS PER CALL</text>
+
+    <!-- time axis -->
+    <line x1="40" y1="566" x2="460" y2="566" stroke="#1a222c" stroke-width="3"/>
+    <rect x="39" y="566" width="3" height="10" fill="#1a222c"/>
+    <rect x="144" y="566" width="3" height="10" fill="#1a222c"/>
+    <rect x="249" y="566" width="3" height="10" fill="#1a222c"/>
+    <rect x="354" y="566" width="3" height="10" fill="#1a222c"/>
+    <rect x="457" y="566" width="3" height="10" fill="#1a222c"/>
+
+    <!-- nesting lines -->
+    <path d="M44 300 V548 M56 336 V372 M62 372 V444" fill="none" stroke="#1a222c" stroke-width="2"/>
+
+    <!-- the request, and the agent's two tool calls -->
+    <rect x="40" y="286" width="420" height="24" rx="3" fill="#2a4a84"/>
+    <rect x="52" y="322" width="206" height="24" rx="3" fill="#3773a5"/>
+    <!-- the server handling the first call, and its stages -->
+    <rect x="58" y="358" width="196" height="24" rx="3" fill="#eb3230"/>
+    <rect x="64" y="394" width="92" height="24" rx="3" fill="#c2523d"/>
+    <rect x="160" y="430" width="30" height="24" rx="3" fill="#c2523d"/>
+    <rect x="194" y="466" width="56" height="24" rx="3" fill="#1a222c"/>
+    <!-- the second call, refused at validation -->
+    <rect x="300" y="502" width="160" height="24" rx="3" fill="#3773a5"/>
+    <rect x="306" y="538" width="64" height="20" rx="3" fill="#eb3230"/>
+    <circle cx="384" cy="548" r="9" fill="#ebd4c1" stroke="#1a222c" stroke-width="4"/>
+
+    <text x="36" y="644" font-size="26" letter-spacing="9" fill="#1a222c">OBSERVABILITY</text>
+  </g>
+</svg>

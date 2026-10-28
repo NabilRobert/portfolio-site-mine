@@ -1,0 +1,6 @@
+trace-mcp-backbone.webp: a screenshot of the Jaeger trace viewer, from agent-observability.
+
+Taken from docs/img/mcp-backbone-trace.png in the agent-observability repository (added in
+commit 7b96113; branch fix/overhead-tails at d5fb5cc). That repository is not
+yet public: it is to be published at https://github.com/NabilRobert/agent-observability.
+Converted from the original (3200 x 1640 px, scaled to 1600 px wide) to WebP at quality 82. No other edits.
