@@ -1,0 +1,11 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("ALERT" at the top, "MONITORING" at the bottom),
+using only the site's palette. It uses no outside material.
+
+It shows an error budget burning down past its threshold (the fast burn in red),
+a bell, and the alert arriving on the operator's phone. The caption
+"SLOs · Error budgets · Runbooks" names what the project plans to deliver, from
+its planning documents (systems-monitoring, docs/planning; not yet public).
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers.
