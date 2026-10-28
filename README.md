@@ -36,6 +36,7 @@ npm run check
 | `charts/`                 | The result charts as Vega-Lite specs; `npm run charts` draws them into the project folders.                  |
 | `tests/`                  | Content, component and chart tests (Vitest).                                                                  |
 | `public/`                 | Files served as they are: the favicon and touch icon.                                                         |
+| `docs/planning/`          | Design notes and the record of library decisions.                                                             |
 
 ## Common changes
 
@@ -47,3 +48,13 @@ npm run check
 - **Change a chart:** edit its file in `charts/`, run `npm run charts`, and
   commit the SVGs it writes.
 - **Change the colours or type:** `src/styles/theme.css`.
+
+## Docs
+
+- [docs/planning/](docs/planning/README.md): how the site was designed and
+  why it is built this way.
+  - [Design notes](docs/planning/design-notes.md): the magazine-cover concept,
+    the palette and its contrast, type, covers, the content model and
+    languages.
+  - [Decisions](docs/planning/decisions.md): each library chosen, the reason,
+    and what it was weighed against.
