@@ -43,17 +43,34 @@ screenshots:
       - { term: "gen_ai.*", meaning: "Attributes defined by OpenTelemetry’s conventions for AI systems, which any compatible viewer can read." }
       - { term: "Resource", meaning: "Facts about where the trace came from: here, a replay from a named backup." }
       - { term: "GenAI tab", meaning: "A view that groups a model call’s AI-specific details." }
+  - src: trace-harness-replay.webp
+    alt: "The Jaeger trace viewer showing one evaluation sample from agent-eval-harness, replayed from its log: 15 spans over 11.8 seconds. Under the sample come the solver and the agent; under the agent, four model calls of 3.3, 4.2, 3.1 and 0.9 seconds alternate with four tool calls: listing the tables, describing one, running a query (each 50 to 100 milliseconds) and submitting the answer."
+    caption: "An evaluation sample, replayed"
+    description: "One of the harness's evaluation samples: an AI agent answering a question about a sample film-rental database through MCP-backbone's tools, recorded during a real run and replayed from the harness's log with its original timings. The trace keeps the structure the evaluation framework recorded: the sample, then the solver and the agent, then each model call and each tool call. Read across, it shows where the time went: of 11.8 seconds, the four calls to the AI model took 11.5, while the three database tools took 50 to 100 milliseconds each and submitting the answer took under one. Each model call carries its own token counts and cost, and the replay is checked to add up to the totals the harness recorded."
+    terms:
+      - { term: "agent-eval-harness", meaning: "The portfolio's agent-evaluation project: it runs an agent through fixed sets of tasks and grades the results." }
+      - { term: "Sample", meaning: "One task, attempted once by the agent. The harness's published runs hold 1,777 of them, all replayed." }
+      - { term: "Replayed", meaning: "Rebuilt as a trace from the run's saved log, with the times it recorded, rather than run again, so it costs nothing." }
+      - { term: "Model call", meaning: "One request to the AI model, with its token counts and cost." }
+      - { term: "Tool call", meaning: "One use of a tool, such as running a query; marked with a wrench icon." }
+      - { term: "11.8 s, 15 spans", meaning: "How long the sample took, and how many steps it had." }
 ---
 
 Tracing for the other projects. Each one sends OpenTelemetry traces, following the standard conventions for AI systems, to one small self-hosted viewer (Jaeger), so a single agent request can be followed from the agent, through an MCP server, to the database, with the time and cost of every step.
 
-- **Two sources are in:** MCP-backbone, traced live, with a span for each stage of every tool call; and Pitstop, whose 62 recorded runs (653 steps) are replayed from a backup with their original timings.
+- **Three sources are in:**
+  - MCP-backbone, traced live, with a span for each stage of every tool call;
+  - Pitstop, whose 62 recorded runs (653 steps) are replayed from a backup with their original timings;
+  - the evaluation harness, whose 20 published runs (1,777 evaluation samples, 7,068 real AI model calls) are replayed from their logs, each model call with its own token counts and cost.
 - **Evidence:**
   - Tracing adds 0.39 ms to the median MCP-backbone tool call (1.4%), with no detectable difference for the slowest 5% and 1% of calls.
-  - The replay is faithful: every recorded step appears once, with the same parent, start time and duration, and wherever a run recorded its total cost, its model calls add up to it. All 62 runs pass the check.
+  - The replays are faithful: every recorded step appears once, with the same parent, start time and duration. Where a Pitstop run recorded its total cost, its model calls add up to it; for every harness sample, the model calls add up to its recorded cost and token counts. All 62 Pitstop runs and all 1,777 harness samples pass the check.
   - No content by default: SQL text, prompts and responses are not recorded unless switched on, and a test checks this along every path a query's text can take.
-  - Tracing cannot hurt the traced system: with the viewer down, tool calls still succeed.
-- **Still to come:** traces through the MCP security gateway and the evaluation harness, and the viewer's deployment to a shared server.
+  - Tracing cannot hurt the traced system: with the viewer down, tool calls still succeed, and shutting down waits at most two seconds.
+  - The viewer stays small: 79 MiB of its 256 MB limit, with all the replays loaded.
+- **What the traces found:** in MCP-backbone, the slowest step of a tool call was not the query but authentication. It was the first query on a fresh database connection, and the database driver looked up one column's type again on every new connection. Changing that column's type took about 8.5 ms off every call.
+- **What changed along the way:** the viewer was meant to keep traces on disk. Loading the harness's runs pushed its memory use to 532 MiB, past the viewer's 256 MB limit, so the viewer now keeps traces in memory, where the same data takes 79 MiB. A restart empties it; the replays refill it in seconds.
+- **Still to come:** one live request followed from end to end, from an agent through the MCP security gateway and MCP-backbone to the database; and the viewer's deployment to a shared server.
 
 ## What a trace shows
 

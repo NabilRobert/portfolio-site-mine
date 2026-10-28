@@ -43,17 +43,34 @@ screenshots:
       - { term: "gen_ai.*", meaning: "Atribut yang ditetapkan oleh konvensi OpenTelemetry untuk sistem AI, yang dapat dibaca oleh penampil apa pun yang kompatibel." }
       - { term: "Sumber daya (resource)", meaning: "Keterangan tentang asal jejak: di sini, pemutaran ulang dari cadangan bernama." }
       - { term: "Tab GenAI", meaning: "Tampilan yang mengelompokkan rincian panggilan model yang khusus terkait AI." }
+  - src: trace-harness-replay.webp
+    alt: "Penampil jejak Jaeger yang menampilkan satu sampel evaluasi dari agent-eval-harness, diputar ulang dari log-nya: 15 span dalam 11,8 detik. Di bawah sampel terdapat solver dan agen; di bawah agen, empat panggilan model selama 3,3, 4,2, 3,1, dan 0,9 detik berselang-seling dengan empat pemanggilan alat: mendaftar tabel, melihat struktur satu tabel, menjalankan kueri (masing-masing 50 hingga 100 milidetik), dan menyerahkan jawaban."
+    caption: "Satu sampel evaluasi, diputar ulang"
+    description: "Salah satu sampel evaluasi harness: agen AI menjawab pertanyaan tentang basis data contoh penyewaan film melalui alat-alat MCP-backbone, direkam saat eksekusi nyata dan diputar ulang dari log harness dengan waktu aslinya. Jejaknya mempertahankan struktur yang dicatat oleh kerangka evaluasinya: sampel, lalu solver dan agen, lalu setiap panggilan model dan setiap pemanggilan alat. Dibaca ke samping, jejak ini menunjukkan ke mana waktunya habis: dari 11,8 detik, empat panggilan ke model AI memakan 11,5 detik, sedangkan tiga alat basis data masing-masing 50 hingga 100 milidetik dan penyerahan jawaban kurang dari satu milidetik. Setiap panggilan model memuat jumlah token dan biayanya sendiri, dan pemutaran ulangnya diperiksa agar jumlahnya sesuai dengan total yang dicatat harness."
+    terms:
+      - { term: "agent-eval-harness", meaning: "Proyek evaluasi agen dalam portofolio ini: menjalankan agen pada kumpulan tugas yang tetap dan menilai hasilnya." }
+      - { term: "Sampel", meaning: "Satu tugas yang dicoba satu kali oleh agen. Eksekusi harness yang dipublikasikan memuat 1.777 sampel, dan semuanya diputar ulang." }
+      - { term: "Diputar ulang", meaning: "Disusun kembali menjadi jejak dari log eksekusi yang tersimpan, dengan waktu yang tercatat, tanpa menjalankannya lagi, sehingga tanpa biaya." }
+      - { term: "Panggilan model", meaning: "Satu permintaan ke model AI, beserta jumlah token dan biayanya." }
+      - { term: "Pemanggilan alat", meaning: "Satu penggunaan alat, misalnya menjalankan kueri; ditandai dengan ikon kunci pas." }
+      - { term: "11,8 dtk, 15 span", meaning: "Lama sampel berlangsung dan jumlah langkahnya." }
 ---
 
 Penelusuran (tracing) untuk proyek-proyek lainnya. Setiap proyek mengirimkan jejak OpenTelemetry, yang mengikuti konvensi standar untuk sistem AI, ke satu penampil kecil yang di-hosting sendiri (Jaeger), sehingga satu permintaan agen dapat diikuti dari agen, melalui server MCP, hingga ke basis data, beserta waktu dan biaya setiap langkah.
 
-- **Dua sumber sudah tersambung:** MCP-backbone, yang dilacak secara langsung dengan satu span untuk setiap tahap dari setiap pemanggilan alat; dan Pitstop, yang 62 eksekusi tercatatnya (653 langkah) diputar ulang dari cadangan dengan waktu aslinya.
+- **Tiga sumber sudah tersambung:**
+  - MCP-backbone, yang dilacak secara langsung dengan satu span untuk setiap tahap dari setiap pemanggilan alat;
+  - Pitstop, yang 62 eksekusi tercatatnya (653 langkah) diputar ulang dari cadangan dengan waktu aslinya;
+  - harness evaluasi, yang 20 eksekusi terpublikasinya (1.777 sampel evaluasi, 7.068 panggilan nyata ke model AI) diputar ulang dari log-nya, dengan jumlah token dan biaya untuk setiap panggilan model.
 - **Bukti:**
   - Penelusuran menambah 0,39 ms pada pemanggilan alat MCP-backbone di nilai mediannya (1,4%), tanpa perbedaan yang terdeteksi pada 5% dan 1% pemanggilan yang paling lambat.
-  - Pemutaran ulangnya setia: setiap langkah yang tercatat muncul satu kali, dengan induk, waktu mulai, dan durasi yang sama, dan pada setiap eksekusi yang mencatat total biayanya, biaya panggilan modelnya berjumlah tepat sama. Ke-62 eksekusi lolos pemeriksaan.
+  - Pemutaran ulangnya setia: setiap langkah yang tercatat muncul satu kali, dengan induk, waktu mulai, dan durasi yang sama. Pada eksekusi Pitstop yang mencatat total biayanya, biaya panggilan modelnya berjumlah tepat sama; pada setiap sampel harness, biaya dan jumlah token panggilan modelnya sesuai dengan total yang tercatat. Ke-62 eksekusi Pitstop dan ke-1.777 sampel harness lolos pemeriksaan.
   - Tanpa isi secara bawaan: teks SQL, prompt, dan respons tidak dicatat kecuali diaktifkan, dan hal ini diuji pada setiap jalur yang dapat dilalui teks kueri.
-  - Penelusuran tidak dapat merugikan sistem yang dilacak: saat penampil mati, pemanggilan alat tetap berhasil.
-- **Selanjutnya:** jejak yang melewati gateway keamanan MCP dan harness evaluasi, serta pemasangan penampil di server bersama.
+  - Penelusuran tidak dapat merugikan sistem yang dilacak: saat penampil mati, pemanggilan alat tetap berhasil, dan proses penghentian menunggu paling lama dua detik.
+  - Penampilnya tetap kecil: 79 MiB dari batas 256 MB, dengan seluruh data pemutaran ulang dimuat.
+- **Temuan dari jejak:** di MCP-backbone, langkah paling lambat dalam pemanggilan alat ternyata bukan kuerinya, melainkan autentikasi. Autentikasi adalah kueri pertama pada koneksi basis data yang baru, dan driver basis data memeriksa ulang tipe satu kolom pada setiap koneksi baru. Mengubah tipe kolom tersebut memangkas sekitar 8,5 ms dari setiap pemanggilan.
+- **Perubahan di tengah jalan:** semula penampil dirancang untuk menyimpan jejak di disk. Saat eksekusi harness dimuat, penggunaan memori penyimpanan itu mencapai 532 MiB, melampaui batas penampil sebesar 256 MB, sehingga kini penampil menyimpan jejak di memori, dan data yang sama hanya memerlukan 79 MiB. Data hilang saat penampil dimulai ulang, tetapi pemutaran ulang mengisinya kembali dalam hitungan detik.
+- **Selanjutnya:** satu permintaan nyata yang diikuti dari ujung ke ujung, dari agen melalui gateway keamanan MCP dan MCP-backbone hingga ke basis data, serta pemasangan penampil di server bersama.
 
 ## Apa yang ditunjukkan sebuah jejak
 

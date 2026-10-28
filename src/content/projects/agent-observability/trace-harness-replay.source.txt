@@ -1,0 +1,6 @@
+trace-harness-replay.webp: a screenshot of the Jaeger trace viewer, from agent-observability.
+
+Taken from docs/img/harness-replay-trace.png in the agent-observability repository (added in
+commit 041efe4; branch feat/project-6 at 9185c68). That repository is not
+yet public: it is to be published at https://github.com/NabilRobert/agent-observability.
+Converted from the original (3200 x 1520 px) to WebP at quality 82, resized to match the other trace screenshots. No other edits.
