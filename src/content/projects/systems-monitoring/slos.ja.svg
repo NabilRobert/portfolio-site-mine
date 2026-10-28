@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 614" width="640" height="614">
+<!-- Drawn from systems-monitoring docs/planning; see the matching .source.txt. -->
+<rect width="640" height="614" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">Jukuのサービスレベル目標</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">28日間の移動期間での暫定目標。実際の利用が2週間続いた後に確定します</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
+<text x="38" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#f9b288">目標</text>
+<text x="466" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" text-anchor="end" fill="#f9b288">目標値</text>
+<text x="602" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" text-anchor="end" fill="#f9b288">バジェット</text>
+<rect x="24" y="118" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="145" font-size="15.5" font-weight="700" fill="#1a222c">可用性</text>
+<text x="38" y="167" font-size="13" fill="#1a222c">ページとヘルスチェックが5秒以内に応答</text>
+<text x="466" y="159" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">99.5%</text>
+<text x="602" y="157" font-size="12.5" text-anchor="end" fill="#1a222c">不良201分</text>
+<rect x="24" y="194" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="221" font-size="15.5" font-weight="700" fill="#1a222c">チャットの応答時間</text>
+<text x="38" y="243" font-size="13" fill="#1a222c">40秒以内に回答。半数は15秒以内</text>
+<text x="466" y="235" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">95%</text>
+<text x="602" y="233" font-size="12.5" text-anchor="end" fill="#1a222c">回答の5%</text>
+<rect x="24" y="270" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="297" font-size="15.5" font-weight="700" fill="#1a222c">チャットの成功</text>
+<text x="38" y="319" font-size="13" fill="#1a222c">回答で終わったチャットのやり取り</text>
+<text x="466" y="311" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">99%</text>
+<text x="602" y="309" font-size="12.5" text-anchor="end" fill="#1a222c">やり取りの1%</text>
+<rect x="24" y="346" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="373" font-size="15.5" font-weight="700" fill="#1a222c">週次レポートの期限</text>
+<text x="38" y="395" font-size="13" fill="#1a222c">予定時刻から1時間以内に完成</text>
+<text x="466" y="387" font-size="18" font-weight="700" text-anchor="end" fill="#2a4a84">遅延 ≤ 2件</text>
+<text x="602" y="377" font-size="12.5" text-anchor="end" fill="#1a222c">同じ学習者は</text>
+<text x="602" y="393" font-size="12.5" text-anchor="end" fill="#1a222c">2週続けない</text>
+<rect x="24" y="422" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="449" font-size="15.5" font-weight="700" fill="#1a222c">回答の品質</text>
+<text x="38" y="471" font-size="13" fill="#1a222c">コードによる確認を通過した抽出回答</text>
+<text x="466" y="463" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">95%</text>
+<text x="602" y="461" font-size="12.5" text-anchor="end" fill="#1a222c">抽出分の5%</text>
+<rect x="24" y="508" width="3" height="40" fill="#ebd4c1"/>
+<text x="38" y="524" font-size="14" fill="#ebd4c1">最初の期間で目標を達成できなかった場合も、目標を</text>
+<text x="38" y="544" font-size="14" fill="#ebd4c1">こっそり下げることなく、結果を公開します。</text>
+<text x="24" y="598" font-size="13" fill="#f9b288">出典：systems-monitoringのADR-008（Jukuの公開までは暫定）</text>
+</g>
+</svg>

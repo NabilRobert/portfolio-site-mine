@@ -1,0 +1,8 @@
+slices.svg (English), slices.ja.svg (Japanese) and slices.id.svg (Indonesian): a
+diagram drawn for this site of the systems-monitoring plan. Nothing it shows is
+built yet; it is marked "Planned".
+
+Drawn from docs/planning in systems-monitoring (main at 70d7207; not yet
+public): slice-plan.md (the slices, the checkpoint, the cut order and the spend plan). The decisions there are recommendations until Arthur agrees,
+and the SLO targets are drafts until two weeks of Juku's real traffic.
+Generated as SVG by a short script on 28 October 2026, in the site's palette.

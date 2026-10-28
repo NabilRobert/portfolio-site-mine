@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 614" width="640" height="614">
+<!-- Drawn from systems-monitoring docs/planning; see the matching .source.txt. -->
+<rect width="640" height="614" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">Sasaran tingkat layanan Juku</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">Sasaran sementara, jendela bergulir 28 hari; dikonfirmasi setelah dua minggu</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">RENCANA</text>
+<text x="38" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#f9b288">SASARAN</text>
+<text x="466" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" text-anchor="end" fill="#f9b288">TARGET</text>
+<text x="602" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" text-anchor="end" fill="#f9b288">ANGGARAN</text>
+<rect x="24" y="118" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="145" font-size="15.5" font-weight="700" fill="#1a222c">Ketersediaan</text>
+<text x="38" y="167" font-size="13" fill="#1a222c">Halaman dan cek kesehatan merespons ≤ 5 dtk</text>
+<text x="466" y="159" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">99,5%</text>
+<text x="602" y="157" font-size="12.5" text-anchor="end" fill="#1a222c">201 menit buruk</text>
+<rect x="24" y="194" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="221" font-size="15.5" font-weight="700" fill="#1a222c">Latensi obrolan</text>
+<text x="38" y="243" font-size="13" fill="#1a222c">Jawaban dalam 40 dtk; separuhnya dalam 15 dtk</text>
+<text x="466" y="235" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">95%</text>
+<text x="602" y="233" font-size="12.5" text-anchor="end" fill="#1a222c">5% jawaban</text>
+<rect x="24" y="270" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="297" font-size="15.5" font-weight="700" fill="#1a222c">Keberhasilan obrolan</text>
+<text x="38" y="319" font-size="13" fill="#1a222c">Giliran obrolan yang berakhir dengan jawaban</text>
+<text x="466" y="311" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">99%</text>
+<text x="602" y="309" font-size="12.5" text-anchor="end" fill="#1a222c">1% giliran</text>
+<rect x="24" y="346" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="373" font-size="15.5" font-weight="700" fill="#1a222c">Laporan mingguan tepat waktu</text>
+<text x="38" y="395" font-size="13" fill="#1a222c">Siap dalam satu jam dari jadwal</text>
+<text x="466" y="387" font-size="18" font-weight="700" text-anchor="end" fill="#2a4a84">≤ 2 telat</text>
+<text x="602" y="377" font-size="12.5" text-anchor="end" fill="#1a222c">tak pernah dua</text>
+<text x="602" y="393" font-size="12.5" text-anchor="end" fill="#1a222c">kali beruntun</text>
+<rect x="24" y="422" width="592" height="66" rx="8" fill="#ebd4c1"/>
+<text x="38" y="449" font-size="15.5" font-weight="700" fill="#1a222c">Mutu jawaban</text>
+<text x="38" y="471" font-size="13" fill="#1a222c">Jawaban sampel yang lolos pemeriksaan kode</text>
+<text x="466" y="463" font-size="24" font-weight="700" text-anchor="end" fill="#2a4a84">95%</text>
+<text x="602" y="461" font-size="12.5" text-anchor="end" fill="#1a222c">5% sampel</text>
+<rect x="24" y="508" width="3" height="40" fill="#ebd4c1"/>
+<text x="38" y="524" font-size="14" fill="#ebd4c1">Sasaran yang tidak tercapai pada jendela pertama dipublikasikan,</text>
+<text x="38" y="544" font-size="14" fill="#ebd4c1">bukan diturunkan diam-diam.</text>
+<text x="24" y="598" font-size="13" fill="#f9b288">Sumber: systems-monitoring, ADR-008 (sementara hingga Juku berjalan).</text>
+</g>
+</svg>

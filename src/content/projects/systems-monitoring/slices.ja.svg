@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 696" width="640" height="696">
+<!-- Drawn from systems-monitoring docs/planning; see the matching .source.txt. -->
+<rect width="640" height="696" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">小さな単位に分けて構築</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">各段階は、信号の発生からスマートフォンへの通知まで一通り動作します</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
+<circle cx="42" cy="112" r="16" fill="#ffea35" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="117.5" font-size="14" font-weight="700" text-anchor="middle" fill="#1a222c">0</text>
+<text x="74" y="108" font-size="15.5" font-weight="700" fill="#ebd4c1">計画  </text>
+<text x="616" y="108" font-size="12.5" font-weight="700" letter-spacing="1" text-anchor="end" fill="#ffea35">完了</text>
+<text x="74" y="128" font-size="13.5" fill="#f9b288">課題、要件、設計判断</text>
+<circle cx="42" cy="162" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="167.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">1</text>
+<text x="74" y="158" font-size="15.5" font-weight="700" fill="#ebd4c1">セキュリティ通知  </text>
+<text x="616" y="158" font-size="12.5" font-weight="700" letter-spacing="1" text-anchor="end" fill="#ffea35">次</text>
+<text x="74" y="178" font-size="13.5" fill="#f9b288">ログイン、sudo、新しいポート（テスト付き）</text>
+<circle cx="42" cy="212" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="217.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">2</text>
+<text x="74" y="208" font-size="15.5" font-weight="700" fill="#ebd4c1">サーバーへの展開</text>
+<text x="74" y="228" font-size="13.5" fill="#f9b288">各通知を手作業で1回ずつ発生させる</text>
+<circle cx="42" cy="262" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="267.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">3</text>
+<text x="74" y="258" font-size="15.5" font-weight="700" fill="#ebd4c1">メトリクスとプローブ</text>
+<text x="74" y="278" font-size="13.5" fill="#f9b288">稼働状況、証明書、メモリ、ディスク</text>
+<circle cx="42" cy="312" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="317.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">4</text>
+<text x="74" y="308" font-size="15.5" font-weight="700" fill="#ebd4c1">エラー</text>
+<text x="74" y="328" font-size="13.5" fill="#f9b288">スタックトレース（メモリに収まる場合）</text>
+<line x1="24" y1="362" x2="616" y2="362" stroke="#f9b288" stroke-width="2" stroke-dasharray="6 5"/>
+<rect x="64" y="348" width="512" height="30" rx="4" fill="#1a222c"/>
+<text x="320" y="368" font-size="14" font-weight="700" text-anchor="middle" fill="#f9b288">チェックポイント: Jukuの最初の利用者より前にサーバーを監視</text>
+<circle cx="42" cy="410" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="415.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">5</text>
+<text x="74" y="406" font-size="15.5" font-weight="700" fill="#ebd4c1">JukuのSLO</text>
+<text x="74" y="426" font-size="13.5" fill="#f9b288">エラーバジェットと消費速度の通知</text>
+<circle cx="42" cy="460" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="465.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">6</text>
+<text x="74" y="456" font-size="15.5" font-weight="700" fill="#ebd4c1">AI特有の信号</text>
+<text x="74" y="476" font-size="13.5" fill="#f9b288">費用の消費速度、拒否、遮断、品質</text>
+<circle cx="42" cy="510" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="515.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">7</text>
+<text x="74" y="506" font-size="15.5" font-weight="700" fill="#ebd4c1">カナリア</text>
+<text x="74" y="526" font-size="13.5" fill="#f9b288">スクリプトのエージェントが毎時1つの実タスクを実行</text>
+<circle cx="42" cy="560" r="16" fill="none" stroke="#ffea35" stroke-width="3"/>
+<text x="42" y="565.5" font-size="14" font-weight="700" text-anchor="middle" fill="#ffea35">8</text>
+<text x="74" y="556" font-size="15.5" font-weight="700" fill="#ebd4c1">まとめ</text>
+<text x="74" y="576" font-size="13.5" fill="#f9b288">手順書、月次レポート、事後検証</text>
+<rect x="24" y="610" width="3" height="20" fill="#ebd4c1"/>
+<text x="38" y="626" font-size="14" fill="#ebd4c1">費用はすべて0ドルです。段階5〜8はJukuの公開後に行います。</text>
+<text x="24" y="680" font-size="13" fill="#f9b288">出典：systems-monitoringのslice-plan.md（計画段階）</text>
+</g>
+</svg>

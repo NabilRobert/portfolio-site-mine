@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 630" width="640" height="630">
+<!-- Drawn from systems-monitoring docs/planning; see the matching .source.txt. -->
+<rect width="640" height="630" fill="#1a222c"/>
+<g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
+<text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">通知が運用者に届くまで</text>
+<text x="24" y="70" font-size="14.5" fill="#f9b288">すべての発生源は1つのAlertmanagerに送り、そこから1台のスマートフォンへ</text>
+<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
+<rect x="24" y="100" width="184" height="86" rx="8" fill="#ffea35"/>
+<text x="38" y="127" font-size="15.5" font-weight="700" fill="#1a222c">authwatch</text>
+<text x="38" y="147" font-size="13.5" font-weight="400" fill="#1a222c">ログイン、sudo、</text>
+<text x="38" y="167" font-size="13.5" font-weight="400" fill="#1a222c">新たに開いたポート</text>
+<rect x="228" y="100" width="184" height="86" rx="8" fill="#ebd4c1"/>
+<text x="242" y="127" font-size="15.5" font-weight="700" fill="#1a222c">プローブ、メトリクス</text>
+<text x="242" y="147" font-size="13.5" font-weight="400" fill="#1a222c">稼働状況、メモリ、</text>
+<text x="242" y="167" font-size="13.5" font-weight="400" fill="#1a222c">ディスク、証明書</text>
+<rect x="432" y="100" width="184" height="86" rx="8" fill="#ebd4c1"/>
+<text x="446" y="127" font-size="15.5" font-weight="700" fill="#1a222c">slo-check</text>
+<text x="446" y="147" font-size="13.5" font-weight="400" fill="#1a222c">Jukuの記録、</text>
+<text x="446" y="167" font-size="13.5" font-weight="400" fill="#1a222c">エラーバジェット</text>
+<line x1="116" y1="186" x2="258.8" y2="217" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M258.8 226 L250.0 228.0 L252.4 219.7 Z" fill="#ebd4c1"/>
+<line x1="320" y1="186" x2="320" y2="217" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M320 226 L315.7 218.1 L324.3 218.1 Z" fill="#ebd4c1"/>
+<line x1="524" y1="186" x2="381.2" y2="217" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M381.2 226 L387.6 219.7 L390.0 228.0 Z" fill="#ebd4c1"/>
+<rect x="24" y="226" width="592" height="64" rx="8" fill="#2a4a84"/>
+<text x="38" y="253" font-size="15.5" font-weight="700" fill="#ebd4c1">Alertmanager</text>
+<text x="38" y="273" font-size="13.5" font-weight="400" fill="#ebd4c1">まとめる、重複を除く、一時停止する、振り分ける</text>
+<line x1="320" y1="290" x2="320" y2="311" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M320 320 L315.7 312.1 L324.3 312.1 Z" fill="#ebd4c1"/>
+<rect x="24" y="320" width="592" height="64" rx="8" fill="#f9b288"/>
+<text x="38" y="347" font-size="15.5" font-weight="700" fill="#1a222c">Telegramボット</text>
+<text x="38" y="367" font-size="13.5" font-weight="400" fill="#1a222c">運用者にだけメッセージを送る</text>
+<line x1="170" y1="384" x2="170" y2="405" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M170 414 L165.7 406.1 L174.3 406.1 Z" fill="#ebd4c1"/>
+<line x1="470" y1="384" x2="470" y2="405" stroke="#ebd4c1" stroke-width="2.5"/>
+<path d="M470 414 L465.7 406.1 L474.3 406.1 Z" fill="#ebd4c1"/>
+<rect x="25.5" y="415.5" width="283" height="83" rx="8" fill="none" stroke="#eb3230" stroke-width="3"/>
+<text x="38" y="441" font-size="15.5" font-weight="700" fill="#ebd4c1">ページ：スマートフォンが鳴る</text>
+<text x="38" y="461" font-size="13.5" font-weight="400" fill="#ebd4c1">セキュリティイベント、急速な</text>
+<text x="38" y="481" font-size="13.5" font-weight="400" fill="#ebd4c1">バジェット消費、アプリ停止</text>
+<rect x="330" y="414" width="286" height="86" rx="8" fill="#ebd4c1"/>
+<text x="344" y="441" font-size="15.5" font-weight="700" fill="#1a222c">チケット：通知音なしで届く</text>
+<text x="344" y="461" font-size="13.5" font-weight="400" fill="#1a222c">緩やかな消費、証明書、</text>
+<text x="344" y="481" font-size="13.5" font-weight="400" fill="#1a222c">ディスクの傾向</text>
+<rect x="24" y="524" width="3" height="40" fill="#ebd4c1"/>
+<text x="38" y="540" font-size="14" fill="#ebd4c1">すべての通知に、手順書、ルールのテスト、届くことのテストを用意します。</text>
+<text x="38" y="560" font-size="14" fill="#ebd4c1">通知からはagent-observabilityのトレースへリンクします。</text>
+<text x="24" y="614" font-size="13" fill="#f9b288">出典：systems-monitoringのADR-001およびADR-002（計画段階）</text>
+</g>
+</svg>
