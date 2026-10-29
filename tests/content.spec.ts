@@ -6,7 +6,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { parseMarkdown, typesetFrontMatter } from '../build/markdown'
 import { z } from 'zod'
-import { categories, getProject, locales, splitTitle, statuses } from '../src/content'
+import { categories, getProject, loadProjectDetails, locales, splitTitle, statuses } from '../src/content'
 import { projectFrontMatter } from '../src/content/schema'
 import type { LocaleCode, ProjectFrontMatter } from '../src/content'
 
@@ -125,29 +125,51 @@ describe('splitTitle', () => {
 })
 
 describe('screenshots', () => {
-  it('resolve to built files, with their still, alt text and caption', () => {
-    const [shot] = getProject('ja', 'mcp-backbone')?.screenshots ?? []
+  const tour = async (lang: LocaleCode, slug: string) => (await loadProjectDetails(lang, slug)).screenshots
+
+  it('resolve to built files, with their still, alt text and caption', async () => {
+    const [shot] = await tour('ja', 'mcp-backbone')
     expect(shot?.src).toMatch(/step1.*\.gif/)
     expect(shot?.still).toMatch(/step1-still.*\.webp/)
     expect(shot?.alt).toContain('Claude Code')
     expect(shot?.caption).toContain('質問する')
   })
 
-  it('use a language’s own version of an image when there is one', () => {
-    const src = (lang: LocaleCode) => getProject(lang, 'agent-eval-harness')?.screenshots[0]?.src ?? ''
-    expect(src('ja')).toMatch(/gate-chart\.ja.*\.svg/)
-    expect(src('id')).toMatch(/gate-chart\.id.*\.svg/)
-    expect(src('en')).toMatch(/gate-chart(?!\.(ja|id))/)
+  it('use a language’s own version of an image when there is one', async () => {
+    const src = async (lang: LocaleCode) => (await tour(lang, 'agent-eval-harness'))[0]?.src ?? ''
+    expect(await src('ja')).toMatch(/gate-chart\.ja.*\.svg/)
+    expect(await src('id')).toMatch(/gate-chart\.id.*\.svg/)
+    expect(await src('en')).toMatch(/gate-chart(?!\.(ja|id))/)
   })
 
-  it('pick up a phone-width version of a chart, in the right language', () => {
-    const narrow = (lang: LocaleCode) => getProject(lang, 'agent-eval-harness')?.screenshots[0]?.narrow ?? ''
-    expect(narrow('ja')).toMatch(/gate-chart-narrow\.ja.*\.svg/)
-    expect(narrow('en')).toMatch(/gate-chart-narrow(?!\.(ja|id))/)
+  it('pick up a phone-width version of a chart, in the right language', async () => {
+    const narrow = async (lang: LocaleCode) => (await tour(lang, 'agent-eval-harness'))[0]?.narrow ?? ''
+    expect(await narrow('ja')).toMatch(/gate-chart-narrow\.ja.*\.svg/)
+    expect(await narrow('en')).toMatch(/gate-chart-narrow(?!\.(ja|id))/)
   })
 
-  it('leave `narrow` empty when there is no phone version', () => {
-    expect(getProject('en', 'mcp-backbone')?.screenshots[0]?.narrow).toBe('')
+  it('leave `narrow` empty when there is no phone version', async () => {
+    expect((await tour('en', 'mcp-backbone'))[0]?.narrow).toBe('')
+  })
+})
+
+describe('project details (write-up and tour)', () => {
+  it('load on demand, in the language asked for', async () => {
+    const english = await loadProjectDetails('en', 'pitstop')
+    const japanese = await loadProjectDetails('ja', 'pitstop')
+    expect(english.html).toContain('<p>')
+    expect(japanese.html).toMatch(/[ぁ-んァ-ン]/)
+    expect(japanese.screenshots.length).toBeGreaterThan(0)
+  })
+
+  it('are not part of the project data that every page bundles', () => {
+    const project = getProject('en', 'pitstop')
+    expect(project).not.toHaveProperty('html')
+    expect(project).not.toHaveProperty('screenshots')
+  })
+
+  it('come back empty for a project that does not exist', async () => {
+    expect(await loadProjectDetails('en', 'nope')).toEqual({ html: '', screenshots: [] })
   })
 })
 

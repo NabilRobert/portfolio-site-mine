@@ -1,8 +1,8 @@
 // Turns content Markdown into data at build time, so the front-matter and
 // Markdown parsers and the schema validator never ship to the browser. A
-// project file is checked against the schema (src/content/schema.ts) and
-// becomes `export default { data, html }`; a file that doesn't match fails
-// the build with the file's path and what is wrong.
+// project file's front matter is checked against the schema
+// (src/content/schema.ts); a file that doesn't match fails the build with the
+// file's path and what is wrong.
 //
 // Straight quotes become typographic ones (Anna's -> Anna’s, "x" -> “x”) with
 // SmartyPants: in the Markdown through its marked extension, which leaves code
@@ -54,23 +54,50 @@ export function typesetFrontMatter(data: ProjectFrontMatter): ProjectFrontMatter
 
 const PROJECT_FILE = /[\\/]src[\\/]content[\\/]projects[\\/][^\\/]+[\\/][^\\/]+$/
 const PROJECT_TEXT = /[\\/]src[\\/]content[\\/]projects[\\/][^\\/]+[\\/][a-z]{2}\.md$/
-const DRAFT_STUB = `export default ${JSON.stringify({ data: { draft: true }, html: '' })}`
+
+// A content file is imported in two parts, so a page downloads only what it
+// shows: `?frontmatter`, what cards and headings need (the checked, typeset
+// front matter without the tour), and `?details`, what only the project's own
+// page shows (the write-up as HTML and the tour), loaded when that page opens.
+type Part = 'frontmatter' | 'details'
+const DRAFT_STUBS: Record<Part, string> = {
+  frontmatter: `export default ${JSON.stringify({ draft: true })}`,
+  details: `export default ${JSON.stringify({ html: '', screenshots: [] })}`,
+}
+const EMPTY_IMAGE = "export default ''"
+
+/** The Markdown file and the part of it an import asks for, or null for anything else. */
+function markdownPart(id: string): { file: string; part: Part } | null {
+  const [file = '', query = ''] = id.split('?')
+  if (!file.endsWith('.md') || (query !== 'frontmatter' && query !== 'details')) return null
+  return { file, part: query }
+}
+
+/** A project file's front matter, checked against the schema and typeset; other files' as written. */
+function checkedFrontMatter(file: string, data: Record<string, unknown>): Record<string, unknown> {
+  if (!PROJECT_TEXT.test(file)) return data
+  const result = projectFrontMatter.safeParse(data)
+  if (!result.success) throw new Error(z.prettifyError(result.error))
+  return { ...typesetFrontMatter(result.data) }
+}
+
+/** The value one part of a Markdown file exports. */
+function partValue(part: Part, file: string, raw: string): unknown {
+  const { data, html } = parseMarkdown(raw)
+  const { screenshots = [], ...frontMatter } = checkedFrontMatter(file, data)
+  return part === 'details' ? { html, screenshots } : frontMatter
+}
 
 export function markdownContent(): Plugin {
   return {
     name: 'markdown-content',
     transform(code, id) {
-      if (!id.endsWith('.md') || code === DRAFT_STUB) return null
+      const target = markdownPart(id)
+      if (!target || code === DRAFT_STUBS[target.part]) return null
       try {
-        const parsed = parseMarkdown(code)
-        if (PROJECT_TEXT.test(id)) {
-          const result = projectFrontMatter.safeParse(parsed.data)
-          if (!result.success) throw new Error(z.prettifyError(result.error))
-          parsed.data = { ...typesetFrontMatter(result.data) }
-        }
-        return { code: `export default ${JSON.stringify(parsed)}`, map: null }
+        return { code: `export default ${JSON.stringify(partValue(target.part, target.file, code))}`, map: null }
       } catch (err) {
-        this.error(`${id}: ${(err as Error).message}`)
+        this.error(`${target.file}: ${(err as Error).message}`)
       }
     },
   }
@@ -97,7 +124,8 @@ export function draftContent(): Plugin {
     load(id) {
       const file = id.split('?')[0] ?? id
       if (!PROJECT_FILE.test(file) || !isDraftProject(dirname(file))) return null
-      return file.endsWith('.md') ? DRAFT_STUB : "export default ''"
+      const target = markdownPart(id)
+      return target ? DRAFT_STUBS[target.part] : EMPTY_IMAGE
     },
   }
 }

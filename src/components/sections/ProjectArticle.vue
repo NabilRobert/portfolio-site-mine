@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { splitTitle } from '@/content'
-import type { Project } from '@/content'
+import type { Project, ProjectDetails } from '@/content'
 import CoverImage from '@/components/ui/CoverImage.vue'
 import TextLink from '@/components/ui/TextLink.vue'
 import SectionLabel from '@/components/ui/SectionLabel.vue'
@@ -14,6 +14,8 @@ import { useLocale } from '@/composables/useLocale'
 // screenshots across the full width, each with its key.
 const props = defineProps<{
   project: Project
+  /** The write-up and tour; empty while they are still loading. */
+  details: ProjectDetails
 }>()
 const { t, localePath } = useLocale()
 const title = computed(() => splitTitle(props.project.title))
@@ -67,14 +69,14 @@ const links = computed(() => [...props.project.links].sort((a, b) => Number(!!b.
 
       <div class="md:col-span-7 lg:col-start-6">
         <!-- Trusted content: Markdown written in this repo, rendered at build time. -->
-        <div class="prose-editorial" v-html="project.html"></div>
+        <div class="prose-editorial" v-html="details.html"></div>
       </div>
     </div>
 
-    <section v-if="project.screenshots.length" aria-labelledby="screenshots-heading" class="mt-20 md:mt-28">
+    <section v-if="details.screenshots.length" aria-labelledby="screenshots-heading" class="mt-20 md:mt-28">
       <SectionLabel id="screenshots-heading">{{ t.project.screenshots }}</SectionLabel>
       <ol class="mt-10 grid gap-20">
-        <li v-for="(s, i) in project.screenshots" :key="s.src">
+        <li v-for="(s, i) in details.screenshots" :key="s.src">
           <TourStop :number="i + 1" v-bind="s" />
         </li>
       </ol>

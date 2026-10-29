@@ -19,7 +19,16 @@ import en from './locales/en'
 import ja from './locales/ja'
 import id from './locales/id'
 import { categories, statuses } from './constants'
-import type { Category, Locale, LocaleCode, Project, ProjectFrontMatter } from './types'
+import type {
+  Category,
+  Locale,
+  LocaleCode,
+  Project,
+  ProjectDetails,
+  ProjectFrontMatter,
+  ProjectScreenshot,
+  TourScreenshot,
+} from './types'
 
 export { profile } from './profile'
 export { categories, statuses }
@@ -36,10 +45,18 @@ export function isLocale(value: unknown): value is LocaleCode {
   return typeof value === 'string' && value in locales
 }
 
-// Each .md file arrives already parsed as { data, html } (see build/markdown.ts).
-const files = import.meta.glob<{ data: Record<string, unknown>; html: string }>('./projects/*/*.md', {
+// Each .md file arrives already parsed, in two parts (see build/markdown.ts):
+// the front matter, bundled with the site because every page lists projects,
+// and the details (write-up and tour), a separate file fetched only when the
+// project's own page opens.
+const frontMatters = import.meta.glob<Record<string, unknown>>('./projects/*/*.md', {
+  query: '?frontmatter',
   import: 'default',
   eager: true,
+})
+const details = import.meta.glob<{ html: string; screenshots: ProjectScreenshot[] }>('./projects/*/*.md', {
+  query: '?details',
+  import: 'default',
 })
 // Every image in a project folder, as its built URL.
 const images = import.meta.glob<string>('./projects/*/*.{webp,png,jpg,jpeg,gif,svg}', {
@@ -64,39 +81,31 @@ function imageFor(slug: string, file: string, lang: LocaleCode): string {
   return images[`./projects/${slug}/${localised}`] ?? images[`./projects/${slug}/${file}`] ?? ''
 }
 
+function toProject(slug: string, fm: ProjectFrontMatter): Project {
+  return {
+    slug,
+    title: fm.title,
+    summary: fm.summary,
+    category: fm.category,
+    order: fm.order ?? 999,
+    featured: Boolean(fm.featured),
+    draft: Boolean(fm.draft),
+    status: fm.status ?? '',
+    stack: fm.stack ?? '',
+    links: fm.links ?? [],
+    cover: coverFor(slug),
+    coverAlt: fm.coverAlt ?? '',
+  }
+}
+
 function load(): Record<LocaleCode, Project[]> {
   const byLocale: Record<LocaleCode, Project[]> = { en: [], ja: [], id: [] }
-  for (const [path, { data, html }] of Object.entries(files)) {
+  for (const [path, data] of Object.entries(frontMatters)) {
     const lang = (segments(path).at(-1) ?? '').replace(/\.md$/, '')
-    if (!isLocale(lang)) continue
-    const slug = slugOf(path)
     // Checked against the schema at build time (build/markdown.ts), so the cast is safe.
     const fm = data as unknown as ProjectFrontMatter
-    if (fm.draft && !import.meta.env.DEV) continue
-    byLocale[lang].push({
-      slug,
-      title: fm.title,
-      summary: fm.summary,
-      category: fm.category,
-      order: fm.order ?? 999,
-      featured: Boolean(fm.featured),
-      draft: Boolean(fm.draft),
-      status: fm.status ?? '',
-      stack: fm.stack ?? '',
-      links: fm.links ?? [],
-      cover: coverFor(slug),
-      coverAlt: fm.coverAlt ?? '',
-      screenshots: (fm.screenshots ?? []).map((s) => ({
-        src: imageFor(slug, s.src, lang),
-        still: s.still ? imageFor(slug, s.still, lang) : '',
-        narrow: imageFor(slug, s.src.replace(/(\.\w+)$/, '-narrow$1'), lang),
-        alt: s.alt,
-        caption: s.caption ?? '',
-        description: s.description ?? '',
-        terms: s.terms ?? [],
-      })),
-      html,
-    })
+    if (!isLocale(lang) || (fm.draft && !import.meta.env.DEV)) continue
+    byLocale[lang].push(toProject(slugOf(path), fm))
   }
   for (const list of Object.values(byLocale)) list.sort((a, b) => a.order - b.order)
   return byLocale
@@ -110,6 +119,26 @@ export function getProjects(lang: LocaleCode): Project[] {
 
 export function getProject(lang: LocaleCode, slug: string): Project | null {
   return getProjects(lang).find((p) => p.slug === slug) ?? null
+}
+
+function toTourScreenshot(slug: string, lang: LocaleCode, s: ProjectScreenshot): TourScreenshot {
+  return {
+    src: imageFor(slug, s.src, lang),
+    still: s.still ? imageFor(slug, s.still, lang) : '',
+    narrow: imageFor(slug, s.src.replace(/(\.\w+)$/, '-narrow$1'), lang),
+    alt: s.alt,
+    caption: s.caption ?? '',
+    description: s.description ?? '',
+    terms: s.terms ?? [],
+  }
+}
+
+/** A project's write-up and tour, fetched on demand; empty if there is none in that language. */
+export async function loadProjectDetails(lang: LocaleCode, slug: string): Promise<ProjectDetails> {
+  const loadPart = details[`./projects/${slug}/${lang}.md`]
+  if (!loadPart) return { html: '', screenshots: [] }
+  const { html, screenshots } = await loadPart()
+  return { html, screenshots: screenshots.map((s) => toTourScreenshot(slug, lang, s)) }
 }
 
 /**

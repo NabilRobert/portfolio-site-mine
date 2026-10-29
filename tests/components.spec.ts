@@ -6,12 +6,14 @@ import type { Component } from 'vue'
 import type { VueWrapper } from '@vue/test-utils'
 import { createAppRouter } from '../src/router'
 import { useLocale } from '../src/composables/useLocale'
-import { getProject } from '../src/content'
+import { getProject, loadProjectDetails } from '../src/content'
 import TextLink from '../src/components/ui/TextLink.vue'
 import LanguageSwitch from '../src/components/ui/LanguageSwitch.vue'
 import ProjectCard from '../src/components/ui/ProjectCard.vue'
 import SiteHeader from '../src/components/layout/SiteHeader.vue'
 import ProjectArticle from '../src/components/sections/ProjectArticle.vue'
+import ProjectView from '../src/views/ProjectView.vue'
+import { createHead } from '@unhead/vue/client'
 
 async function withRouter(
   component: Component,
@@ -86,28 +88,52 @@ describe('ProjectArticle', () => {
   it('shows the screenshots as a numbered tour, with title, alt text, walk-through and reduced-motion still', async () => {
     const project = getProject('id', 'mcp-backbone')
     if (!project) throw new Error('mcp-backbone is missing')
-    const { wrapper } = await withRouter(ProjectArticle, '/id/projects/mcp-backbone', { project })
+    const details = await loadProjectDetails('id', 'mcp-backbone')
+    const { wrapper } = await withRouter(ProjectArticle, '/id/projects/mcp-backbone', { project, details })
     expect(wrapper.find('#screenshots-heading').text()).toBe('Tur singkat')
     const stops = wrapper.findAll('section[aria-labelledby="screenshots-heading"] ol > li')
-    expect(stops).toHaveLength(project.screenshots.length)
+    expect(stops).toHaveLength(details.screenshots.length)
     const first = stops[0]!
     expect(first.find('h3').text()).toContain('01')
     expect(first.find('h3').text()).toContain('Ajukan pertanyaan')
-    expect(first.find('img').attributes('alt')).toBe(project.screenshots[0]?.alt)
+    expect(first.find('img').attributes('alt')).toBe(details.screenshots[0]?.alt)
     expect(first.find('p').text()).toContain('Claude Code')
     expect(first.find('source').attributes('media')).toBe('(prefers-reduced-motion: reduce)')
-    expect(first.find('source').attributes('srcset')).toBe(project.screenshots[0]?.still)
+    expect(first.find('source').attributes('srcset')).toBe(details.screenshots[0]?.still)
     expect(first.find('h4').text()).toBe('Keterangan')
-    expect(first.findAll('dt')).toHaveLength(project.screenshots[0]?.terms.length ?? -1)
+    expect(first.findAll('dt')).toHaveLength(details.screenshots[0]?.terms.length ?? -1)
     expect(first.find('dt').text()).toContain('MCP')
   })
 
   it('leaves the section out for a project without screenshots', async () => {
-    const pitstop = getProject('en', 'pitstop')
-    if (!pitstop) throw new Error('pitstop is missing')
-    const project = { ...pitstop, screenshots: [] }
-    const { wrapper } = await withRouter(ProjectArticle, '/projects/pitstop', { project })
+    const project = getProject('en', 'pitstop')
+    if (!project) throw new Error('pitstop is missing')
+    const details = { html: '', screenshots: [] }
+    const { wrapper } = await withRouter(ProjectArticle, '/projects/pitstop', { project, details })
     expect(wrapper.find('#screenshots-heading').exists()).toBe(false)
+  })
+})
+
+describe('ProjectView', () => {
+  async function openProject(path: string, slug: string) {
+    const router = createAppRouter(createMemoryHistory())
+    router.push(path)
+    await router.isReady()
+    const wrapper = mount(ProjectView, { props: { slug }, global: { plugins: [router, createHead()] } })
+    await flushPromises()
+    return wrapper
+  }
+
+  it('fetches the write-up and tour in the page’s language and shows them', async () => {
+    const wrapper = await openProject('/ja/projects/pitstop', 'pitstop')
+    expect(wrapper.find('.prose-editorial').text()).toContain('Anna')
+    expect(wrapper.find('.prose-editorial').text()).toMatch(/[ぁ-んァ-ン]/)
+    expect(wrapper.find('#screenshots-heading').text()).toBe('画面のご案内')
+  })
+
+  it('shows the not-found notice for an unknown project', async () => {
+    const wrapper = await openProject('/projects/nope', 'nope')
+    expect(wrapper.find('.prose-editorial').exists()).toBe(false)
   })
 })
 
