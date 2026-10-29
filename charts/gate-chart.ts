@@ -4,8 +4,8 @@
 // change in strict pass rate; the interval is its 95% interval.
 import type { TopLevelSpec } from 'vega-lite'
 import { measure, wrap } from './text-width.ts'
-import { C, config, footnotes, heading, innerWidth, splitLines, wrapLabel } from './theme.ts'
-import type { Lang, Size } from './theme.ts'
+import { C, chartFrame, innerWidth, splitLines, wrapLabel } from './theme.ts'
+import type { Lang, RowLayer, Size } from './theme.ts'
 
 export const slug = 'agent-eval-harness'
 export const name = 'gate-chart'
@@ -129,20 +129,43 @@ const T: Record<Lang, Strings> = {
 const fmt = (v: number, dec: string) => (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(1).replace('.', dec)
 const groupOrder: Group[] = ['quiet', 'worse', 'none']
 
-export function spec(lang: Lang, size: Size): TopLevelSpec {
-  const t = T[lang]
-  const width = innerWidth(size)
+const HEADER_SIZE = 13.5
+const X = { type: 'quantitative' as const, scale: { domain: [-85, 10], nice: false } }
+const Y = { y: { field: 'label', type: 'nominal' as const, sort: { field: 'order' }, axis: null } }
+
+/** Sizes for one language at one width. */
+interface Layout {
+  t: Strings
+  size: Size
+  width: number
+  isNarrow: boolean
+  labelSize: number
+  valueSize: number
+  labelLineHeight: number
+}
+
+function layoutFor(lang: Lang, size: Size): Layout {
   const isNarrow = size.name === 'narrow'
   const labelSize = isNarrow ? 14 : 16
-  const valueSize = isNarrow ? 13 : 15
-  const headerSize = 13.5
+  return {
+    t: T[lang],
+    size,
+    width: innerWidth(size),
+    isNarrow,
+    labelSize,
+    valueSize: isNarrow ? 13 : 15,
+    labelLineHeight: labelSize + 3,
+  }
+}
+
+function rowValues(l: Layout) {
+  const { t } = l
   // A row's label shares its line with the verdict, so it wraps short of it.
   const labelLines = (label: string, verdict: string) =>
-    wrap(label, width - measure(verdict, valueSize, true) - 12, labelSize)
-  const labelLineHeight = labelSize + 3
-  const values = rows.map(([id, group, d, lo, hi, flagged, outcome], order) => ({
+    wrap(label, l.width - measure(verdict, l.valueSize, true) - 12, l.labelSize)
+  return rows.map(([id, group, d, lo, hi, flagged, outcome], order) => ({
     order,
-    group: wrapLabel(t.groups[group].toUpperCase(), width, headerSize, true),
+    group: wrapLabel(t.groups[group].toUpperCase(), l.width, HEADER_SIZE, true),
     gorder: groupOrder.indexOf(group),
     label: t.rows[id],
     labelText: labelLines(t.rows[id], t.outcome[outcome]).join('\n'),
@@ -156,123 +179,145 @@ export function spec(lang: Lang, size: Size): TopLevelSpec {
     value: fmt(d, t.dec),
     side: lo < -70 ? 'right' : 'left',
   }))
-  const x = { type: 'quantitative' as const, scale: { domain: [-85, 10], nice: false } }
-  const y = { y: { field: 'label', type: 'nominal' as const, sort: { field: 'order' }, axis: null } }
-  const xAxis = {
-    values: [-80, -60, -40, -20, 0],
-    title: wrap(t.axis, width, size.textSize),
-    titleFontSize: size.textSize,
-    labelFontSize: size.textSize,
-    grid: true,
-    labelExpr: "datum.value === 0 ? '0' : '−' + abs(datum.value)",
+}
+
+const xAxis = (l: Layout) => ({
+  values: [-80, -60, -40, -20, 0],
+  title: wrap(l.t.axis, l.width, l.size.textSize),
+  titleFontSize: l.size.textSize,
+  labelFontSize: l.size.textSize,
+  grid: true,
+  labelExpr: "datum.value === 0 ? '0' : '−' + abs(datum.value)",
+})
+
+/** The zero line, per row, starting below the verdict so it never runs through the words. */
+function zeroLineLayer(l: Layout): RowLayer {
+  return {
+    mark: { type: 'rule', color: C.cream, strokeWidth: 1.5 },
+    encoding: {
+      ...Y,
+      y: { ...Y.y, bandPosition: 0.35 },
+      y2: { field: 'label', bandPosition: 1 },
+      x: { ...X, datum: 0, axis: xAxis(l) },
+    },
+  }
+}
+
+/** The 95% interval, coloured by the gate's verdict. */
+function intervalLayer(l: Layout): RowLayer {
+  const legend = {
+    symbolType: 'stroke',
+    symbolSize: 400,
+    symbolStrokeWidth: 6,
+    direction: l.isNarrow ? ('vertical' as const) : ('horizontal' as const),
+    labelFontSize: l.size.textSize + 1,
   }
   return {
-    $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
-    config,
-    padding: size.padding,
-    title: heading(t.title, t.sub, size),
-    resolve: { scale: { color: 'independent' } },
-    vconcat: [
-      {
-        data: { values },
-        facet: {
-          row: {
-            field: 'group',
-            sort: { field: 'gorder' },
-            header: { labelExpr: splitLines, labelFontSize: headerSize, labelLineHeight: 17, labelLimit: width },
-          },
-        },
-        spacing: 18,
-        resolve: { scale: { y: 'independent' } },
-        spec: {
-          width,
-          height: { step: isNarrow ? 72 : 60 },
-          layer: [
-            // the zero line, per row, starting below the verdict so it never runs through the words
-            {
-              mark: { type: 'rule', color: C.cream, strokeWidth: 1.5 },
-              encoding: {
-                ...y,
-                y: { ...y.y, bandPosition: 0.35 },
-                y2: { field: 'label', bandPosition: 1 },
-                x: { ...x, datum: 0, axis: xAxis },
-              },
-            },
-            {
-              mark: { type: 'rule', strokeWidth: 6, strokeCap: 'round' },
-              encoding: {
-                ...y,
-                x: { ...x, field: 'lo', axis: xAxis },
-                x2: { field: 'hi' },
-                color: {
-                  field: 'gate',
-                  type: 'nominal',
-                  scale: { domain: [t.flag, t.pass], range: [C.red, C.blue] },
-                  legend: {
-                    symbolType: 'stroke',
-                    symbolSize: 400,
-                    symbolStrokeWidth: 6,
-                    direction: isNarrow ? 'vertical' : 'horizontal',
-                    labelFontSize: size.textSize + 1,
-                  },
-                },
-              },
-            },
-            {
-              transform: [{ filter: `datum.gate === '${t.flag}'` }],
-              mark: { type: 'point', filled: true, size: 220, color: C.red, stroke: C.ink, strokeWidth: 2, opacity: 1 },
-              encoding: { ...y, x: { ...x, field: 'd' } },
-            },
-            {
-              transform: [{ filter: `datum.gate !== '${t.flag}'` }],
-              mark: { type: 'point', filled: true, size: 170, fill: C.ink, stroke: C.blue, strokeWidth: 3, opacity: 1 },
-              encoding: { ...y, x: { ...x, field: 'd' } },
-            },
-            {
-              transform: [{ filter: "datum.side === 'left'" }],
-              mark: { type: 'text', align: 'right', dx: -14, fontSize: valueSize, fontWeight: 'bold' },
-              encoding: { ...y, x: { ...x, field: 'lo' }, text: { field: 'value' } },
-            },
-            {
-              transform: [{ filter: "datum.side === 'right'" }],
-              mark: { type: 'text', align: 'left', dx: 14, fontSize: valueSize, fontWeight: 'bold' },
-              encoding: { ...y, x: { ...x, field: 'hi' }, text: { field: 'value' } },
-            },
-            // Row labels sit above their interval; Vega draws extra lines downwards, so a
-            // label of n lines is lifted by n - 1 lines to keep its last line in place.
-            ...[...new Set(values.map((v) => v.labelLineCount))].map((lineCount) => ({
-              transform: [{ filter: `datum.labelLineCount === ${lineCount}` }],
-              mark: {
-                type: 'text' as const,
-                align: 'left' as const,
-                baseline: 'bottom' as const,
-                dy: -14 - (lineCount - 1) * labelLineHeight,
-                fontSize: labelSize,
-                lineHeight: labelLineHeight,
-                lineBreak: '\n',
-              },
-              encoding: { ...y, x: { ...x, datum: -85 }, text: { field: 'labelText' } },
-            })),
-            {
-              mark: {
-                type: 'text',
-                align: 'right',
-                baseline: 'bottom',
-                dy: -14,
-                fontSize: valueSize,
-                fontWeight: 'bold',
-              },
-              encoding: {
-                ...y,
-                x: { ...x, datum: 10 },
-                text: { field: 'outcome' },
-                color: { condition: { test: 'datum.missed', value: C.yellow }, value: C.cream },
-              },
-            },
-          ],
-        },
+    mark: { type: 'rule', strokeWidth: 6, strokeCap: 'round' },
+    encoding: {
+      ...Y,
+      x: { ...X, field: 'lo', axis: xAxis(l) },
+      x2: { field: 'hi' },
+      color: {
+        field: 'gate',
+        type: 'nominal',
+        scale: { domain: [l.t.flag, l.t.pass], range: [C.red, C.blue] },
+        legend,
       },
-      footnotes(t.notes, t.source, size),
-    ],
+    },
   }
+}
+
+/** The change itself: a filled red dot when flagged, an outlined blue one when not. */
+function pointLayers(l: Layout): RowLayer[] {
+  const flagged = `datum.gate === '${l.t.flag}'`
+  return [
+    {
+      transform: [{ filter: flagged }],
+      mark: { type: 'point', filled: true, size: 220, color: C.red, stroke: C.ink, strokeWidth: 2, opacity: 1 },
+      encoding: { ...Y, x: { ...X, field: 'd' } },
+    },
+    {
+      transform: [{ filter: `!(${flagged})` }],
+      mark: { type: 'point', filled: true, size: 170, fill: C.ink, stroke: C.blue, strokeWidth: 3, opacity: 1 },
+      encoding: { ...Y, x: { ...X, field: 'd' } },
+    },
+  ]
+}
+
+/** The change as a number, beside its interval: left of it, or right where the left is full. */
+function valueLayers(l: Layout): RowLayer[] {
+  const text = { type: 'text' as const, fontSize: l.valueSize, fontWeight: 'bold' as const }
+  return [
+    {
+      transform: [{ filter: "datum.side === 'left'" }],
+      mark: { ...text, align: 'right', dx: -14 },
+      encoding: { ...Y, x: { ...X, field: 'lo' }, text: { field: 'value' } },
+    },
+    {
+      transform: [{ filter: "datum.side === 'right'" }],
+      mark: { ...text, align: 'left', dx: 14 },
+      encoding: { ...Y, x: { ...X, field: 'hi' }, text: { field: 'value' } },
+    },
+  ]
+}
+
+/**
+ * Row labels sit above their interval. Vega draws extra lines downwards, so a
+ * label of n lines is lifted by n - 1 lines to keep its last line in place.
+ */
+function labelLayers(l: Layout, lineCounts: number[]): RowLayer[] {
+  return [...new Set(lineCounts)].map((lineCount) => ({
+    transform: [{ filter: `datum.labelLineCount === ${lineCount}` }],
+    mark: {
+      type: 'text' as const,
+      align: 'left' as const,
+      baseline: 'bottom' as const,
+      dy: -14 - (lineCount - 1) * l.labelLineHeight,
+      fontSize: l.labelSize,
+      lineHeight: l.labelLineHeight,
+      lineBreak: '\n',
+    },
+    encoding: { ...Y, x: { ...X, datum: -85 }, text: { field: 'labelText' } },
+  }))
+}
+
+/** Whether the gate did what it should have, at the end of the label's line; a miss in yellow. */
+function verdictLayer(l: Layout): RowLayer {
+  return {
+    mark: { type: 'text', align: 'right', baseline: 'bottom', dy: -14, fontSize: l.valueSize, fontWeight: 'bold' },
+    encoding: {
+      ...Y,
+      x: { ...X, datum: 10 },
+      text: { field: 'outcome' },
+      color: { condition: { test: 'datum.missed', value: C.yellow }, value: C.cream },
+    },
+  }
+}
+
+export function spec(lang: Lang, size: Size): TopLevelSpec {
+  const l = layoutFor(lang, size)
+  const values = rowValues(l)
+  const header = { labelExpr: splitLines, labelFontSize: HEADER_SIZE, labelLineHeight: 17, labelLimit: l.width }
+  return chartFrame(l.t, size, {
+    data: { values },
+    facet: { row: { field: 'group', sort: { field: 'gorder' }, header } },
+    spacing: 18,
+    resolve: { scale: { y: 'independent' } },
+    spec: {
+      width: l.width,
+      height: { step: l.isNarrow ? 72 : 60 },
+      layer: [
+        zeroLineLayer(l),
+        intervalLayer(l),
+        ...pointLayers(l),
+        ...valueLayers(l),
+        ...labelLayers(
+          l,
+          values.map((v) => v.labelLineCount),
+        ),
+        verdictLayer(l),
+      ],
+    },
+  })
 }

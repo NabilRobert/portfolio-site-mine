@@ -23,6 +23,18 @@ export default tseslint.config(
     rules: {
       // Content is Markdown authored in this repo and rendered at build time.
       'vue/no-v-html': 'off',
+      // Size limits from the workspace rules (CLAUDE.md, "Keep it lean"):
+      // split code before it crosses them.
+      complexity: ['error', 10],
+      'max-depth': ['error', 3],
+      'max-lines': ['error', { max: 300, skipBlankLines: true, skipComments: true }],
+      'max-lines-per-function': ['error', { max: 40, skipBlankLines: true, skipComments: true }],
     },
+  },
+  {
+    // A describe block groups related specs, so it grows with them; each
+    // spec inside it is still short. The other limits apply to tests too.
+    files: ['tests/**'],
+    rules: { 'max-lines-per-function': 'off' },
   },
 )
