@@ -40,9 +40,16 @@ export interface Project {
   cover: string | null
   /** '' when the cover is decorative, such as a typographic placeholder. */
   coverAlt: string
-  /** `src` is the built URL here; `narrow` is the phone-width version (<name>-narrow.*), or ''. */
-  screenshots: (Required<ProjectScreenshot> & { narrow: string })[]
+}
+
+/** One stop on a project's tour. `src` and `still` are built URLs; `narrow` is the phone-width version (<name>-narrow.*), or ''. */
+export type TourScreenshot = Required<ProjectScreenshot> & { narrow: string }
+
+/** What only a project's own page shows, fetched when that page opens. */
+export interface ProjectDetails {
+  /** The write-up as HTML. */
   html: string
+  screenshots: TourScreenshot[]
 }
 
 export interface Profile {
