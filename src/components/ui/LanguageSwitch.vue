@@ -9,7 +9,7 @@ const { lang, t, switchPath } = useLocale()
 
 <template>
   <nav :aria-label="t.nav.language">
-    <ul class="flex items-center">
+    <ul class="flex items-center whitespace-nowrap">
       <li v-for="(l, code, i) in locales" :key="code" class="flex items-center">
         <span v-if="i > 0" aria-hidden="true" class="px-2 text-rust">/</span>
         <RouterLink
