@@ -41,7 +41,7 @@ export default {
     opensource: 'オープンソースへの貢献',
     other: 'その他の制作物',
   },
-  status: { live: '公開中', ci: 'CI', archived: 'アーカイブ', wip: '開発中', proposed: '提案中' },
+  status: { live: '公開中', ci: 'CI', archived: 'アーカイブ', wip: '開発中', proposed: '提案中', review: 'レビュー中' },
   projectsPage: {
     heading: 'プロジェクト一覧',
     lead: 'いずれのプロジェクトも、ソースコードと、記載内容を裏付ける資料をご覧いただけます。',
