@@ -54,6 +54,9 @@ Gateway ini menambahkan pemeriksaan yang biasanya tidak dimiliki server:
 - **Apa yang boleh dilakukan setiap pengguna:** alat yang tidak tercantum disembunyikan, dan pemanggilannya ditolak sebelum mencapai server.
 - **Catatan yang memperlihatkan perubahan:** setiap baris catatan membawa sidik jari (*hash*) baris sebelumnya, sehingga baris yang diubah atau dihapus dapat terdeteksi.
 - **Penyaringan setiap keluaran alat:** aturan berbasis pola, lalu pengklasifikasi AI kecil yang berjalan di mesin gateway itu sendiri. Keluaran yang mencurigakan tidak diteruskan kepada agen.
+- **Deskripsi alat juga disaring:** alat yang deskripsinya terbaca seperti *prompt injection* disembunyikan dari agen, dan pemanggilannya ditolak. Ke-18 alat dari dua server sungguhan yang dilindunginya lolos semua.
+- **Batas per kunci:** batas opsional jumlah pemanggilan per menit atau per hari, sehingga satu kunci tidak dapat membanjiri gateway.
+- **Satu jejak dari ujung ke ujung:** bila pelacakan (OpenTelemetry) diaktifkan, satu jejak mengikuti sebuah permintaan dari agen melalui gateway hingga ke server basis data, dengan setiap pemeriksaan gateway sebagai langkah tersendiri. Yang dicatat hanya hasil dan waktunya, tidak pernah isi yang dikirim ke alat atau dikembalikan olehnya.
 
 Rancangannya berpihak pada keamanan: bila penyaringan gagal atau kehabisan waktu, atau catatan tidak dapat ditulis, pemanggilan ditolak alih-alih diloloskan.
 
