@@ -176,9 +176,10 @@ See the table in the [README](../README.md). In short: content in
   Add a new string to all three.
 - **Add a tour stop:** add an entry under `screenshots:` in all three Markdown
   files, put the image in the project folder, and give it a `.source.txt`.
-- **Change or add a chart:** edit or add a file in `charts/` (add a new one to
-  the `charts` list in `charts/render.ts`), run `npm run charts`, and commit
-  the SVGs it writes.
+- **Change or add a chart:** a chart's data and drawing are in
+  `charts/<name>.ts` and its words, in all three languages, in
+  `charts/<name>.text.ts`. Add a new chart to the `charts` list in
+  `charts/render.ts`. Then run `npm run charts` and commit the SVGs it writes.
 - **Change the palette or fonts:** `src/styles/theme.css`. The chart colours
   are in `charts/theme.ts` (`C`); after changing them, run `npm run charts`.
   The contrast notes at the top of `theme.css` say which colours are dark or
