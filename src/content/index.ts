@@ -23,9 +23,10 @@ import type {
   Category,
   Locale,
   LocaleCode,
+  DetailsPart,
+  FrontMatterPart,
   Project,
   ProjectDetails,
-  ProjectFrontMatter,
   ProjectScreenshot,
   TourScreenshot,
 } from './types'
@@ -49,12 +50,14 @@ export function isLocale(value: unknown): value is LocaleCode {
 // the front matter, bundled with the site because every page lists projects,
 // and the details (write-up and tour), a separate file fetched only when the
 // project's own page opens.
-const frontMatters = import.meta.glob<Record<string, unknown>>('./projects/*/*.md', {
+// The query names must be written out here (Vite reads them before the code
+// runs); build/markdown.ts accepts exactly these two.
+const frontMatters = import.meta.glob<FrontMatterPart>('./projects/*/*.md', {
   query: '?frontmatter',
   import: 'default',
   eager: true,
 })
-const details = import.meta.glob<{ html: string; screenshots: ProjectScreenshot[] }>('./projects/*/*.md', {
+const details = import.meta.glob<DetailsPart>('./projects/*/*.md', {
   query: '?details',
   import: 'default',
 })
@@ -81,7 +84,7 @@ function imageFor(slug: string, file: string, lang: LocaleCode): string {
   return images[`./projects/${slug}/${localised}`] ?? images[`./projects/${slug}/${file}`] ?? ''
 }
 
-function toProject(slug: string, fm: ProjectFrontMatter): Project {
+function toProject(slug: string, fm: FrontMatterPart): Project {
   return {
     slug,
     title: fm.title,
@@ -100,10 +103,10 @@ function toProject(slug: string, fm: ProjectFrontMatter): Project {
 
 function load(): Record<LocaleCode, Project[]> {
   const byLocale: Record<LocaleCode, Project[]> = { en: [], ja: [], id: [] }
-  for (const [path, data] of Object.entries(frontMatters)) {
+  for (const [path, fm] of Object.entries(frontMatters)) {
     const lang = (segments(path).at(-1) ?? '').replace(/\.md$/, '')
-    // Checked against the schema at build time (build/markdown.ts), so the cast is safe.
-    const fm = data as unknown as ProjectFrontMatter
+    // In a production build a draft's front matter is only { draft: true }
+    // (build/markdown.ts: draftContent), so it is skipped before anything else is read.
     if (!isLocale(lang) || (fm.draft && !import.meta.env.DEV)) continue
     byLocale[lang].push(toProject(slugOf(path), fm))
   }
