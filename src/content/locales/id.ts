@@ -41,7 +41,14 @@ export default {
     opensource: 'Kontribusi sumber terbuka',
     other: 'Karya lainnya',
   },
-  status: { live: 'Aktif', ci: 'CI', archived: 'Diarsipkan', wip: 'Dalam pengerjaan', proposed: 'Diusulkan' },
+  status: {
+    live: 'Aktif',
+    ci: 'CI',
+    archived: 'Diarsipkan',
+    wip: 'Dalam pengerjaan',
+    proposed: 'Diusulkan',
+    review: 'Sedang ditinjau',
+  },
   projectsPage: {
     heading: 'Semua proyek',
     lead: 'Setiap proyek menautkan kode sumbernya serta bukti yang mendukung klaimnya.',

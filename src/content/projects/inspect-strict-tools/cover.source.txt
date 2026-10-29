@@ -4,9 +4,11 @@ only the site's palette. It uses no outside material.
 
 It shows a tool schema with one optional, defaulted argument (the highlighted
 line) rejected with a 400, and an arrow rising to an open-issue mark. The
-caption "Issue #6093 · Proposed" is the upstream issue,
-https://github.com/UKGovernmentBEIS/inspect_ai/issues/6093, which was open with
-no labels when this was drawn (28 October 2026).
+caption was first "Issue #6093 · Proposed", for the upstream issue,
+https://github.com/UKGovernmentBEIS/inspect_ai/issues/6093, open with no labels
+when this was drawn (28 October 2026). On 29 October 2026 the issue was accepted
+and the caption re-set as "PR #6184 · In review", for the open pull request
+https://github.com/UKGovernmentBEIS/inspect_ai/pull/6184, in the same lettering.
 
 Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
 other covers.

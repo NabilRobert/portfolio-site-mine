@@ -2,4 +2,4 @@
 // so the site's bundle can use them without pulling in the schema validator.
 
 export const categories = ['portfolio', 'opensource', 'other'] as const
-export const statuses = ['live', 'ci', 'archived', 'wip', 'proposed'] as const
+export const statuses = ['live', 'ci', 'archived', 'wip', 'proposed', 'review'] as const
