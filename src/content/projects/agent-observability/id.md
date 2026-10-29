@@ -4,13 +4,25 @@ summary: Menelusuri satu permintaan agen AI melalui setiap sistem yang dilaluiny
 category: portfolio
 order: 5
 draft: true
-status: wip
+status: ci
 stack: Python · OpenTelemetry · Jaeger · Docker
 coverAlt: "Ilustrasi sebuah jejak yang digambarkan sebagai susunan batang bertingkat, masing-masing tersusun di bawah langkah yang memanggilnya, di bawah kata “Trace”, dengan keterangan “+0.39 ms per call” (tambahan 0,39 ms per panggilan) dan kata “Observability” di bagian bawah."
 links:
   - { label: Repositori, href: "https://github.com/NabilRobert/agent-observability", primary: true }
   - { label: Pengukuran overhead, href: "https://github.com/NabilRobert/agent-observability/blob/main/docs/mcp-backbone-overhead.md" }
+  - { label: Pemeriksaan end-to-end, href: "https://github.com/NabilRobert/agent-observability/blob/main/e2e/check.py" }
 screenshots:
+  - src: trace-end-to-end.webp
+    alt: "Penampil jejak Jaeger yang menampilkan satu sampel evaluasi dari agent-eval-harness sebagai satu jejak: 36 span dalam 2,0 detik, di tiga layanan. Di bawah sampel dan agennya (biru), setiap panggilan MCP masuk ke gateway keamanan (oranye), yang tahapnya adalah batas laju, kebijakan, audit, penerusan, deteksi, dan audit; di dalam penerusan, panggilan itu mencapai MCP-backbone (ungu), yang tahapnya adalah autentikasi, batas laju, validasi, perkiraan biaya, eksekusi, dan audit, tiga yang terakhir ditandai sebagai langkah basis data."
+    caption: "Satu permintaan, dari ujung ke ujung"
+    description: "Salah satu sampel evaluasi harness, dijalankan secara langsung: agen ditanya berapa banyak film dalam basis data contoh penyewaan film, lalu menjawab melalui gateway keamanan MCP dan MCP-backbone. Harness menilai jawabannya lulus. Seluruh permintaan menjadi satu jejak yang melintasi tiga program terpisah: sampel dan agen harness berwarna biru, gateway berwarna oranye, dan MCP-backbone berwarna ungu. Setiap panggilan MCP berada di dalam langkah \"penerusan\" milik gateway, dan tahap-tahap MCP-backbone sendiri berada di dalamnya, hingga langkah-langkah yang menyentuh basis data. Dibaca ke samping, jejak ini menunjukkan ke mana waktunya habis: panggilan pertama, mendaftar tabel, memakan 0,9 detik, separuhnya di MCP-backbone dan sebagian besar sisanya untuk pemanasan sekali saja di gateway; kuerinya sendiri memakan 0,16 detik dari awal hingga akhir. Agen di sini mengikuti skrip, sehingga tidak ada model AI yang dipanggil dan eksekusinya tanpa biaya."
+    terms:
+      - { term: "Ujung ke ujung", meaning: "Dari agen yang bertanya, melalui setiap program di antaranya, hingga basis data yang menjawab." }
+      - { term: "agent-eval-harness", meaning: "Proyek evaluasi agen dalam portofolio ini. Di sini, proyek ini menyediakan agen dan menilai jawabannya." }
+      - { term: "Gateway keamanan MCP", meaning: "Gateway dalam portofolio ini yang berada di antara agen dan server MCP, memeriksa izin dan memindai apa yang dikembalikan." }
+      - { term: "Biru, oranye, dan ungu", meaning: "Tiga programnya: harness (biru), gateway (oranye), dan MCP-backbone (ungu)." }
+      - { term: "Langkah basis data", meaning: "Tahap-tahap yang ditandai ikon basis data: memperkirakan biaya kueri, menjalankannya, dan menulis catatan audit." }
+      - { term: "2,0 dtk, 36 span", meaning: "Lama seluruh sampel berlangsung dan jumlah langkahnya." }
   - src: trace-mcp-backbone.webp
     alt: "Penampil jejak Jaeger yang menampilkan satu permintaan dari agen demo ke MCP-backbone: 19 span selama 189 milidetik, dalam dua layanan. Langkah agen berwarna biru dan langkah server berwarna oranye. Pemanggilan alat pertama melewati autentikasi, pembatasan laju, validasi, pemeriksaan biaya, eksekusi, dan audit; pemanggilan kedua berhenti di validasi, ditandai ikon galat merah, lalu diaudit."
     caption: "Satu permintaan, dua proses"
@@ -55,22 +67,24 @@ screenshots:
       - { term: "Pemanggilan alat", meaning: "Satu penggunaan alat, misalnya menjalankan kueri; ditandai dengan ikon kunci pas." }
       - { term: "11,8 dtk, 15 span", meaning: "Lama sampel berlangsung dan jumlah langkahnya." }
 ---
-
 Penelusuran (tracing) untuk proyek-proyek lainnya. Setiap proyek mengirimkan jejak OpenTelemetry, yang mengikuti konvensi standar untuk sistem AI, ke satu penampil kecil yang di-hosting sendiri (Jaeger), sehingga satu permintaan agen dapat diikuti dari agen, melalui server MCP, hingga ke basis data, beserta waktu dan biaya setiap langkah.
 
-- **Tiga sumber sudah tersambung:**
-  - MCP-backbone, yang dilacak secara langsung dengan satu span untuk setiap tahap dari setiap pemanggilan alat;
-  - Pitstop, yang 62 eksekusi tercatatnya (653 langkah) diputar ulang dari cadangan dengan waktu aslinya;
-  - harness evaluasi, yang 20 eksekusi terpublikasinya (1.777 sampel evaluasi, 7.068 panggilan nyata ke model AI) diputar ulang dari log-nya, dengan jumlah token dan biaya untuk setiap panggilan model.
+- **Ujung ke ujung:** satu sampel evaluasi dari harness diikuti sebagai satu jejak, dari agen, melalui gateway keamanan MCP dan MCP-backbone, hingga ke basis data: 36 span dari tiga layanan, dan harness menilai jawabannya lulus. Pemeriksaan otomatis memastikan jejak itu memiliki satu titik awal, tidak kehilangan langkah di antara layanan, dan mencapai basis data melalui setiap layanan secara berurutan.
+- **Sumber-sumbernya:**
+  - MCP-backbone dan gateway, yang dilacak secara langsung dengan satu span untuk setiap tahap dari setiap pemanggilan alat;
+  - harness evaluasi, yang dilacak secara langsung (satu span per sampel dan per agen), serta 20 eksekusi terpublikasinya (1.777 sampel evaluasi, 7.068 panggilan nyata ke model AI) yang diputar ulang dari log-nya, dengan jumlah token dan biaya untuk setiap panggilan model;
+  - Pitstop, yang 62 eksekusi tercatatnya (653 langkah) diputar ulang dari cadangan dengan waktu aslinya.
 - **Bukti:**
   - Penelusuran menambah 0,39 ms pada pemanggilan alat MCP-backbone di nilai mediannya (1,4%), tanpa perbedaan yang terdeteksi pada 5% dan 1% pemanggilan yang paling lambat.
-  - Pemutaran ulangnya setia: setiap langkah yang tercatat muncul satu kali, dengan induk, waktu mulai, dan durasi yang sama. Pada eksekusi Pitstop yang mencatat total biayanya, biaya panggilan modelnya berjumlah tepat sama; pada setiap sampel harness, biaya dan jumlah token panggilan modelnya sesuai dengan total yang tercatat. Ke-62 eksekusi Pitstop dan ke-1.777 sampel harness lolos pemeriksaan.
-  - Tanpa isi secara bawaan: teks SQL, prompt, dan respons tidak dicatat kecuali diaktifkan, dan hal ini diuji pada setiap jalur yang dapat dilalui teks kueri.
-  - Penelusuran tidak dapat merugikan sistem yang dilacak: saat penampil mati, pemanggilan alat tetap berhasil, dan proses penghentian menunggu paling lama dua detik.
+  - Pemutaran ulangnya setia: setiap langkah yang tercatat muncul satu kali, dengan induk, waktu mulai, dan durasi yang sama, dan biaya serta jumlah token panggilan model sesuai dengan total yang tercatat pada setiap eksekusi. Ke-62 eksekusi Pitstop dan ke-1.777 sampel harness lolos pemeriksaan.
+  - Tanpa isi secara bawaan: teks SQL, prompt, respons, dan argumen alat tidak dicatat kecuali diaktifkan, dan hal ini diuji.
+  - Penelusuran tidak dapat merugikan sistem yang dilacak: saat penampil mati, pemanggilan tetap berhasil, dan proses penghentian menunggu paling lama dua detik.
   - Penampilnya tetap kecil: 79 MiB dari batas 256 MB, dengan seluruh data pemutaran ulang dimuat.
-- **Temuan dari jejak:** di MCP-backbone, langkah paling lambat dalam pemanggilan alat ternyata bukan kuerinya, melainkan autentikasi. Autentikasi adalah kueri pertama pada koneksi basis data yang baru, dan driver basis data memeriksa ulang tipe satu kolom pada setiap koneksi baru. Mengubah tipe kolom tersebut memangkas sekitar 8,5 ms dari setiap pemanggilan.
+- **Temuan dari jejak:**
+  - Di MCP-backbone, langkah paling lambat dalam pemanggilan alat ternyata bukan kuerinya, melainkan autentikasi: driver basis data memeriksa ulang tipe satu kolom pada setiap koneksi baru. Mengubah tipe kolom tersebut memangkas sekitar 8,5 ms dari setiap pemanggilan.
+  - Di gateway, pemeriksaan ujung ke ujung menunjukkan bahwa span terakhirnya hilang setiap kali gateway dihentikan dengan cara yang biasa dipakai di server: server web yang menjalankannya mengakhiri proses sebelum gateway sempat mengirimkannya. Kini gateway berhenti dengan benar.
 - **Perubahan di tengah jalan:** semula penampil dirancang untuk menyimpan jejak di disk. Saat eksekusi harness dimuat, penggunaan memori penyimpanan itu mencapai 532 MiB, melampaui batas penampil sebesar 256 MB, sehingga kini penampil menyimpan jejak di memori, dan data yang sama hanya memerlukan 79 MiB. Data hilang saat penampil dimulai ulang, tetapi pemutaran ulang mengisinya kembali dalam hitungan detik.
-- **Selanjutnya:** satu permintaan nyata yang diikuti dari ujung ke ujung, dari agen melalui gateway keamanan MCP dan MCP-backbone hingga ke basis data, serta pemasangan penampil di server bersama.
+- **Selanjutnya:** pemasangan penampil di server bersama. Semua hal di atas berjalan secara lokal, tanpa biaya penggunaan model.
 
 ## Apa yang ditunjukkan sebuah jejak
 
