@@ -2,9 +2,9 @@
 // content/projects/*/en.md. TODO(Arthur): the "seeking" line.
 export default {
   meta: {
-    title: 'Nabil Robert | AI Fullstack Engineer',
+    title: 'Muhammad Nabil Rinaldi | AI Fullstack Engineer',
     description:
-      'Portfolio of Nabil Robert, AI fullstack engineer: a database MCP server that an AI cannot misuse, a measured security gateway for AI agents’ tools, an agent evaluation harness, end-to-end tracing of agent requests, and an agent pipeline that ran unattended for eleven weeks.',
+      'Portfolio of Muhammad Nabil Rinaldi, AI fullstack engineer: a database MCP server that an AI cannot misuse, a measured security gateway for AI agents’ tools, an agent evaluation harness, end-to-end tracing of agent requests, and an agent pipeline that ran unattended for eleven weeks.',
   },
   nav: {
     label: 'Main',
@@ -16,7 +16,7 @@ export default {
   },
   about: {
     heading: 'About',
-    name: 'Nabil Robert',
+    name: 'Muhammad Nabil Rinaldi',
     role: 'AI Fullstack Engineer',
     lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, an agent pipeline that ran unattended for eleven weeks, a gateway that guards an AI agent’s tools with every claim measured, tracing that follows one agent request through all of these systems, and a bug the harness found, reported to the open-source Inspect AI framework.',
     seeking: '',

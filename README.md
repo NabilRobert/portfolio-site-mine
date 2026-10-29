@@ -1,6 +1,6 @@
 # nabilrobert-portfolio-site
 
-Nabil Robert's portfolio: an editorial, magazine-style site that presents each
+Muhammad Nabil Rinaldi's portfolio: an editorial, magazine-style site that presents each
 project with a cover, a write-up and a guided tour of its screenshots and
 charts, in English, Japanese and Indonesian. Built with Vue 3, TypeScript,
 Tailwind CSS 4 and Vite.

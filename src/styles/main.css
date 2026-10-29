@@ -25,14 +25,16 @@
     text-autospace: normal;
     text-spacing-trim: trim-start;
   }
+  /* text-wrap-style, not the text-wrap shorthand: the shorthand would also turn
+     wrapping back on where a whitespace-nowrap parent turned it off. */
   h1,
   h2,
   h3 {
-    text-wrap: balance;
+    text-wrap-style: balance;
   }
   /* Avoid a last line of one word (or one or two characters in Japanese). */
   :is(p, li, dd, figcaption) {
-    text-wrap: pretty;
+    text-wrap-style: pretty;
   }
   /* Headings break between phrases and set kana proportionally, as Japanese
      editorial type does. */
