@@ -44,13 +44,12 @@ function numberClipsFromOne(svg: string): string {
   })
 }
 
+/** Every chart, at every size, in every language. */
+const allVersions = charts.flatMap((chart) => sizes.flatMap((size) => langs.map((lang) => ({ chart, size, lang }))))
+
 if (import.meta.url === `file://${process.argv[1]}`) {
-  for (const chart of charts) {
-    for (const size of sizes) {
-      for (const lang of langs) {
-        writeFileSync(outPath(chart, lang, size), await render(chart, lang, size))
-        console.log(`${chart.slug}/${chart.name} ${size.name} ${lang}`)
-      }
-    }
+  for (const { chart, size, lang } of allVersions) {
+    writeFileSync(outPath(chart, lang, size), await render(chart, lang, size))
+    console.log(`${chart.slug}/${chart.name} ${size.name} ${lang}`)
   }
 }

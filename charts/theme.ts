@@ -148,3 +148,44 @@ export function footnotes(notes: string, source: string, size: Size): StackedSpe
 export const wrapLabel = (text: string, maxWidth: number, fontSize: number, bold = false) =>
   wrap(text, maxWidth, fontSize, bold).join('\n')
 export const splitLines = "split(datum.label, '\\n')"
+
+/** One layer of a faceted chart's rows. */
+type FacetSpec = Extract<StackedSpec, { facet: unknown }>
+export type RowLayer = Extract<FacetSpec['spec'], { layer: unknown }>['layer'][number]
+
+/** A facet row's header in the chart's own text style: cream, wrapped, never cut short. */
+export function rowHeader(fontSize: number, width: number) {
+  return {
+    labelExpr: splitLines,
+    labelFontSize: fontSize,
+    labelLineHeight: Math.round(fontSize * 1.3),
+    labelFontWeight: 'normal' as const,
+    labelColor: C.cream,
+    labelLimit: width,
+  }
+}
+
+/** The text around a chart: its title and subtitle above, its notes and source below. */
+export interface FrameText {
+  title: string
+  sub: string
+  notes: string
+  source: string
+}
+
+/**
+ * A whole chart: the title, then `body` (the chart itself), then the notes.
+ * Each colour channel keeps its own scale, so the notes' colours never mix
+ * with the chart's. `spacing` is the gap between the chart and its notes.
+ */
+export function chartFrame(text: FrameText, size: Size, body: StackedSpec, spacing?: number): TopLevelSpec {
+  return {
+    $schema: 'https://vega.github.io/schema/vega-lite/v6.json',
+    config,
+    padding: size.padding,
+    title: heading(text.title, text.sub, size),
+    resolve: { scale: { fill: 'independent', stroke: 'independent', color: 'independent' } },
+    ...(spacing === undefined ? {} : { spacing }),
+    vconcat: [body, footnotes(text.notes, text.source, size)],
+  }
+}
