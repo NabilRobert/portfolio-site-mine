@@ -1,10 +1,12 @@
 import type { Profile } from './types'
 
-// Contact details shown on the site. Empty values are left out of the page.
-// TODO(Arthur): email, LinkedIn and the CV file (put the PDF in public/).
+// The site's address, and the contact details shown on it. Empty contact
+// values are left out of the page.
+// TODO(Arthur): LinkedIn and the CV file (put the PDF in public/).
 export const profile: Profile = {
+  site: 'https://nabilrobert.my.id',
   github: 'https://github.com/NabilRobert',
-  email: '',
+  email: 'mnabilrinaldi@gmail.com',
   linkedin: '',
   cv: '',
 }

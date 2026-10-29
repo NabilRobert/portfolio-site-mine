@@ -1,12 +1,12 @@
 import type { z } from 'zod'
 import type en from './locales/en'
-import type { categories, statuses } from './constants'
+import type { categories, localePrefixes, statuses } from './constants'
 import type { projectFrontMatter } from './schema'
 
 /** Interface strings: every locale must have exactly the shape of English. */
 export type LocaleStrings = typeof en
 
-export type LocaleCode = 'en' | 'ja' | 'id'
+export type LocaleCode = keyof typeof localePrefixes
 
 export interface Locale {
   /** Route prefix: '' for the default locale, '/ja' and so on for others. */
@@ -53,6 +53,8 @@ export interface ProjectDetails {
 }
 
 export interface Profile {
+  /** The site's own address, without a trailing slash: used for canonical links and the sitemap. */
+  site: string
   github: string
   email: string
   linkedin: string

@@ -1,5 +1,5 @@
 // English interface strings, in a formal register. Project text lives in
-// content/projects/*/en.md. TODO(Arthur): the "seeking" line.
+// content/projects/*/en.md.
 export default {
   meta: {
     title: 'Muhammad Nabil Rinaldi | AI Fullstack Engineer',
@@ -19,7 +19,7 @@ export default {
     name: 'Muhammad Nabil Rinaldi',
     role: 'AI Fullstack Engineer',
     lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, an agent pipeline that ran unattended for eleven weeks, a gateway that guards an AI agent’s tools with every claim measured, tracing that follows one agent request through all of these systems, and a bug the harness found, reported to the open-source Inspect AI framework.',
-    seeking: '',
+    seeking: 'Open to AI engineering roles.',
   },
   featured: { label: 'Featured', draft: 'Draft, not published' },
   flow: {

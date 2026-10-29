@@ -5,12 +5,11 @@ import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
 
 const { lang, t } = useLocale()
-// The site-wide language, title and description; pages override the title
-// and description with their own (see the views).
+// The page's language and the site's name for link previews; each view sets
+// its own title, description and addresses (usePageHead).
 useHead(() => ({
   htmlAttrs: { lang: lang.value },
-  title: t.value.meta.title,
-  meta: [{ name: 'description', content: t.value.meta.description }],
+  meta: [{ property: 'og:site_name', content: t.value.meta.title }],
 }))
 </script>
 

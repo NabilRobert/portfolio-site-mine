@@ -18,7 +18,7 @@
 import en from './locales/en'
 import ja from './locales/ja'
 import id from './locales/id'
-import { categories, statuses } from './constants'
+import { categories, localePrefixes, prefixedPath, statuses } from './constants'
 import type {
   Category,
   Locale,
@@ -31,13 +31,13 @@ import type {
 } from './types'
 
 export { profile } from './profile'
-export { categories, statuses }
+export { categories, prefixedPath, statuses }
 export type * from './types'
 
 export const locales: Record<LocaleCode, Locale> = {
-  en: { prefix: '', label: 'EN', strings: en },
-  ja: { prefix: '/ja', label: '日本語', strings: ja },
-  id: { prefix: '/id', label: 'ID', strings: id },
+  en: { prefix: localePrefixes.en, label: 'EN', strings: en },
+  ja: { prefix: localePrefixes.ja, label: '日本語', strings: ja },
+  id: { prefix: localePrefixes.id, label: 'ID', strings: id },
 }
 export const defaultLocale: LocaleCode = 'en'
 
