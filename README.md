@@ -51,6 +51,9 @@ npm run check
 
 ## Docs
 
+- [docs/guide.md](docs/guide.md): how the site works, in plain English: how a
+  project folder becomes a page, step by step, a glossary, and where to
+  change things.
 - [docs/planning/](docs/planning/README.md): how the site was designed and
   why it is built this way.
   - [Design notes](docs/planning/design-notes.md): the magazine-cover concept,
