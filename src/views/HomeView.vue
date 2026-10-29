@@ -4,10 +4,12 @@ import ProjectGrid from '@/components/sections/ProjectGrid.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import { getProjectsByCategory } from '@/content'
 import { useLocale } from '@/composables/useLocale'
+import { usePageHead } from '@/composables/usePageHead'
 
 // The cover: the projects first, as tall images, then who made them.
-const { lang } = useLocale()
+const { lang, t } = useLocale()
 const groups = computed(() => getProjectsByCategory(lang.value))
+usePageHead(() => ({ title: t.value.meta.title, description: t.value.meta.description }))
 </script>
 
 <template>

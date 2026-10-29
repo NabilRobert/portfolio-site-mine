@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ProjectGrid from '@/components/sections/ProjectGrid.vue'
-import { useHead } from '@unhead/vue'
 import { getProjectsByCategory } from '@/content'
 import { useLocale } from '@/composables/useLocale'
+import { usePageHead } from '@/composables/usePageHead'
 
 const { lang, t } = useLocale()
 const groups = computed(() => getProjectsByCategory(lang.value))
 
-useHead(() => ({
+usePageHead(() => ({
   title: `${t.value.projectsPage.heading} | ${t.value.meta.title}`,
-  meta: [{ name: 'description', content: t.value.projectsPage.lead }],
+  description: t.value.projectsPage.lead,
 }))
 </script>
 

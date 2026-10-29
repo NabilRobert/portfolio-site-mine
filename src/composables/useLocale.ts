@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { defaultLocale, isLocale, locales } from '@/content'
+import { defaultLocale, isLocale, locales, prefixedPath } from '@/content'
 import type { LocaleCode } from '@/content'
 
 /**
@@ -15,9 +15,7 @@ export function useLocale() {
 
   /** '/projects' becomes '/ja/projects' in Japanese; '/' becomes '/ja'. */
   function localePath(path: string, target: LocaleCode = lang.value): string {
-    const { prefix } = locales[target]
-    if (path === '/') return prefix || '/'
-    return `${prefix}${path}`
+    return prefixedPath(locales[target].prefix, path)
   }
 
   /** The current page in another language, keeping the hash. */

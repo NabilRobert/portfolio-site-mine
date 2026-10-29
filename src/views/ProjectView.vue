@@ -2,10 +2,10 @@
 import { computed, ref, watch } from 'vue'
 import ProjectArticle from '@/components/sections/ProjectArticle.vue'
 import NotFoundNotice from '@/components/sections/NotFoundNotice.vue'
-import { useHead } from '@unhead/vue'
 import { getProject, loadProjectDetails, shortTitle } from '@/content'
 import type { ProjectDetails } from '@/content'
 import { useLocale } from '@/composables/useLocale'
+import { usePageHead } from '@/composables/usePageHead'
 
 const props = defineProps<{ slug: string }>()
 const { lang, t, localePath } = useLocale()
@@ -26,13 +26,16 @@ watch(
   { immediate: true },
 )
 
-useHead(() => {
+usePageHead(() => {
   const p = project.value
-  if (!p) return { title: `${t.value.notFound.heading} | ${t.value.meta.title}` }
-  return {
-    title: `${shortTitle(p.title)} | ${t.value.meta.title}`,
-    meta: [{ name: 'description', content: p.summary }],
+  if (!p) {
+    return {
+      title: `${t.value.notFound.heading} | ${t.value.meta.title}`,
+      description: t.value.project.notFound,
+      indexable: false,
+    }
   }
+  return { title: `${shortTitle(p.title)} | ${t.value.meta.title}`, description: p.summary }
 })
 </script>
 
