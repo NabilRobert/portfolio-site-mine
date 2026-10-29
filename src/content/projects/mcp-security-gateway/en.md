@@ -54,6 +54,9 @@ The gateway adds the checks a server usually lacks:
 - **What each caller may do:** tools not on its list are hidden, and calls to them are refused before reaching the server.
 - **A record that shows tampering:** each line of the log carries a fingerprint of the one before, so an edited or deleted line is detected.
 - **A screen on every tool output:** pattern rules, then a small AI classifier running on the gateway's own machine. A suspicious output is withheld from the agent.
+- **Tool descriptions screened too:** a tool whose description reads like an injection is hidden from the agent, and calls to it are refused. All 18 tools of the two real servers it protects passed.
+- **A limit per key:** an optional cap on calls per minute or per day, so one key can't flood the gateway.
+- **One trace from end to end:** with tracing on (OpenTelemetry), a single trace follows a request from the agent through the gateway into the database server, with each of the gateway's checks as its own step. It records outcomes and timings, never what the tools were sent or returned.
 
 It fails closed: if the screen breaks or runs out of time, or the record can't be written, the call is refused rather than let through.
 
