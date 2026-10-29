@@ -1,0 +1,7 @@
+trace-end-to-end.webp: a screenshot of the Jaeger trace viewer, from agent-observability.
+
+Taken from docs/img/end-to-end-harness-trace.png in the agent-observability repository
+(https://github.com/NabilRobert/agent-observability; added in the commit merged as PR #4,
+main at 6ef8b37). Converted from the original (3200 x 2600 px) to WebP at
+quality 82 and resized to 1600 px wide, to match the other trace screenshots.
+No other edits.
