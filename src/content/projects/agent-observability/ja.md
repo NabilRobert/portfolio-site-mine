@@ -3,7 +3,6 @@ title: "agent-observability：エージェントの全工程を1つのトレー�
 summary: AIエージェントへの1件の要求が通過するすべてのシステムを、各ステップの所要時間と費用とともに、自前で運用する小さなビューアで追跡できるようにします。
 category: portfolio
 order: 5
-draft: true
 status: ci
 stack: Python · OpenTelemetry · Jaeger · Docker
 coverAlt: "トレースを、呼び出し元のステップの下に入れ子で並ぶ棒の滝として描いたイラストです。上部に「TRACE」の文字、「+0.39 MS PER CALL（1回の呼び出しあたり+0.39ミリ秒）」の説明、下部に「OBSERVABILITY」の文字があります。"

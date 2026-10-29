@@ -3,7 +3,6 @@ title: "agent-observability: satu jejak untuk seluruh proyek agen"
 summary: Menelusuri satu permintaan agen AI melalui setiap sistem yang dilaluinya, beserta waktu dan biaya setiap langkah, dalam satu penampil kecil yang di-hosting sendiri.
 category: portfolio
 order: 5
-draft: true
 status: ci
 stack: Python · OpenTelemetry · Jaeger · Docker
 coverAlt: "Ilustrasi sebuah jejak yang digambarkan sebagai susunan batang bertingkat, masing-masing tersusun di bawah langkah yang memanggilnya, di bawah kata “Trace”, dengan keterangan “+0.39 ms per call” (tambahan 0,39 ms per panggilan) dan kata “Observability” di bagian bawah."

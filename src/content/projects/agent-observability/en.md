@@ -3,7 +3,6 @@ title: "agent-observability: one trace across every agent project"
 summary: Follows a single AI agent request through every system it touches, with the time and cost of each step, in one small self-hosted viewer.
 category: portfolio
 order: 5
-draft: true
 status: ci
 stack: Python · OpenTelemetry · Jaeger · Docker
 coverAlt: "Illustration: a trace drawn as a waterfall of bars, each nested under the step that called it, under the word “Trace”, with the caption “+0.39 ms per call” and “Observability” spelled out below."
