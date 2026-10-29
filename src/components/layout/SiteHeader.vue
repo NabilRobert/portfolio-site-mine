@@ -7,12 +7,16 @@ import { useLocale } from '@/composables/useLocale'
 
 // The masthead: page links on the left, the wordmark in the centre and the
 // language switch on the right, like a magazine cover. On a phone the three
-// stack, centred. On the home page the
-// wordmark is the page's h1; elsewhere each page has its own.
+// stack, centred. On the home page the wordmark is the page's h1; elsewhere
+// each page has its own.
 const route = useRoute()
 const { t, localePath } = useLocale()
 const page = computed(() => String(route.name ?? ''))
 const isHome = computed(() => page.value.startsWith('home-'))
+// The full name is too long for one line of wide capitals on a phone, so it
+// may wrap, but only between its parts ("Muhammad Nabil / Rinaldi"), never
+// inside one. A Japanese part keeps its "・" at its end.
+const nameParts = computed(() => t.value.about.name.split(/(?<=・)|\s+/).filter(Boolean))
 // Only "Work" is a page of its own; the other two are places on a page.
 const links = computed(() => [
   { key: 'work', to: localePath('/projects'), label: t.value.nav.work, current: page.value.startsWith('projects-') },
@@ -31,9 +35,13 @@ const links = computed(() => [
     >
       <RouterLink :to="localePath('/')" class="block text-center">
         <span
-          class="display block pl-[0.14em] whitespace-nowrap text-[1.6rem] tracking-[0.14em] text-cream sm:text-[2rem] lg:text-[2.4rem]"
-          >{{ t.about.name }}</span
+          class="display block pl-[0.14em] text-[1.6rem] leading-[1.15] tracking-[0.14em] text-balance text-cream sm:text-[2rem] lg:text-[2.4rem]"
         >
+          <template v-for="(part, i) in nameParts" :key="i"
+            ><span class="inline-block">{{ part }}</span
+            >{{ i < nameParts.length - 1 && !part.endsWith('・') ? ' ' : '' }}</template
+          >
+        </span>
         <span class="display mt-2.5 block pl-[0.4em] text-[0.7rem] font-medium tracking-[0.4em] text-skin sm:text-xs">{{
           t.about.role
         }}</span>

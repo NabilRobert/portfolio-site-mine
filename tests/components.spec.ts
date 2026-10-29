@@ -140,7 +140,7 @@ describe('ProjectView', () => {
 describe('SiteHeader', () => {
   it('makes the wordmark the h1 on the home page only', async () => {
     const home = await withRouter(SiteHeader, '/id')
-    expect(home.wrapper.find('h1').text()).toContain('Nabil Robert')
+    expect(home.wrapper.find('h1').text()).toContain('Muhammad Nabil Rinaldi')
     const other = await withRouter(SiteHeader, '/id/projects')
     expect(other.wrapper.find('h1').exists()).toBe(false)
   })

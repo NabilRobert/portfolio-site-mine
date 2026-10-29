@@ -5,9 +5,9 @@ import type { LocaleStrings } from '../types'
 
 export default {
   meta: {
-    title: 'Nabil Robert | AI Fullstack Engineer',
+    title: 'Muhammad Nabil Rinaldi | AI Fullstack Engineer',
     description:
-      'Portofolio Nabil Robert, AI fullstack engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, gateway keamanan yang terukur untuk alat agen AI, harness evaluasi agen, pelacakan permintaan agen dari ujung ke ujung, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
+      'Portofolio Muhammad Nabil Rinaldi, AI fullstack engineer: server MCP basis data yang tidak dapat disalahgunakan oleh AI, gateway keamanan yang terukur untuk alat agen AI, harness evaluasi agen, pelacakan permintaan agen dari ujung ke ujung, dan pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu.',
   },
   nav: {
     label: 'Navigasi utama',
@@ -19,7 +19,7 @@ export default {
   },
   about: {
     heading: 'Profil',
-    name: 'Nabil Robert',
+    name: 'Muhammad Nabil Rinaldi',
     role: 'AI Fullstack Engineer',
     lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, gateway pengaman alat agen AI yang setiap klaimnya dibuktikan lewat pengukuran, pelacakan yang mengikuti satu permintaan agen melalui semua sistem tersebut, serta bug yang ditemukan oleh harness tersebut dan dilaporkan ke kerangka kerja sumber terbuka Inspect AI.',
     seeking: '',
