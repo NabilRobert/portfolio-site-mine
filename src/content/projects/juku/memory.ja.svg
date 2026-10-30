@@ -1,11 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 556" width="640" height="556">
-<!-- Drawn from juku-agents docs/planning; see the matching .source.txt. -->
+<!-- Drawn from juku-agents-ai docs/planning; see the matching .source.txt. -->
 <rect width="640" height="556" fill="#1a222c"/>
 <g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
 <text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">学習者が確認できる記憶</text>
 <text x="24" y="70" font-size="14.5" fill="#f9b288">エージェントが学習者について記憶する内容と、その正しさを保つ仕組み</text>
-<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
-<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
 <rect x="24" y="100" width="400" height="58" rx="8" fill="#ffea35"/>
 <text x="40" y="129" font-size="16.5" font-weight="700" fill="#1a222c">エージェントがメモを提案</text>
 <text x="40" y="150" font-size="14.5" font-weight="400" fill="#1a222c">根拠となる学習者の学習記録を添えて</text>
@@ -35,6 +33,6 @@
 <rect x="24" y="466" width="3" height="40" fill="#ebd4c1"/>
 <text x="38" y="482" font-size="14" fill="#ebd4c1">毎週、根拠が30日以上前のもので、その後</text>
 <text x="38" y="502" font-size="14" fill="#ebd4c1">同じことが起きていないメモは失効します。</text>
-<text x="24" y="540" font-size="13" fill="#f9b288">出典：juku-agentsのADR-008（計画段階）</text>
+<text x="24" y="540" font-size="13" fill="#f9b288">出典：juku-agents-aiのADR-008</text>
 </g>
 </svg>

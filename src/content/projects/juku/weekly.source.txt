@@ -1,9 +1,10 @@
 weekly.svg (English), weekly.ja.svg (Japanese) and weekly.id.svg (Indonesian): a
-diagram drawn for this site of Juku's plan. Juku is not built yet; the diagram
-shows what is planned, and is marked "Planned".
+diagram drawn for this site of Juku's design. It was drawn from the plan, marked
+"Planned"; the mark was removed on 30 October 2026, once Juku was built (main at
+25b1600 in https://github.com/NabilRobert/juku-agents-ai).
 
-Drawn from docs/planning/phase-5-architecture-decisions.md in juku-agents
-(branch docs/planning at b34b8a4; not yet public): ADR-002 and ADR-007 (the weekly pipeline, the critic, code deciding approval, the facts-only fallback).
+Drawn from docs/planning/phase-5-architecture-decisions.md in the Juku
+repository (branch docs/planning at b34b8a4): ADR-002 and ADR-007 (the weekly pipeline, the critic, code deciding approval, the facts-only fallback).
 Arthur settled these decisions on 27 October 2026 ("go with your
 recommendations"). Generated as SVG by a short script on 28 October 2026, in
 the site's palette.

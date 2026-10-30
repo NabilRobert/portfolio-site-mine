@@ -1,11 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 666" width="640" height="666">
-<!-- Drawn from juku-agents docs/planning; see the matching .source.txt. -->
+<!-- Drawn from juku-agents-ai docs/planning; see the matching .source.txt. -->
 <rect width="640" height="666" fill="#1a222c"/>
 <g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
 <text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">Jukuの全体構成</text>
 <text x="24" y="70" font-size="14.5" fill="#f9b288">ツールへの呼び出しは、すべてセキュリティゲートウェイを通過します</text>
-<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
-<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">計画段階</text>
 <rect x="24" y="100" width="592" height="70" rx="8" fill="#ebd4c1"/>
 <text x="40" y="129" font-size="16.5" font-weight="700" fill="#1a222c">学習者のスマートフォン</text>
 <text x="40" y="150" font-size="14.5" font-weight="400" fill="#1a222c">軽量なWebページ</text>
@@ -51,6 +49,6 @@
 <text x="346" y="557" font-size="16.5" font-weight="700" fill="#1a222c">学習者のデータ</text>
 <text x="346" y="578" font-size="14.5" font-weight="400" fill="#1a222c">進捗と記憶</text>
 <text x="24" y="620" font-size="14" fill="#ebd4c1">agent-observabilityで追跡し、agent-eval-harnessで品質を測定します。</text>
-<text x="24" y="650" font-size="13" fill="#f9b288">出典：juku-agentsのアーキテクチャ決定記録（計画段階）</text>
+<text x="24" y="650" font-size="13" fill="#f9b288">出典：juku-agents-aiのアーキテクチャ決定記録</text>
 </g>
 </svg>
