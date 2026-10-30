@@ -1,11 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 744" width="640" height="744">
-<!-- Drawn from juku-agents docs/planning; see the matching .source.txt. -->
+<!-- Drawn from juku-agents-ai docs/planning; see the matching .source.txt. -->
 <rect width="640" height="744" fill="#1a222c"/>
 <g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
 <text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">The weekly report</text>
 <text x="24" y="70" font-size="14.5" fill="#f9b288">Run each week for each learner, in a fixed order set by code</text>
-<rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
-<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">PLANNED</text>
 <rect x="24" y="100" width="400" height="58" rx="8" fill="#ebd4c1"/>
 <text x="40" y="129" font-size="16.5" font-weight="700" fill="#1a222c">Facts, computed in code</text>
 <text x="40" y="150" font-size="14.5" font-weight="400" fill="#1a222c">Progress, mistakes and word candidates, from SQL</text>
@@ -48,6 +46,6 @@
 <rect x="24" y="654" width="3" height="40" fill="#ebd4c1"/>
 <text x="38" y="670" font-size="14" fill="#ebd4c1">Still failing after two revisions:</text>
 <text x="38" y="690" font-size="14" fill="#ebd4c1">a facts-only report goes out instead.</text>
-<text x="24" y="728" font-size="13" fill="#f9b288">Source: juku-agents, ADR-002 and ADR-007 (planning).</text>
+<text x="24" y="728" font-size="13" fill="#f9b288">Source: juku-agents-ai, ADR-002 and ADR-007.</text>
 </g>
 </svg>
