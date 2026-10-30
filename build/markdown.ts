@@ -16,7 +16,7 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import type { Plugin } from 'vite'
 import { projectFrontMatter } from '../src/content/schema.ts'
-import type { ProjectFrontMatter } from '../src/content/types.ts'
+import type { DetailsPart, FrontMatterPart, ProjectFrontMatter } from '../src/content/types.ts'
 
 // SmartyPants preset 2: quotes, `--` as an en dash, `---` as an em dash, `...` as an ellipsis.
 const SMARTYPANTS_PRESET = 2
@@ -73,16 +73,17 @@ function markdownPart(id: string): { file: string; part: Part } | null {
   return { file, part: query }
 }
 
-/** A project file's front matter, checked against the schema and typeset; other files' as written. */
-function checkedFrontMatter(file: string, data: Record<string, unknown>): Record<string, unknown> {
-  if (!PROJECT_TEXT.test(file)) return data
+/** A project file's front matter, checked against the schema and typeset. */
+function checkedFrontMatter(file: string, data: Record<string, unknown>): ProjectFrontMatter {
+  if (!PROJECT_TEXT.test(file))
+    throw new Error('only a project file (projects/<slug>/<lang>.md) can be imported in parts')
   const result = projectFrontMatter.safeParse(data)
   if (!result.success) throw new Error(z.prettifyError(result.error))
-  return { ...typesetFrontMatter(result.data) }
+  return typesetFrontMatter(result.data)
 }
 
-/** The value one part of a Markdown file exports. */
-function partValue(part: Part, file: string, raw: string): unknown {
+/** The value one part of a project file exports (the types are shared with src/content/index.ts). */
+function partValue(part: Part, file: string, raw: string): FrontMatterPart | DetailsPart {
   const { data, html } = parseMarkdown(raw)
   const { screenshots = [], ...frontMatter } = checkedFrontMatter(file, data)
   return part === 'details' ? { html, screenshots } : frontMatter

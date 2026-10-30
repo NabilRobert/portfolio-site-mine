@@ -25,6 +25,19 @@ export type ProjectLink = ProjectFrontMatter['links'][number]
 export type ProjectScreenshot = NonNullable<ProjectFrontMatter['screenshots']>[number]
 export type KeyEntry = NonNullable<ProjectScreenshot['terms']>[number]
 
+/**
+ * The two parts each project Markdown file is imported as. build/markdown.ts
+ * produces them; src/content/index.ts imports them with `?frontmatter` and
+ * `?details`.
+ */
+/** What cards and headings need: the checked front matter, without the tour. */
+export type FrontMatterPart = Omit<ProjectFrontMatter, 'screenshots'>
+/** What only the project's own page shows: the write-up as HTML, and the tour as written. */
+export interface DetailsPart {
+  html: string
+  screenshots: ProjectScreenshot[]
+}
+
 /** A project ready for display in one locale. */
 export interface Project {
   slug: string
