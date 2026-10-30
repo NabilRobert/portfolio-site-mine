@@ -3,7 +3,7 @@ title: "agent-observability: satu jejak untuk seluruh proyek agen"
 summary: Menelusuri satu permintaan agen AI melalui setiap sistem yang dilaluinya, beserta waktu dan biaya setiap langkah, dalam satu penampil kecil yang di-hosting sendiri.
 category: portfolio
 order: 5
-status: ci
+status: live
 stack: Python · OpenTelemetry · Jaeger · Docker
 coverAlt: "Ilustrasi sebuah jejak yang digambarkan sebagai susunan batang bertingkat, masing-masing tersusun di bawah langkah yang memanggilnya, di bawah kata “Trace”, dengan keterangan “+0.39 ms per call” (tambahan 0,39 ms per panggilan) dan kata “Observability” di bagian bawah."
 links:
@@ -83,7 +83,7 @@ Penelusuran (tracing) untuk proyek-proyek lainnya. Setiap proyek mengirimkan jej
   - Di MCP-backbone, langkah paling lambat dalam pemanggilan alat ternyata bukan kuerinya, melainkan autentikasi: driver basis data memeriksa ulang tipe satu kolom pada setiap koneksi baru. Mengubah tipe kolom tersebut memangkas sekitar 8,5 ms dari setiap pemanggilan.
   - Di gateway, pemeriksaan ujung ke ujung menunjukkan bahwa span terakhirnya hilang setiap kali gateway dihentikan dengan cara yang biasa dipakai di server: server web yang menjalankannya mengakhiri proses sebelum gateway sempat mengirimkannya. Kini gateway berhenti dengan benar.
 - **Perubahan di tengah jalan:** semula penampil dirancang untuk menyimpan jejak di disk. Saat eksekusi harness dimuat, penggunaan memori penyimpanan itu mencapai 532 MiB, melampaui batas penampil sebesar 256 MB, sehingga kini penampil menyimpan jejak di memori, dan data yang sama hanya memerlukan 79 MiB. Data hilang saat penampil dimulai ulang, tetapi pemutaran ulang mengisinya kembali dalam hitungan detik.
-- **Selanjutnya:** pemasangan penampil di server bersama. Semua hal di atas berjalan secara lokal, tanpa biaya penggunaan model.
+- **Berjalan secara privat:** penampil kini berjalan di server bersama, dengan pelacakan langsung MCP-backbone yang sudah aktif. Penampil ini tidak memiliki alamat publik dan hanya dapat diakses melalui terowongan privat, sehingga halaman ini tidak menautkannya. Tangkapan layar di bawah berasal dari penampil yang sama yang dijalankan secara lokal, tanpa biaya penggunaan model.
 
 ## Apa yang ditunjukkan sebuah jejak
 

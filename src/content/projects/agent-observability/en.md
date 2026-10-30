@@ -3,7 +3,7 @@ title: "agent-observability: one trace across every agent project"
 summary: Follows a single AI agent request through every system it touches, with the time and cost of each step, in one small self-hosted viewer.
 category: portfolio
 order: 5
-status: ci
+status: live
 stack: Python · OpenTelemetry · Jaeger · Docker
 coverAlt: "Illustration: a trace drawn as a waterfall of bars, each nested under the step that called it, under the word “Trace”, with the caption “+0.39 ms per call” and “Observability” spelled out below."
 links:
@@ -83,7 +83,7 @@ Tracing for the other projects. Each one sends OpenTelemetry traces, following t
   - In MCP-backbone, the slowest step of a tool call was not the query but authentication: the database driver looked up one column's type again on every new connection. Changing that column's type took about 8.5 ms off every call.
   - In the gateway, the end-to-end check showed its last spans going missing whenever it was stopped the way servers are normally stopped: the web server it runs on ended the process before the gateway could send them. The gateway now shuts down cleanly.
 - **What changed along the way:** the viewer was meant to keep traces on disk. Loading the harness's runs pushed that storage's memory use to 532 MiB, past the viewer's 256 MB limit, so the viewer now keeps traces in memory, where the same data takes 79 MiB. A restart empties it; the replays refill it in seconds.
-- **Still to come:** deploying the viewer to the shared server. Everything above runs locally, at no model cost.
+- **Deployed, in private:** the viewer now runs on the shared server, with MCP-backbone's live tracing switched on. It has no public address and can only be reached through a private tunnel, so this page can't link to it. The screenshots below come from the same viewer running locally, at no model cost.
 
 ## What a trace shows
 
