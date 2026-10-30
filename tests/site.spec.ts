@@ -1,11 +1,14 @@
 // What search engines and link previews see: the sitemap and robots.txt the
 // build writes, and each page's head (canonical address, its versions in the
 // other languages, and its title and description for previews).
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createMemoryHistory } from 'vue-router'
 import { createHead, renderDOMHead } from '@unhead/vue/client'
 import { publishedSlugs, robotsTxt, sitemapXml } from '../build/sitemap'
+import { profile } from '../src/content'
 import { createAppRouter } from '../src/router'
 import ProjectView from '../src/views/ProjectView.vue'
 
@@ -27,6 +30,12 @@ describe('sitemap', () => {
   it('includes published projects and leaves drafts out', () => {
     expect(publishedSlugs()).toContain('pitstop')
     expect(publishedSlugs()).not.toContain('juku')
+  })
+})
+
+describe('contact details', () => {
+  it('link to a CV file that exists', () => {
+    expect(existsSync(join(__dirname, '../public', profile.cv))).toBe(true)
   })
 })
 
