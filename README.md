@@ -32,10 +32,10 @@ npm run check
 | `src/components/`         | `layout/` (masthead, footer), `sections/` (page sections), `ui/` (cards, links, tour stops).                   |
 | `src/router/`             | Routes, with `/ja` and `/id` prefixes for the other languages.                                                |
 | `src/styles/`             | The palette and type (`theme.css`), base styles (`main.css`) and write-up styles (`prose.css`).               |
-| `build/`                  | The Vite plugin that turns Markdown into data at build time, checks it against the schema and drops drafts.   |
+| `build/`                  | The Vite plugins that turn Markdown into data, check it against the schema, drop drafts and write the sitemap. |
 | `charts/`                 | The result charts as Vega-Lite specs; `npm run charts` draws them into the project folders.                  |
-| `tests/`                  | Content, component and chart tests (Vitest).                                                                  |
-| `public/`                 | Files served as they are: the favicon and touch icon.                                                         |
+| `tests/`                  | Content, component, chart and site tests (Vitest).                                                            |
+| `public/`                 | Files served as they are: the favicon, the touch icon and the CV.                                             |
 | `docs/planning/`          | Design notes and the record of library decisions.                                                             |
 
 ## Common changes

@@ -15,7 +15,12 @@ pages happens without a full reload. It comes in three languages: English at
 Every project is a folder of files, not code. The home page shows a cover
 for each project; a project's page has its write-up and a guided tour of its
 screenshots and charts. Nothing is fetched from a server or a database: the
-build turns the content into files that any static web host can serve.
+build turns the content into files that a static web host can serve.
+
+The host needs one setting. An address like `/ja/projects/pitstop` has no file
+of its own, so the host must answer with `index.html` and let the app pick the
+page. That setting, and putting the site online, are outside this repository:
+CI only checks the code.
 
 ## The flow: from a project folder to a page
 
@@ -55,27 +60,37 @@ flowchart TD
 4. **Drafts are dropped first.** In a production build,
    `build/markdown.ts: draftContent` runs before the step above. For a project
    whose `en.md` says `draft: true` (`isDraftProject`), it replaces every file
-   with an empty stub, so none of its text or images reaches the site.
+   with an empty stub, so none of its text or images reaches the site. Only
+   the folder's name remains, in the file lists inside the main JavaScript
+   file.
 5. **The content becomes projects.** `src/content/index.ts: load` turns each
    file's front matter into a `Project` (`toProject`, with the cover found by
    `coverFor`), grouped by language and sorted by `order`. Pages read them
    through `getProjects`, `getProject` and `getProjectsByCategory`.
 6. **The app starts.** `src/main.ts` creates the Vue app with the router
    (`src/router/index.ts: createAppRouter`) and the head manager (@unhead/vue).
+   `src/App.vue` is the frame every page shares: the header, the footer, and
+   the `lang` attribute on the page.
 7. **The router picks the page.** `/ja/projects/pitstop` matches the
    Japanese project route, which shows `src/views/ProjectView.vue` with
    `slug: 'pitstop'` and records the language in the route's `meta.lang`.
-   `src/composables/useLocale.ts: useLocale` reads it from there, giving
-   every component the current language, its strings (`t`) and helpers for
-   links that stay in that language.
+   Each view is its own small file, downloaded the first time it is needed.
+   `src/composables/useLocale.ts: useLocale` reads the language from the route,
+   giving every component the current language, its strings (`t`) and helpers
+   for links that stay in that language.
 8. **The page loads its details.** `ProjectView.vue` gets the project with
    `getProject`, then calls `src/content/index.ts: loadProjectDetails`, which
    downloads the write-up and tour and turns each image name into its built
    file (`toTourScreenshot`, `imageFor`). If the reader has already moved on
-   when the reply arrives, it is dropped.
+   when the reply arrives, it is dropped. If the download fails, nothing
+   handles it: the page stays without its write-up and tour, with no message.
 9. **The page sets its head.** `src/composables/usePageHead.ts: usePageHead`
    sets the browser tab's title, the description, the link-preview tags, the
    canonical address and the address of the same page in each other language.
+   JavaScript does this in the browser. The file the host sends is the same
+   for every address: `index.html`, with the English title and description and
+   no `og:` tags. So anything that reads the page without running JavaScript
+   sees only those.
 10. **The page is drawn.** `src/components/sections/ProjectArticle.vue`
     splits the title into the headline and subtitle (`splitTitle`), then shows
     the cover (`CoverImage`), the facts and links (`TextLink`), the write-up,
@@ -84,10 +99,19 @@ flowchart TD
 The home page works the same way, with less: `src/views/HomeView.vue` asks
 `getProjectsByCategory` for the projects, `ProjectGrid` shows a `ProjectCard`
 for each, and `AboutSection` adds the about paragraph and how the projects
-relate. No details are downloaded for it.
+relate. No details are downloaded for it. `src/views/ProjectsView.vue` shows
+the same grids under a heading, without the about section.
 
-The production build also writes `sitemap.xml` and `robots.txt`
-(`build/sitemap.ts: sitemap`), listing every published page in every language.
+An address that matches no route shows `src/views/NotFoundView.vue`. It is
+always in English, even under `/ja`, because the route that catches these
+addresses is set to English. The host still answers 200, as it does for every
+address, so the page tells search engines to skip it with a `noindex` tag.
+
+The production build also writes `sitemap.xml`, listing every published page
+in every language, and `robots.txt`, which lets every crawler in and points to
+the sitemap (`build/sitemap.ts: sitemap`). The hosting layer adds its own rules
+for AI crawlers to the live `robots.txt`, so that file is longer than the one
+built here.
 
 ## Glossary
 
@@ -97,6 +121,10 @@ The production build also writes `sitemap.xml` and `robots.txt`
 - **Vite plugin:** a piece of code that changes how Vite treats some files.
   This site has three, in `build/`: `markdownContent` and `draftContent`
   (`build/markdown.ts`) and `sitemap` (`build/sitemap.ts`).
+- **Route:** a rule that says which view shows for an address. They are in
+  `src/router/index.ts`, one set per language.
+- **Bundle:** the JavaScript files the build produces. Whatever is imported
+  with `eager: true` goes in the main file, which every visitor downloads.
 - **Front matter:** the settings at the top of a Markdown file, between two
   `---` lines, written in YAML. For a project: its title, summary, category,
   order, status, links and tour.
@@ -122,7 +150,12 @@ The production build also writes `sitemap.xml` and `robots.txt`
   (the page's width and margins).
 - **Draft and published:** a project with `draft: true` in its front matter
   appears in `npm run dev`, tagged "Draft, not published", and is left out of
-  production builds entirely. Removing the line publishes it.
+  production builds. Removing the line from all three files publishes it.
+- **Category:** the group a project sits in on the home page: `portfolio`,
+  `opensource` or `other` (`categories` in `src/content/constants.ts`). Empty
+  groups aren't shown.
+- **Featured:** `featured: true` adds a tag to a project's card. A test allows
+  at most one.
 - **Status:** the label on a project page, such as "Live", "CI" or "In review".
   The allowed values are in `src/content/constants.ts` (`statuses`); each needs
   a label in every language.
@@ -131,7 +164,8 @@ The production build also writes `sitemap.xml` and `robots.txt`
   Serif JP for kanji) converted to outlines so they need no font files. There
   is no cover generator in this repository; edit the SVG.
 - **Source record:** a `<name>.source.txt` beside every image, saying where it
-  came from. A test fails if one is missing.
+  came from. An image's still, phone and language versions share one record.
+  A test fails if one is missing.
 - **Tour and tour stop:** a project page's guided tour. Each stop is one
   screenshot or chart from the `screenshots` front matter, with a walk-through
   (`description`) and a key (`terms`), shown by `src/components/ui/TourStop.vue`.
@@ -140,19 +174,21 @@ The production build also writes `sitemap.xml` and `robots.txt`
 - **Language version of an image:** `chart.ja.svg` is used instead of
   `chart.svg` on the Japanese page, if it exists (`imageFor`).
 - **Narrow chart:** `chart-narrow.svg`, the same chart drawn 360 px wide, shown
-  on phones instead of the wide one.
+  on screens under 40rem (640 px) instead of the wide one.
 - **Vega-Lite chart:** the result charts are described in `charts/*.ts` and
   drawn to SVG by `npm run charts` (`charts/render.ts: render`). A test fails
   if a committed SVG no longer matches its description (the drift test,
   `tests/charts.spec.ts`).
 - **SmartyPants:** turns straight quotes into curly ones (`Anna's` becomes
-  `Anna’s`) at build time.
+  `Anna’s`), and `--` and `...` into a dash and an ellipsis, at build time.
 - **Canonical address and hreflang:** tags in a page's head that tell search
   engines the page's one true address, and where the same page is in each
   other language.
 - **Open Graph:** the `og:` tags that give a link its title and description
-  when it is shared in a chat or on social media.
-- **CI:** the checks GitHub runs on every pull request
+  when it is shared in a chat or on social media. Here they are only added by
+  JavaScript (see step 9 of the flow), so a preview service that doesn't run
+  JavaScript won't see them.
+- **CI:** the checks GitHub runs on every pull request and every push to `main`
   (`.github/workflows/ci.yml`): the same `npm run check` you run locally.
 
 ## Layout
@@ -167,9 +203,12 @@ See the table in the [README](../README.md). In short: content in
 - **Add a project:** make a folder `src/content/projects/<slug>/` with
   `en.md`, `ja.md` and `id.md`. Copy the front matter of a similar project and
   change it; `order` sets its place. Add a `cover.svg` and a
-  `cover.source.txt`. Start with `draft: true` and look at it in
-  `npm run dev`. `npm run check` tells you about anything missing or
-  different between the languages.
+  `cover.source.txt`; without a cover, the card shows the project's initial.
+  Start with `draft: true` and look at it in `npm run dev`. `npm run check`
+  tells you about anything missing or different between the languages.
+- **Change "how the projects relate":** `flow.steps` in all three locale
+  files, one line per project slug. `flow.heading` says how many projects
+  there are, so update the number too.
 - **Translate a project:** edit its `ja.md` and `id.md`. The links, settings
   and images must match `en.md` (a test checks); only the words differ.
 - **Change interface text:** `src/content/locales/en.ts`, `ja.ts` and `id.ts`.
@@ -180,17 +219,24 @@ See the table in the [README](../README.md). In short: content in
   `charts/<name>.ts` and its words, in all three languages, in
   `charts/<name>.text.ts`. Add a new chart to the `charts` list in
   `charts/render.ts`. Then run `npm run charts` and commit the SVGs it writes.
+  A new chart also needs a `.source.txt` and a `screenshots:` entry.
 - **Change the palette or fonts:** `src/styles/theme.css`. The chart colours
   are in `charts/theme.ts` (`C`); after changing them, run `npm run charts`.
   The contrast notes at the top of `theme.css` say which colours are dark or
   light enough for text.
 - **Add a page:** add a view in `src/views/` that calls `usePageHead`, add it
   to `pageRoutes` in `src/router/index.ts` (it then exists in all three
-  languages), add its strings to the locale files, and, if it belongs in the
-  menu, to `links` in `src/components/layout/SiteHeader.vue`.
+  languages), add its strings to the locale files, add its path to `pages` in
+  `build/sitemap.ts: sitemap`, and, if it belongs in the menu, add it to
+  `links` in `src/components/layout/SiteHeader.vue`.
 - **Add a status:** add it to `statuses` in `src/content/constants.ts` and a
   label for it under `status` in each locale file.
-- **Change the contact details or the domain:** `src/content/profile.ts`.
+- **Change the contact details or the domain:** `src/content/profile.ts`. An
+  empty contact value is left out of the page.
+- **Replace the CV:** put the PDF in `public/`. If its name changes, update
+  `cv` in `src/content/profile.ts`; a test checks the file exists.
+- **Change the site's title or description:** `meta` in the locale files, and
+  the same English text in `index.html` (a test checks they match).
 - **Before committing:** run `npm run check`. It runs the type check, ESLint
   (including the size limits), the formatting check, the tests and a
   production build, the same as CI.
