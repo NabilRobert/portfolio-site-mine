@@ -18,14 +18,14 @@ screenshots:
     terms:
       - { term: "Serangan yang ditanam", meaning: "Teks yang disembunyikan di dalam keluaran alat untuk memberi agen instruksi baru: prompt injection." }
       - { term: "Berhasil", meaning: "Kerugian benar-benar terjadi: penulisan data terlaksana, atau penanda rahasia bocor ke dalam jawaban." }
-      - { term: "Penyaringan", meaning: "Pemeriksaan gateway terhadap setiap keluaran alat: aturan pola, lalu pengklasifikasi AI berukuran kecil. Keluaran yang mencurigakan ditahan dari agen." }
+      - { term: "Penyaringan", meaning: "Pemeriksaan gateway secara upaya terbaik (best effort) terhadap setiap keluaran alat: aturan pola, lalu pengklasifikasi AI berukuran kecil. Keluaran yang mencurigakan ditahan dari agen." }
       - { term: "Hanya alat baca-saja", meaning: "Daftar izin gateway menyembunyikan setiap alat yang dapat mengubah data. Tidak ada penyaringan." }
       - { term: "Agen uji", meaning: "Pengganti model AI berupa skrip yang mematuhi instruksi apa pun yang dibacanya. Menjalankannya tidak memakan biaya." }
       - { term: "Diprediksi", meaning: "Serangan mana yang akan dihentikan telah dicatat dan di-commit sebelum pengujian, sehingga hasilnya tidak dapat disesuaikan sesudahnya." }
   - src: screen-chart.svg
-    alt: "Grafik batang tentang seberapa banyak teks serangan yang tertangkap oleh penyaringan. Aturan pola menangkap 100% serangan latihan yang menjadi sumber penyusunannya, tetapi hanya 14,6% dari 632 serangan baru. Aturan bersama pengklasifikasi AI menangkap 49,7% serangan baru. Keluaran normal yang keliru diblokir: 0,0% untuk aturan saja, 1,2% dengan pengklasifikasi."
+    alt: "Grafik batang tentang seberapa banyak teks serangan yang tertangkap oleh penyaringan. Aturan pola menangkap 100% serangan latihan yang menjadi sumber penyusunannya, tetapi hanya 14,6% dari 632 serangan baru. Aturan bersama pengklasifikasi AI menangkap 49,7% serangan baru. Keluaran normal yang keliru diblokir: 0,0% untuk aturan saja, 1,1% dengan pengklasifikasi."
     caption: "Seberapa banyak yang tertangkap"
-    description: "Penyaringan dinilai dengan serangan yang dipisahkan dari serangan sumber penyusunan aturannya. Pada set latihan tersebut, aturan menangkap semuanya; pada 632 serangan baru dengan susunan kalimat yang berbeda, aturan hanya menangkap 14,6%. Menambahkan pengklasifikasi AI berukuran kecil menaikkannya menjadi 49,7%, dengan konsekuensi 1,2% dari 1.119 keluaran normal keliru diblokir. Kedua skor pada serangan baru dipublikasikan sebagai ukuran yang jujur: penyaringan menangkap sekitar separuh serangan yang belum pernah dilihatnya, bukan semuanya."
+    description: "Penyaringan dinilai dengan serangan yang dipisahkan dari serangan sumber penyusunan aturannya. Pada set latihan tersebut, aturan menangkap semuanya; pada 632 serangan baru dengan susunan kalimat yang berbeda, aturan hanya menangkap 14,6%. Menambahkan pengklasifikasi AI berukuran kecil menaikkannya menjadi 49,7%, dengan konsekuensi 1,1% dari 1.119 keluaran normal keliru diblokir. Kedua skor pada serangan baru dipublikasikan sebagai ukuran yang jujur: penyaringan menangkap sekitar separuh serangan yang belum pernah dilihatnya, bukan semuanya."
     terms:
       - { term: "Set latihan, set uji baru", meaning: "Serangan yang dipakai saat menyusun aturan, dan serangan yang dipisahkan untuk menilainya secara adil, dengan susunan kalimat yang tidak dipakai saat menyusun aturan." }
       - { term: "Tertangkap", meaning: "Proporsi teks serangan yang ditandai oleh penyaringan sebagai injection." }
@@ -41,7 +41,7 @@ Gateway keamanan yang ditempatkan di antara agen AI dan server yang menyediakan 
   - Pada himpunan serangan yang disisihkan khusus untuk evaluasi, dengan kalimat yang tidak pernah dipakai dalam penyusunan aturan, penyaringan mendeteksi 49,7% serangan.
   - Gateway itu sendiri menambah sekitar 3–9 milidetik per pemanggilan.
 - **Keterbatasan yang diungkapkan secara terbuka:**
-  - Penyaringan mendeteksi sekitar separuh serangan yang belum pernah dilihat, tidak seluruhnya.
+  - Penyaringan bersifat upaya terbaik: penyaringan mendeteksi sekitar separuh serangan yang belum pernah dilihat, tidak seluruhnya.
   - Diukur pada gateway yang sedang berjalan di prosesor laptop, penyaringan keliru memblokir 2,5% keluaran normal, sebagian besar keluaran berukuran besar yang terlalu lama untuk dipindai.
   - Pengujian dengan model AI sungguhan masih akan dilakukan.
 
@@ -53,7 +53,7 @@ Gateway ini menambahkan pemeriksaan yang biasanya tidak dimiliki server:
 - **Siapa yang boleh terhubung:** kunci diperiksa sebelum proses apa pun.
 - **Apa yang boleh dilakukan setiap pengguna:** alat yang tidak tercantum disembunyikan, dan pemanggilannya ditolak sebelum mencapai server.
 - **Catatan yang memperlihatkan perubahan:** setiap baris catatan membawa sidik jari (*hash*) baris sebelumnya, sehingga baris yang diubah atau dihapus dapat terdeteksi.
-- **Penyaringan setiap keluaran alat:** aturan berbasis pola, lalu pengklasifikasi AI kecil yang berjalan di mesin gateway itu sendiri. Keluaran yang mencurigakan tidak diteruskan kepada agen.
+- **Penyaringan keluaran alat secara upaya terbaik:** aturan berbasis pola, lalu pengklasifikasi AI kecil yang berjalan di mesin gateway itu sendiri. Keluaran yang mencurigakan tidak diteruskan kepada agen. Diukur pada serangan yang disisihkan untuk evaluasi, penyaringan ini mendeteksi sekitar separuhnya.
 - **Deskripsi alat juga disaring:** alat yang deskripsinya terbaca seperti *prompt injection* disembunyikan dari agen, dan pemanggilannya ditolak. Ke-18 alat dari dua server sungguhan yang dilindunginya lolos semua.
 - **Batas per kunci:** batas opsional jumlah pemanggilan per menit atau per hari, sehingga satu kunci tidak dapat membanjiri gateway.
 - **Satu jejak dari ujung ke ujung:** bila pelacakan (OpenTelemetry) diaktifkan, satu jejak mengikuti sebuah permintaan dari agen melalui gateway hingga ke server basis data, dengan setiap pemeriksaan gateway sebagai langkah tersendiri. Yang dicatat hanya hasil dan waktunya, tidak pernah isi yang dikirim ke alat atau dikembalikan olehnya.

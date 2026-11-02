@@ -1,7 +1,7 @@
 // How much of the attack text the gateway's screen catches, on the attacks its
 // rules were written from and on unseen ones. Data: the "Held-out test split"
 // table and dev numbers in mcp-security-gateway README.md, and eval/results/
-// *.json, on main (commit 414c755). Recall on injected samples; the false-
+// *.json, on main (commit fc172be). Recall on injected samples; the false-
 // positive rate is the share of benign samples wrongly flagged.
 import type { TopLevelSpec } from 'vega-lite'
 import { C, chartFrame, innerWidth, rowHeader, splitLines, wrapLabel } from './theme.ts'
@@ -18,7 +18,7 @@ type Row = [id: RowId, caught: number, wronglyBlocked: number, isPracticeSet: bo
 const rows: Row[] = [
   ['rules-practice', 100, 0.0, true],
   ['rules-unseen', 14.6, 0.0, false],
-  ['model-unseen', 49.7, 1.2, false],
+  ['model-unseen', 49.7, 1.1, false],
 ]
 
 const percent = (v: number, dec: string, digits: number) => `${v.toFixed(digits).replace('.', dec)}%`

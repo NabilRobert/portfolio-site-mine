@@ -4,12 +4,12 @@ no data of its own.
 
 Data: the "Held-out test split" table and the dev numbers in README.md, and
 eval/results/*.json, on main in https://github.com/NabilRobert/mcp-security-gateway
-(commit 414c755). Share of injected samples caught (recall), and of benign
+(commit fc172be). Share of injected samples caught (recall), and of benign
 samples wrongly flagged (false-positive rate):
 
   rules, dev split (written from it)    100%    0.0%
   rules, held-out test (632 / 1,119)     14.6%  0.0%
-  rules + model at 0.999, held-out       49.7%  1.2%
+  rules + model at 0.999, held-out       49.7%  1.1%
 
 Drawn with Vega-Lite by charts/screen-chart.ts in this repository, which holds
 the data above and the labels in all three languages; `npm run charts`

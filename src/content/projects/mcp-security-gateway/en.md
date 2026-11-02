@@ -18,14 +18,14 @@ screenshots:
     terms:
       - { term: "Planted attack", meaning: "Text hidden in a tool’s output that tries to give the agent new instructions: a prompt injection." }
       - { term: "Took effect", meaning: "Harm actually happened: a write went through, or the secret marker leaked into the answer." }
-      - { term: "Screening", meaning: "The gateway’s check of every tool output: pattern rules, then a small AI classifier. A suspicious output is withheld from the agent." }
+      - { term: "Screening", meaning: "The gateway’s best-effort check of each tool output: pattern rules, then a small AI classifier. A suspicious output is withheld from the agent." }
       - { term: "Read-only tools only", meaning: "The gateway’s allow-list hides every tool that can change data. No screening is applied." }
       - { term: "Test agent", meaning: "A scripted stand-in for an AI model that follows any instruction it reads. It costs nothing to run." }
       - { term: "Predicted", meaning: "Which attacks would be stopped was written down and committed before the run, so the result could not be fitted afterwards." }
   - src: screen-chart.svg
-    alt: "Bar chart of how much of the attack text the screen catches. Pattern rules caught 100% of the practice attacks they were written from, but 14.6% of 632 unseen attacks. Rules with the AI classifier caught 49.7% of unseen attacks. Normal outputs wrongly blocked: 0.0% for the rules, 1.2% with the classifier."
+    alt: "Bar chart of how much of the attack text the screen catches. Pattern rules caught 100% of the practice attacks they were written from, but 14.6% of 632 unseen attacks. Rules with the AI classifier caught 49.7% of unseen attacks. Normal outputs wrongly blocked: 0.0% for the rules, 1.1% with the classifier."
     caption: "How much the screen catches"
-    description: "The screen was scored on attacks kept apart from the ones its rules were written from. On that practice set, the rules caught everything; on 632 unseen attacks, phrased in new ways, they caught 14.6%. Adding the small AI classifier raised that to 49.7%, at the cost of wrongly blocking 1.2% of 1,119 normal outputs. Both unseen scores are published as the honest measure: the screen catches about half of the attacks it has not seen before, not all of them."
+    description: "The screen was scored on attacks kept apart from the ones its rules were written from. On that practice set, the rules caught everything; on 632 unseen attacks, phrased in new ways, they caught 14.6%. Adding the small AI classifier raised that to 49.7%, at the cost of wrongly blocking 1.1% of 1,119 normal outputs. Both unseen scores are published as the honest measure: the screen catches about half of the attacks it has not seen before, not all of them."
     terms:
       - { term: "Practice set, unseen test set", meaning: "The attacks used while writing the rules, and attacks kept apart to score them fairly, phrased in ways the rules were not written from." }
       - { term: "Caught", meaning: "The share of attack texts the screen flagged as an injection." }
@@ -41,7 +41,7 @@ A security gateway that sits between AI agents and the servers that give them to
   - On a held-out set of attacks phrased in ways the rules were never written from, screening caught 49.7% of attacks.
   - The proxy itself adds about 3–9 milliseconds per call.
 - **Limitations, stated openly:**
-  - Screening catches about half of unseen attacks, not all.
+  - Screening is best effort: it catches about half of unseen attacks, not all.
   - Measured through the running gateway on a laptop processor, it wrongly blocked 2.5% of normal outputs, mostly large ones that took too long to scan.
   - Tests with real AI models are still to come.
 
@@ -53,7 +53,7 @@ The gateway adds the checks a server usually lacks:
 - **Who may connect:** a key, checked before anything else.
 - **What each caller may do:** tools not on its list are hidden, and calls to them are refused before reaching the server.
 - **A record that shows tampering:** each line of the log carries a fingerprint of the one before, so an edited or deleted line is detected.
-- **A screen on every tool output:** pattern rules, then a small AI classifier running on the gateway's own machine. A suspicious output is withheld from the agent.
+- **A best-effort screen on tool outputs:** pattern rules, then a small AI classifier running on the gateway's own machine. A suspicious output is withheld from the agent. Measured on held-out attacks, it catches about half.
 - **Tool descriptions screened too:** a tool whose description reads like an injection is hidden from the agent, and calls to it are refused. All 18 tools of the two real servers it protects passed.
 - **A limit per key:** an optional cap on calls per minute or per day, so one key can't flood the gateway.
 - **One trace from end to end:** with tracing on (OpenTelemetry), a single trace follows a request from the agent through the gateway into the database server, with each of the gateway's checks as its own step. It records outcomes and timings, never what the tools were sent or returned.
