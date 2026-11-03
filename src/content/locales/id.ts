@@ -62,6 +62,8 @@ export default {
     screenshots: 'Tur singkat',
     key: 'Keterangan',
     links: 'Tautan',
+    loadFailed: 'Isi halaman ini gagal dimuat, mungkin karena situs diperbarui setelah halaman ini dibuka.',
+    reload: 'Muat ulang halaman',
   },
   contact: {
     heading: 'Kontak',

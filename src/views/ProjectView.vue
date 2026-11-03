@@ -13,15 +13,24 @@ const project = computed(() => getProject(lang.value, props.slug))
 
 // The write-up and tour are fetched separately (see src/content/index.ts). A
 // reply that arrives after the reader has moved to another project or
-// language is dropped.
+// language is dropped. The fetch can fail, typically in a tab left open
+// across a deploy, once the file it asks for has been replaced; the page
+// then says so and offers a reload, instead of staying silently blank.
 const EMPTY: ProjectDetails = { html: '', screenshots: [] }
 const details = ref<ProjectDetails>(EMPTY)
+const detailsFailed = ref(false)
 watch(
   [lang, () => props.slug],
   async ([currentLang, slug]) => {
     details.value = EMPTY
-    const loaded = await loadProjectDetails(currentLang, slug)
-    if (currentLang === lang.value && slug === props.slug) details.value = loaded
+    detailsFailed.value = false
+    const isCurrent = () => currentLang === lang.value && slug === props.slug
+    try {
+      const loaded = await loadProjectDetails(currentLang, slug)
+      if (isCurrent()) details.value = loaded
+    } catch {
+      if (isCurrent()) detailsFailed.value = true
+    }
   },
   { immediate: true },
 )
@@ -40,6 +49,6 @@ usePageHead(() => {
 </script>
 
 <template>
-  <ProjectArticle v-if="project" :project :details />
+  <ProjectArticle v-if="project" :project :details :details-failed="detailsFailed" />
   <NotFoundNotice v-else :text="t.project.notFound" :back="localePath('/projects')" :back-label="t.project.back" />
 </template>
