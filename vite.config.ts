@@ -3,11 +3,12 @@ import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { draftContent, markdownContent } from './build/markdown.ts'
+import { pages } from './build/pages.ts'
 import { sitemap } from './build/sitemap.ts'
 import { profile } from './src/content/profile.ts'
 
 export default defineConfig({
-  plugins: [draftContent(), markdownContent(), sitemap(profile.site), vue(), tailwindcss()],
+  plugins: [draftContent(), markdownContent(), sitemap(profile.site), pages(profile.site), vue(), tailwindcss()],
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
