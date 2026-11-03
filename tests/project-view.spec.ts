@@ -39,7 +39,8 @@ describe('a project page whose write-up fails to load', () => {
 
   it('shows no message when the write-up loads', async () => {
     const wrapper = await openProject('/projects/pitstop', 'pitstop')
+    // The real write-up is a separate file; under load it can take longer than one tick.
+    await vi.waitFor(() => expect(wrapper.find('.prose-editorial').text()).toContain('Anna'))
     expect(wrapper.find('[role="alert"]').exists()).toBe(false)
-    expect(wrapper.find('.prose-editorial').text()).toContain('Anna')
   })
 })
