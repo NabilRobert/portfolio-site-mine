@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { createMemoryHistory } from 'vue-router'
 import { defineComponent, h } from 'vue'
@@ -54,6 +54,20 @@ describe('LanguageSwitch', () => {
     ])
     expect(links.map((a) => a.attributes('lang'))).toEqual(['en', 'ja', 'id'])
     expect(links.filter((a) => a.attributes('aria-current')).map((a) => a.text())).toEqual(['日本語'])
+  })
+
+  it('handles a language prefix typed in capitals, as the router does', async () => {
+    const { wrapper } = await withRouter(LanguageSwitch, '/JA/projects/pitstop')
+    expect(wrapper.findAll('a').map((a) => a.attributes('href'))).toEqual([
+      '/projects/pitstop',
+      '/ja/projects/pitstop',
+      '/id/projects/pitstop',
+    ])
+  })
+
+  it('does not stack prefixes on a page that was not found', async () => {
+    const { wrapper } = await withRouter(LanguageSwitch, '/ja/nope')
+    expect(wrapper.findAll('a').map((a) => a.attributes('href'))).toEqual(['/nope', '/ja/nope', '/id/nope'])
   })
 })
 
@@ -126,7 +140,8 @@ describe('ProjectView', () => {
 
   it('fetches the write-up and tour in the page’s language and shows them', async () => {
     const wrapper = await openProject('/ja/projects/pitstop', 'pitstop')
-    expect(wrapper.find('.prose-editorial').text()).toContain('Anna')
+    // The write-up is a separate file; under load it can take longer than one tick.
+    await vi.waitFor(() => expect(wrapper.find('.prose-editorial').text()).toContain('Anna'))
     expect(wrapper.find('.prose-editorial').text()).toMatch(/[ぁ-んァ-ン]/)
     expect(wrapper.find('#screenshots-heading').text()).toBe('画面のご案内')
   })

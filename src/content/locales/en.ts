@@ -59,6 +59,8 @@ export default {
     screenshots: 'A guided tour',
     key: 'Key',
     links: 'Links',
+    loadFailed: 'This page’s write-up didn’t load, perhaps because the site was updated after you opened it.',
+    reload: 'Reload the page',
   },
   contact: {
     heading: 'Contact',

@@ -16,11 +16,14 @@ const props = defineProps<{
   project: Project
   /** The write-up and tour; empty while they are still loading. */
   details: ProjectDetails
+  /** True when the write-up and tour could not be loaded. */
+  detailsFailed?: boolean
 }>()
 const { t, localePath } = useLocale()
 const title = computed(() => splitTitle(props.project.title))
 const statusLabel = computed(() => (props.project.status ? t.value.status[props.project.status] : ''))
 const links = computed(() => [...props.project.links].sort((a, b) => Number(!!b.primary) - Number(!!a.primary)))
+const reloadPage = () => window.location.reload()
 </script>
 
 <template>
@@ -69,7 +72,17 @@ const links = computed(() => [...props.project.links].sort((a, b) => Number(!!b.
 
       <div class="md:col-span-7 lg:col-start-6">
         <!-- Trusted content: Markdown written in this repo, rendered at build time. -->
-        <div class="prose-editorial" v-html="details.html"></div>
+        <p v-if="detailsFailed" role="alert" class="border-l-2 border-red pl-4 text-lg leading-relaxed text-cream">
+          {{ t.project.loadFailed }}
+          <button
+            type="button"
+            class="mt-3 block text-yellow underline underline-offset-[0.25em] hover:text-cream"
+            @click="reloadPage"
+          >
+            {{ t.project.reload }}
+          </button>
+        </p>
+        <div v-else class="prose-editorial" v-html="details.html"></div>
       </div>
     </div>
 

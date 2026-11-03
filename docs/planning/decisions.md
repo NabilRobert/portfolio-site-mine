@@ -63,6 +63,19 @@ Vitest) is the one Arthur uses across his projects.
 - **Weighed against:** converting quotes by hand in the content, which every
   new entry would have to repeat.
 
+### Each page's own HTML: written by a small build plugin
+
+- **Does:** `build/pages.ts` writes an HTML file for every page and language,
+  plus `404.html`: the same app shell, each with that page's title,
+  description, link-preview tags, canonical address and languages.
+- **Why:** link previews and some crawlers don't run JavaScript, so with one
+  `index.html` for every address they saw the home page's details everywhere.
+  The page list already existed for the sitemap, so this is about a hundred
+  lines with no new dependency.
+- **Weighed against:** vite-ssg, which would also pre-render each page's
+  text, but needs a new dependency and every component made safe to run
+  outside a browser.
+
 ## Declined
 
 ### vue-i18n for interface strings

@@ -74,7 +74,7 @@ function markdownPart(id: string): { file: string; part: Part } | null {
 }
 
 /** A project file's front matter, checked against the schema and typeset. */
-function checkedFrontMatter(file: string, data: Record<string, unknown>): ProjectFrontMatter {
+export function checkedFrontMatter(file: string, data: Record<string, unknown>): ProjectFrontMatter {
   if (!PROJECT_TEXT.test(file))
     throw new Error('only a project file (projects/<slug>/<lang>.md) can be imported in parts')
   const result = projectFrontMatter.safeParse(data)

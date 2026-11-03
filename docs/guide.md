@@ -17,10 +17,25 @@ for each project; a project's page has its write-up and a guided tour of its
 screenshots and charts. Nothing is fetched from a server or a database: the
 build turns the content into files that a static web host can serve.
 
-The host needs one setting. An address like `/ja/projects/pitstop` has no file
-of its own, so the host must answer with `index.html` and let the app pick the
-page. That setting, and putting the site online, are outside this repository:
-CI only checks the code.
+The build writes one HTML file per page and language, such as
+`ja/projects/pitstop/index.html`, plus `404.html` for addresses that match no
+page. The host needs to serve them: for an address, the file at that path, or
+else `index.html` in that folder, or else `404.html` with status 404. In Caddy:
+
+```
+try_files {path} {path}/index.html
+file_server
+handle_errors {
+	@missing expression {err.status_code} == 404
+	handle @missing {
+		rewrite * /404.html
+		file_server
+	}
+}
+```
+
+That setting, and putting the site online, are outside this repository: CI
+only checks the code.
 
 ## The flow: from a project folder to a page
 
@@ -82,15 +97,16 @@ flowchart TD
    `getProject`, then calls `src/content/index.ts: loadProjectDetails`, which
    downloads the write-up and tour and turns each image name into its built
    file (`toTourScreenshot`, `imageFor`). If the reader has already moved on
-   when the reply arrives, it is dropped. If the download fails, nothing
-   handles it: the page stays without its write-up and tour, with no message.
+   when the reply arrives, it is dropped. If the download fails (typically in
+   a tab left open across a deploy, once the file it asks for has been
+   replaced), `ProjectArticle` says so and offers a button to reload.
 9. **The page sets its head.** `src/composables/usePageHead.ts: usePageHead`
    sets the browser tab's title, the description, the link-preview tags, the
    canonical address and the address of the same page in each other language.
-   JavaScript does this in the browser. The file the host sends is the same
-   for every address: `index.html`, with the English title and description and
-   no `og:` tags. So anything that reads the page without running JavaScript
-   sees only those.
+   The rules for each kind of page are in `src/content/pageHeads.ts`
+   (`projectHead` here). The build writes the same head into each page's own
+   HTML file (`build/pages.ts: staticPages`), so link previews and crawlers,
+   which don't run JavaScript, see it too.
 10. **The page is drawn.** `src/components/sections/ProjectArticle.vue`
     splits the title into the headline and subtitle (`splitTitle`), then shows
     the cover (`CoverImage`), the facts and links (`TextLink`), the write-up,
@@ -104,12 +120,12 @@ the same grids under a heading, without the about section.
 
 An address that matches no route shows `src/views/NotFoundView.vue`. It is
 always in English, even under `/ja`, because the route that catches these
-addresses is set to English. The host still answers 200, as it does for every
-address, so the page tells search engines to skip it with a `noindex` tag.
+addresses is set to English. The host answers with `404.html` and status 404,
+and the page also tells search engines to skip it with a `noindex` tag.
 
 The production build also writes `sitemap.xml`, listing every published page
-in every language, and `robots.txt`, which lets every crawler in and points to
-the sitemap (`build/sitemap.ts: sitemap`). The hosting layer adds its own rules
+in every language (`build/sitemap.ts: sitePages`), and `robots.txt`, which
+lets every crawler in and points to the sitemap (`build/sitemap.ts: sitemap`). The hosting layer adds its own rules
 for AI crawlers to the live `robots.txt`, so that file is longer than the one
 built here.
 
@@ -119,8 +135,9 @@ built here.
   and builds the files that go online (`npm run build`). Settings:
   `vite.config.ts`.
 - **Vite plugin:** a piece of code that changes how Vite treats some files.
-  This site has three, in `build/`: `markdownContent` and `draftContent`
-  (`build/markdown.ts`) and `sitemap` (`build/sitemap.ts`).
+  This site has four, in `build/`: `markdownContent` and `draftContent`
+  (`build/markdown.ts`), `sitemap` (`build/sitemap.ts`) and `pages`
+  (`build/pages.ts`).
 - **Route:** a rule that says which view shows for an address. They are in
   `src/router/index.ts`, one set per language.
 - **Bundle:** the JavaScript files the build produces. Whatever is imported
@@ -226,8 +243,10 @@ See the table in the [README](../README.md). In short: content in
   light enough for text.
 - **Add a page:** add a view in `src/views/` that calls `usePageHead`, add it
   to `pageRoutes` in `src/router/index.ts` (it then exists in all three
-  languages), add its strings to the locale files, add its path to `pages` in
-  `build/sitemap.ts: sitemap`, and, if it belongs in the menu, add it to
+  languages), add its strings to the locale files, give it a title and
+  description rule in `src/content/pageHeads.ts`, add its path to
+  `build/sitemap.ts: sitePages` and its head to `build/pages.ts: headFor`,
+  and, if it belongs in the menu, add it to
   `links` in `src/components/layout/SiteHeader.vue`.
 - **Add a status:** add it to `statuses` in `src/content/constants.ts` and a
   label for it under `status` in each locale file.

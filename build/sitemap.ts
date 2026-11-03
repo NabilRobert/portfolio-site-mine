@@ -47,13 +47,17 @@ export function robotsTxt(site: string): string {
   return `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`
 }
 
+/** Every page of the site, as its English path: '/', '/projects' and each published project. */
+export function sitePages(): string[] {
+  return ['/', '/projects', ...publishedSlugs().map((slug) => `/projects/${slug}`)]
+}
+
 export function sitemap(site: string): Plugin {
   return {
     name: 'sitemap',
     apply: 'build',
     generateBundle() {
-      const pages = ['/', '/projects', ...publishedSlugs().map((slug) => `/projects/${slug}`)]
-      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemapXml(site, pages) })
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemapXml(site, sitePages()) })
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robotsTxt(site) })
     },
   }

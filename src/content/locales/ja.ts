@@ -55,6 +55,8 @@ export default {
     screenshots: '画面のご案内',
     key: '用語の説明',
     links: '関連リンク',
+    loadFailed: 'このページの本文を読み込めませんでした。ページを開いた後にサイトが更新された可能性があります。',
+    reload: 'ページを再読み込み',
   },
   contact: {
     heading: 'お問い合わせ',
