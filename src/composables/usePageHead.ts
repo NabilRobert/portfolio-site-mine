@@ -1,17 +1,8 @@
 import { useHead } from '@unhead/vue'
 import { useRoute } from 'vue-router'
-import { locales, profile } from '@/content'
-import type { LocaleCode } from '@/content'
+import { locales, OG_LOCALES, profile } from '@/content'
+import type { LocaleCode, PageHead } from '@/content'
 import { useLocale } from '@/composables/useLocale'
-
-export interface PageHead {
-  title: string
-  description: string
-  /** false for pages search engines should skip, such as "not found". */
-  indexable?: boolean
-}
-
-const OG_LOCALES: Record<LocaleCode, string> = { en: 'en_US', ja: 'ja_JP', id: 'id_ID' }
 
 /**
  * A page's head: its title and description (also used for link previews),

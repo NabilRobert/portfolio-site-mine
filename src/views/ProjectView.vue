@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import ProjectArticle from '@/components/sections/ProjectArticle.vue'
 import NotFoundNotice from '@/components/sections/NotFoundNotice.vue'
-import { getProject, loadProjectDetails, shortTitle } from '@/content'
+import { getProject, loadProjectDetails, notFoundHead, projectHead } from '@/content'
 import type { ProjectDetails } from '@/content'
 import { useLocale } from '@/composables/useLocale'
 import { usePageHead } from '@/composables/usePageHead'
@@ -35,17 +35,9 @@ watch(
   { immediate: true },
 )
 
-usePageHead(() => {
-  const p = project.value
-  if (!p) {
-    return {
-      title: `${t.value.notFound.heading} | ${t.value.meta.title}`,
-      description: t.value.project.notFound,
-      indexable: false,
-    }
-  }
-  return { title: `${shortTitle(p.title)} | ${t.value.meta.title}`, description: p.summary }
-})
+usePageHead(() =>
+  project.value ? projectHead(t.value, project.value) : notFoundHead(t.value, t.value.project.notFound),
+)
 </script>
 
 <template>
