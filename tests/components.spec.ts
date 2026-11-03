@@ -55,6 +55,20 @@ describe('LanguageSwitch', () => {
     expect(links.map((a) => a.attributes('lang'))).toEqual(['en', 'ja', 'id'])
     expect(links.filter((a) => a.attributes('aria-current')).map((a) => a.text())).toEqual(['日本語'])
   })
+
+  it('handles a language prefix typed in capitals, as the router does', async () => {
+    const { wrapper } = await withRouter(LanguageSwitch, '/JA/projects/pitstop')
+    expect(wrapper.findAll('a').map((a) => a.attributes('href'))).toEqual([
+      '/projects/pitstop',
+      '/ja/projects/pitstop',
+      '/id/projects/pitstop',
+    ])
+  })
+
+  it('does not stack prefixes on a page that was not found', async () => {
+    const { wrapper } = await withRouter(LanguageSwitch, '/ja/nope')
+    expect(wrapper.findAll('a').map((a) => a.attributes('href'))).toEqual(['/nope', '/ja/nope', '/id/nope'])
+  })
 })
 
 describe('ProjectCard', () => {

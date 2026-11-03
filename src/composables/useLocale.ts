@@ -20,10 +20,23 @@ export function useLocale() {
 
   /** The current page in another language, keeping the hash. */
   function switchPath(target: LocaleCode): string {
-    const { prefix } = locales[lang.value]
-    const bare = prefix && route.path.startsWith(prefix) ? route.path.slice(prefix.length) || '/' : route.path
-    return localePath(bare, target) + (route.hash || '')
+    return localePath(withoutLocalePrefix(route.path), target) + (route.hash || '')
   }
 
   return { lang, t, localePath, switchPath }
+}
+
+/**
+ * '/ja/projects/x' -> '/projects/x'. Removes whichever language prefix the path
+ * starts with, ignoring case as the router does ('/JA/…' opens the Japanese
+ * page), and whatever the page's language: a not-found page is in English
+ * even at '/ja/nope'.
+ */
+function withoutLocalePrefix(path: string): string {
+  const lower = path.toLowerCase()
+  for (const { prefix } of Object.values(locales)) {
+    if (!prefix) continue
+    if (lower === prefix || lower.startsWith(`${prefix}/`)) return path.slice(prefix.length) || '/'
+  }
+  return path
 }
