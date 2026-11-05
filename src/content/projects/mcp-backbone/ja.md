@@ -8,8 +8,8 @@ stack: Python · FastAPI · MCP SDK · Postgres
 links:
   - { label: リポジトリ, href: "https://github.com/NabilRobert/MCP-backbone", primary: true }
   - { label: 公開サイト, href: "https://mcp.my.id" }
-  - { label: レッドチーム, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/RED_TEAM.md" }
-  - { label: ベンチマーク, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/BENCHMARK.md" }
+  - { label: レッドチーム, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/docs/red-team.md" }
+  - { label: ベンチマーク, href: "https://github.com/NabilRobert/MCP-backbone/blob/main/docs/benchmark.md" }
 screenshots:
   - src: step1.gif
     still: step1-still.webp
