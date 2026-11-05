@@ -60,6 +60,8 @@ The gateway adds the checks a server usually lacks:
 
 It fails closed: if the screen breaks or runs out of time, or the record can't be written, the call is refused rather than let through.
 
+It ships as a hardened container: it runs as a non-root user on a read-only filesystem, with no port open to the outside, and a smoke test in CI builds the image and checks it end to end.
+
 ## How the results were checked
 
 - **Kept apart to avoid flattering numbers:** the attacks used to tune the screen and the attacks used to score it. The rules caught 100% of the attacks they were written from, but only 14.6% of the held-out ones. That gap is published as the honest measure of the rules, and the AI classifier does most of the real work.

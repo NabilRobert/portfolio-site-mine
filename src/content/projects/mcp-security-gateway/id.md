@@ -60,6 +60,8 @@ Gateway ini menambahkan pemeriksaan yang biasanya tidak dimiliki server:
 
 Rancangannya berpihak pada keamanan: bila penyaringan gagal atau kehabisan waktu, atau catatan tidak dapat ditulis, pemanggilan ditolak alih-alih diloloskan.
 
+Gateway ini dikemas sebagai kontainer yang diperkuat: berjalan sebagai pengguna non-root pada sistem berkas baca-saja, tanpa port yang terbuka ke luar, dan uji asap (smoke test) di CI membangun image-nya lalu memeriksanya dari ujung ke ujung.
+
 ## Cara hasil diverifikasi
 
 - **Pemisahan agar angka tidak berlebihan:** serangan yang dipakai untuk menyetel penyaringan dipisahkan dari serangan yang dipakai untuk menilainya. Aturan mendeteksi 100% serangan yang menjadi dasar penyusunannya, tetapi hanya 14,6% serangan yang disisihkan. Selisih ini dipublikasikan sebagai ukuran jujur atas kemampuan aturan; sebagian besar deteksi yang sebenarnya dilakukan oleh pengklasifikasi AI.
