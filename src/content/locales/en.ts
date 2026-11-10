@@ -18,7 +18,7 @@ export default {
     heading: 'About',
     name: 'Muhammad Nabil Rinaldi',
     role: 'AI Fullstack Engineer',
-    lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, an agent pipeline that ran unattended for eleven weeks, a gateway that guards an AI agent’s tools with every claim measured, tracing that follows one agent request through all of these systems, a platform for learners of Japanese run by a small crew of AI agents, and a bug the harness found, reported to the open-source Inspect AI framework.',
+    lead: 'I design and build AI systems, and I demonstrate that they work. This portfolio presents a database server that an AI cannot misuse, a harness that measures whether an agent has improved or regressed, an agent pipeline that ran unattended for eleven weeks, a gateway that guards an AI agent’s tools with every claim measured, tracing that follows one agent request through all of these systems, a platform for learners of Japanese run by a small crew of AI agents, and a bug the harness found, reported to the open-source Inspect AI framework. Outside AI, Framed lets anyone build a portfolio page without code.',
     seeking: 'Open to AI engineering roles.',
   },
   featured: { label: 'Featured', draft: 'Draft, not published' },

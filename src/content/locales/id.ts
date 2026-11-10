@@ -21,7 +21,7 @@ export default {
     heading: 'Profil',
     name: 'Muhammad Nabil Rinaldi',
     role: 'AI Fullstack Engineer',
-    lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, gateway pengaman alat agen AI yang setiap klaimnya dibuktikan lewat pengukuran, pelacakan yang mengikuti satu permintaan agen melalui semua sistem tersebut, platform belajar bahasa Jepang yang dijalankan oleh tim kecil agen AI, serta bug yang ditemukan oleh harness tersebut dan dilaporkan ke kerangka kerja sumber terbuka Inspect AI.',
+    lead: 'Saya merancang dan membangun sistem AI, serta membuktikan bahwa sistem tersebut berfungsi. Portofolio ini menyajikan server basis data yang tidak dapat disalahgunakan oleh AI, harness yang mengukur apakah kinerja suatu agen meningkat atau menurun, pipeline agen yang berjalan tanpa pengawasan selama sebelas minggu, gateway pengaman alat agen AI yang setiap klaimnya dibuktikan lewat pengukuran, pelacakan yang mengikuti satu permintaan agen melalui semua sistem tersebut, platform belajar bahasa Jepang yang dijalankan oleh tim kecil agen AI, serta bug yang ditemukan oleh harness tersebut dan dilaporkan ke kerangka kerja sumber terbuka Inspect AI. Di luar AI, ada Framed, tempat siapa pun dapat membuat halaman portofolio tanpa kode.',
     seeking: 'Terbuka untuk posisi AI engineer.',
   },
   featured: { label: 'Unggulan', draft: 'Draf, belum diterbitkan' },
