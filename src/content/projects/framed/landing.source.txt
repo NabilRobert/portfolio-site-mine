@@ -1,0 +1,4 @@
+landing.webp: a screenshot of Framed's public home page, https://framed.my.id/,
+taken on 10 November 2026 in a desktop browser (1280 x 860, at 1.25x), and
+saved as WebP at quality 85, 1600 px wide. No other edits. The page holds no
+personal data: it is the site's own sign-up page, before anyone logs in.

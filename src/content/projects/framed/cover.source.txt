@@ -1,0 +1,12 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("FRAMED" at the top, "PORTFOLIOS" letter-spaced at
+the bottom), using only the site's palette. It uses no outside material.
+
+It shows what Framed makes: a portfolio page built from blocks (a banner, a
+picture beside text, more text and a button) inside a picture frame, with a
+pencil for editing it in place. The caption "framed.my.id/your-name" is the
+address each page gets, from the project's README (NabilRobert/author-website,
+main at 52df1af).
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers. Drawn on 10 November 2026.
