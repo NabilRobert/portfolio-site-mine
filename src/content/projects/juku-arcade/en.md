@@ -1,6 +1,6 @@
 ---
-title: "juku-arcade: a Japanese learning game, inspired by Balatro"
-summary: An arcade card game for learning the readings of Japanese words, inspired by the card game Balatro. In progress, and playable in the browser, best on a laptop or desktop.
+title: "juku-arcade: a Japanese learning card game with score combos"
+summary: An original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In progress, and playable in the browser, best on a laptop or desktop.
 category: other
 order: 10
 status: wip
@@ -20,7 +20,7 @@ screenshots:
       - { term: "Pot", meaning: "Points won during a run that aren’t safe yet. Bank them to keep them." }
       - { term: "N5", meaning: "The first of the five levels of the JLPT, the Japanese-Language Proficiency Test. The game has decks from N5 to N1." }
 ---
-A Japanese learning game, built for Japanese learners: an arcade card game, inspired by the card game Balatro, for learning the readings of Japanese words. In the main mode you match five kanji word cards (三日) to their readings (みっか), with a decoy in the mix. Combos raise the level and fill a pot that you can bank or lose.
+A Japanese learning game, built for Japanese learners: an original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In the main mode you match five kanji word cards (三日) to their readings (みっか), with a decoy in the mix. Combos raise the level and fill a pot that you can bank or lose.
 
 - **Three modes:** Words, as above; Kanji, which asks for every reading of one kanji; and Bunpou, where you put grammar tiles in order to build a short generated tale.
 - **Decoys made from real mistakes:** each decoy is a common slip: a mistake with a long vowel, the small っ, a dakuten mark or a small ゃ, ゅ or ょ, or another reading of the same kanji.

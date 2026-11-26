@@ -1,6 +1,6 @@
 ---
-title: "juku-arcade: gim belajar bahasa Jepang, terinspirasi Balatro"
-summary: Gim kartu bergaya arkade untuk mempelajari cara baca kata-kata bahasa Jepang, terinspirasi gim kartu Balatro. Masih dikembangkan, tetapi sudah dapat dimainkan di peramban, paling nyaman di laptop atau komputer desktop.
+title: "juku-arcade: gim kartu belajar bahasa Jepang dengan kombo skor"
+summary: Gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Masih dikembangkan, tetapi sudah dapat dimainkan di peramban, paling nyaman di laptop atau komputer desktop.
 category: other
 order: 10
 status: wip
@@ -20,7 +20,7 @@ screenshots:
       - { term: "Pot", meaning: "Poin yang didapat selama putaran tetapi belum aman. Amankan (bank) agar poin itu tetap dimiliki." }
       - { term: "N5", meaning: "Level pertama dari lima level JLPT, Ujian Kemampuan Bahasa Jepang. Gim ini punya dek dari N5 sampai N1." }
 ---
-Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu bergaya arkade, terinspirasi gim kartu Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Di mode utama, pemain mencocokkan lima kartu kata kanji (三日) dengan cara bacanya (みっか), dengan satu kartu pengecoh di antaranya. Kombo menaikkan level dan mengisi pot yang dapat diamankan atau hilang.
+Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Di mode utama, pemain mencocokkan lima kartu kata kanji (三日) dengan cara bacanya (みっか), dengan satu kartu pengecoh di antaranya. Kombo menaikkan level dan mengisi pot yang dapat diamankan atau hilang.
 
 - **Tiga mode:** Words, seperti di atas; Kanji, yang meminta semua cara baca dari satu kanji; dan Bunpou, tempat pemain menyusun ubin tata bahasa secara berurutan untuk membangun cerita pendek yang dibuat otomatis.
 - **Pengecoh dari kesalahan nyata:** setiap pengecoh adalah kesalahan yang umum: keliru pada vokal panjang, っ kecil, tanda dakuten, atau ゃ, ゅ, ょ kecil, atau cara baca lain dari kanji yang sama.
