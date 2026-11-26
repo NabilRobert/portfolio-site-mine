@@ -30,6 +30,7 @@ describe('sitemap', () => {
 
   it('includes published projects and leaves drafts out', () => {
     expect(publishedSlugs()).toContain('pitstop')
+    expect(publishedSlugs()).toContain('juku-arcade')
     expect(publishedSlugs()).not.toContain('systems-monitoring')
   })
 })

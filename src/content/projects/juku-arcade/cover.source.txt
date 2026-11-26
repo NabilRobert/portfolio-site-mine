@@ -1,0 +1,13 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("JUKU" at the top, "ARCADE" letter-spaced at the
+bottom), using only the site's palette. It uses no outside material.
+
+It shows a juku-arcade board as the project's README describes it
+(NabilRobert/juku-arcade, main at aeed90f): kanji word cards (本, 三日, 上)
+above a fan of reading cards (ほん, みっか, うえ), with one decoy, みか, a
+misreading of みっか that drops the small っ, as on the live game's N5 board. The caption "A Japanese
+learning game" says what it is.
+
+Lettering: Cinzel, and Noto Serif JP for the Japanese (both SIL Open Font
+License 1.1), converted to outlines, as on the other covers. Drawn on
+26 November 2026.
