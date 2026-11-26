@@ -1,0 +1,21 @@
+---
+title: "AI Flight School: gerbang rilis untuk agen layanan pelanggan"
+summary: Pelanggan simulasi bercakap dengan agen layanan pelanggan yang memanggil tool. Tool-tool itu tiruan yang dipegang oleh gerbang, dan setiap panggilan diperiksa oleh kode, bukan model, terhadap aturan tertulis. Masih dikembangkan.
+category: portfolio
+order: 12
+status: wip
+stack: Python · Inspect AI · MCP SDK · FastAPI
+coverAlt: "Sampul bertuliskan “Flight” di atas pesawat kertas di landasan pacu yang berhenti di depan palang merah-putih yang diturunkan. Di atasnya ada dua gelembung obrolan dan papan berisi tiga panggilan tool yang sudah diperiksa: dua dicentang, satu dicoret merah. Keterangannya “Support bot release gate”, dengan tulisan “School” di bagian bawah."
+links:
+  - { label: Repositori, href: "https://github.com/NabilRobert/ai-flight-school", primary: true }
+  - { label: Laporan akurasi, href: "https://github.com/NabilRobert/ai-flight-school/blob/main/docs/accuracy.md" }
+  - { label: Catatan uji coba, href: "https://github.com/NabilRobert/ai-flight-school/blob/main/docs/thesis-pilot-note.md" }
+---
+Ujian yang harus dilewati agen layanan pelanggan sebelum dirilis. Pelanggan simulasi bercakap dengan agen: ada yang bingung, marah, atau mencoba menipunya. Tool milik agen adalah tiruan yang dipegang oleh gerbang, sehingga setiap panggilannya tercatat. Lalu kode, bukan model, memeriksa setiap panggilan terhadap aturan tim. Pengembalian dana yang melebihi total pesanan, atau yang dilakukan sebelum identitas pelanggan diperiksa, menggagalkan build.
+
+- **Toko tiruan dan aturan tertulis:** tujuh tool yang mungkin dimiliki agen, seperti mencari pesanan atau mengembalikan dana, dengan salinan toko yang baru untuk setiap percakapan. Aturan ditulis sebagai data, dalam enam jenis, misalnya “tool ini harus didahului tool itu” atau “tidak lebih dari jumlah ini”. Pemeriksa menilai dengan benar seluruh 46 percakapan uji yang diberi label secara manual.
+- **Satu kode keluar:** gerbang gagal jika ada satu saja pelanggaran aturan yang serius di percakapan mana pun, dan melaporkan crash sebagai tidak dapat disimpulkan, tidak pernah sebagai lulus. Jika diberi hasil eksekusi sebelumnya, gerbang juga gagal ketika agen menyelesaikan lebih sedikit tugas, dengan statistik dari agent-eval-harness, proyek lain di situs ini. Gerbang ini berjalan sebagai perintah atau GitHub Action.
+- **Agen dalam bahasa apa pun:** agen dapat menjawab lewat HTTP dan memanggil tool tiruannya lewat MCP. Agen yang menyimpan tool-nya sendiri di balik mcp-security-gateway diperiksa dari catatan panggilan di gateway, sehingga panggilannya diamati, bukan dilaporkan sendiri oleh agen. Rangkaian uji untuk Shiori dari Juku sudah dijalankan dengan cara ini pada model yang berjalan dengan skrip.
+- **Diukur dengan biaya $0:** agen referensi diberi tujuh bug yang sengaja ditanam, seperti mengembalikan dana dua kali, memercayai pelanggan yang mengaku sudah disetujui manajer, atau menuruti instruksi yang tersembunyi di catatan pesanan. Setiap skenario dijalankan 5 kali. Gerbang menangkap ketujuh bug di setiap eksekusi, tanpa alarm palsu pada agen yang benar. Kedua sisi berjalan dengan skrip, jadi yang diukur adalah pemeriksa dan gerbangnya, bukan kemampuan pelanggan simulasi menemukan bug.
+- **Eksekusi pertama pada model sungguhan:** sebuah uji coba penelitian menjalankan 150 obrolan penjualan sintetis berbahasa Indonesia pada model lokal yang kecil, dengan biaya $0. Pipeline-nya berjalan dari awal sampai akhir, dan hasilnya adalah sebuah peringatan. Agen yang sengaja dibuat lebih buruk menyebutkan harga di 14 dari 50 obrolan, dibandingkan 39 dan 42 pada dua eksekusi agen normal. Namun, setelah dikoreksi, agen itu tetap lulus di 37 dari 50 obrolan, dibandingkan 40 dan 44, karena pelanggan simulasi menilai dirinya puas walaupun tidak mendapat harga. Aturan kelulusannya memerlukan penilai yang lebih baik.
+- **Status:** masih dikembangkan, dengan slice 1 sampai 6 dari 8 sudah dibangun. Yang belum selesai: uji berwaktu untuk orang baru yang memasangnya, dan eksekusi Shiori pada model sungguhan. Berikutnya adalah pengukuran akurasi berbayar dengan pelanggan yang diperankan model, yang belum memiliki anggaran. Kodenya open source dengan lisensi Apache-2.0.
