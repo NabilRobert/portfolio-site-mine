@@ -19,6 +19,24 @@ screenshots:
       - { term: "Pengecoh", meaning: "Kartu cara baca tambahan yang berisi kesalahan yang mudah terjadi, misalnya cara baca tanpa っ kecil, vokal panjang yang keliru, atau cara baca lain dari kanji yang sama." }
       - { term: "Pot", meaning: "Poin yang didapat selama putaran tetapi belum aman. Amankan (bank) agar poin itu tetap dimiliki." }
       - { term: "N5", meaning: "Level pertama dari lima level JLPT, Ujian Kemampuan Bahasa Jepang. Gim ini punya dek dari N5 sampai N1." }
+  - src: kanji.webp
+    alt: "Mode Kanji juku-arcade pada level N5. Satu kartu kanji, 二, dengan artinya “two; two radical (no. 7)”, di atas delapan kartu cara baca: ふた, ゼイ, むずか(しい), び, ニ, ふた(つ), あか(らめる), dan よわ(まる). Panel di kiri menunjukkan jumlah kanji (1 dari 10), skor, kombo, Scout, dan End run, dan tiga lampion merah ada di samping papan."
+    caption: "Mode Kanji: semua cara baca satu kanji"
+    description: "Satu kanji dibagikan bersama delapan cara baca, dan tugas pemain adalah memilih semua yang benar sebelum menekan Play. Untuk 二, jawabannya ニ, ふた, dan ふた(つ); lima lainnya milik kanji lain. Setiap kanji boleh salah pilih tiga kali. Kanji yang cara bacanya tidak ditemukan semua akan memadamkan satu dari tiga lampion, dan putaran berakhir ketika ketiganya padam. Mode ini tidak mengubah catatan ulasan."
+    terms:
+      - { term: "Bacaan on dan kun", meaning: "Kebanyakan kanji punya cara baca yang diserap dari bahasa Tionghoa (on, ditulis dengan katakana, seperti ニ) dan cara baca asli Jepang (kun, dengan hiragana, seperti ふた)." }
+      - { term: "Lampion", meaning: "Tiga nyawa dalam satu putaran. Setiap kanji yang cara bacanya tidak ditemukan semua memadamkan satu lampion." }
+  - src: bunpou.webp
+    alt: "Mode Bunpou juku-arcade pada level N5. Di atas ada adegan seni piksel berupa sosok di atas panggung; di bawahnya petunjuk “時間＋に” (waktu + に), lima kotak kosong, dan lima ubin untuk disusun: は, 夜, に, お父さん, dan 来ます. Panel di kiri menunjukkan kemajuan hari ini, tata bahasa yang dikuasai, skor, level, petunjuk, dan End run."
+    caption: "Bunpou: ubin tata bahasa yang membangun cerita"
+    description: "Bunpou adalah mode tata bahasa. Setiap kalimat diberikan sebagai ubin yang harus disusun berurutan, di sini は, 夜 (malam), に, お父さん (ayah), dan 来ます (datang), dengan petunjuk berupa pola yang sedang dilatih: kata waktu diikuti に. Setelah kalimat-kalimat itu tersusun, semuanya membentuk cerita pendek yang dibuat otomatis, yang dimainkan di adegan bagian atas. Gim ini menandai mode ini sebagai khusus N5 untuk saat ini, dan masih dikembangkan."
+    terms:
+      - { term: "Partikel", meaning: "Kata pendek seperti は atau に yang menandai peran sebuah kata dalam kalimat. に setelah kata waktu menyatakan kapan." }
+      - { term: "Petunjuk", meaning: "Pola yang sedang dilatih, ditampilkan di atas kotak. Petunjuk dapat dimatikan." }
+  - src: phone.webp
+    alt: "Mode Words juku-arcade di ponsel dalam posisi tegak: lima kartu kata dalam dua baris (東, 二つ, 持つ, 本, 上), tombol Play, dan enam kartu cara baca di bawahnya dalam dua baris (うえ, もつ, ほん, ひがし, ふたつ, もうつ), dengan Pause di kanan atas."
+    caption: "Di ponsel, dalam posisi tegak"
+    description: "Papan Words yang sama, ditata untuk ponsel dalam posisi tegak. Kartu kata terbagi menjadi dua baris dan kartu cara baca tersusun dalam kisi di bawahnya, sehingga satu tangan penuh muat di layar tanpa menggulir. Di sini pengecohnya adalah もうつ, salah baca もつ dengan vokal panjang. Jika ponsel dimiringkan, muncul pemberitahuan yang meminta pemain mengembalikannya ke posisi tegak, karena posisi mendatar di ponsel belum didukung."
 ---
 Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Di mode utama, pemain mencocokkan lima kartu kata kanji (三日) dengan cara bacanya (みっか), dengan satu kartu pengecoh di antaranya. Kombo menaikkan level dan mengisi pot yang dapat diamankan atau hilang.
 

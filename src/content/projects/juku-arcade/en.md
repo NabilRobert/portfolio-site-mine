@@ -19,6 +19,24 @@ screenshots:
       - { term: "Decoy", meaning: "An extra reading card that is a likely mistake, such as a reading without its small っ, a long vowel gone wrong, or another reading of the same kanji." }
       - { term: "Pot", meaning: "Points won during a run that aren’t safe yet. Bank them to keep them." }
       - { term: "N5", meaning: "The first of the five levels of the JLPT, the Japanese-Language Proficiency Test. The game has decks from N5 to N1." }
+  - src: kanji.webp
+    alt: "juku-arcade’s Kanji mode at level N5. One kanji card, 二, with its meaning “two; two radical (no. 7)”, above eight reading cards: ふた, ゼイ, むずか(しい), び, ニ, ふた(つ), あか(らめる) and よわ(まる). A panel on the left shows the kanji count (1 of 10), the score, the combo, Scout and End run, and three red lanterns sit beside the board."
+    caption: "Kanji mode: every reading of one kanji"
+    description: "One kanji is dealt with eight readings, and the job is to pick every right one before pressing Play. For 二 they are ニ, ふた and ふた(つ); the other five belong to other kanji. Three wrong picks are allowed for each kanji. A kanji left with readings unfound puts out one of the three lanterns, and the run ends when all three are out. This mode doesn’t change your reviews."
+    terms:
+      - { term: "On and kun readings", meaning: "Most kanji have readings borrowed from Chinese (on, written in katakana, like ニ) and native Japanese ones (kun, in hiragana, like ふた)." }
+      - { term: "Lanterns", meaning: "The run’s three lives. Each kanji left with readings unfound puts one out." }
+  - src: bunpou.webp
+    alt: "juku-arcade’s Bunpou mode at level N5. A pixel-art scene of a figure on a stage at the top; below it the hint “時間＋に” (time + に), five empty boxes, and five tiles to put in order: は, 夜, に, お父さん and 来ます. A panel on the left shows today’s progress, grammar known, the score, the level, hints and End run."
+    caption: "Bunpou: grammar tiles that build a tale"
+    description: "Bunpou is the grammar mode. Each sentence comes as tiles to put in order, here は, 夜 (night), に, お父さん (father) and 来ます (comes), with a hint naming the pattern being practised: a time word followed by に. Put each sentence in order, and the sentences together make a short generated tale, played out in the scene at the top. The game marks this mode as N5 only for now, and still in development."
+    terms:
+      - { term: "Particle", meaning: "A short word such as は or に that marks a word’s role in the sentence. に after a time word says when." }
+      - { term: "Hint", meaning: "The pattern being practised, shown above the boxes. Hints can be switched off." }
+  - src: phone.webp
+    alt: "juku-arcade’s Words mode on a phone held upright: five word cards in two rows (東, 二つ, 持つ, 本, 上), a Play button, and six reading cards below in two rows (うえ, もつ, ほん, ひがし, ふたつ, もうつ), with Pause at the top right."
+    caption: "On a phone, held upright"
+    description: "The same Words board, laid out for a phone held upright. The word cards wrap into two rows and the reading cards into a grid below, so a whole hand fits on the screen without scrolling. Here the decoy is もうつ, a misreading of もつ with a long vowel. Turning the phone sideways shows a notice asking to turn it back, because landscape on a phone isn’t supported."
 ---
 A Japanese learning game, built for Japanese learners: an original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In the main mode you match five kanji word cards (三日) to their readings (みっか), with a decoy in the mix. Combos raise the level and fill a pot that you can bank or lose.
 

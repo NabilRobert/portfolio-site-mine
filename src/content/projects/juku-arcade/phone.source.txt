@@ -1,0 +1,8 @@
+phone.webp: a screenshot of juku-arcade's Words mode at level N5 on a phone
+held upright, from the live game at https://nabilrobert.github.io/juku-arcade/,
+taken on 26 November 2026 in a browser emulating a phone (390 x 844, at 2x,
+touch). Scaled to 920 px high and centred on a 1600 x 1000 canvas in the
+site's ink colour (#1a222c), so it sits on the tour like the other
+screenshots, then saved as WebP at quality 85. No other edits. The screen
+holds no personal data: the game has no accounts, and this was a fresh
+browser with no progress.
