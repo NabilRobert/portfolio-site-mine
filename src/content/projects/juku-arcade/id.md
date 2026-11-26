@@ -1,6 +1,6 @@
 ---
 title: "juku-arcade: gim kartu belajar bahasa Jepang dengan kombo skor"
-summary: Gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Masih dikembangkan, tetapi sudah dapat dimainkan di peramban, paling nyaman di laptop atau komputer desktop.
+summary: Gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Masih dikembangkan, tetapi sudah dapat dimainkan di peramban, di laptop, tablet, dan ponsel dalam posisi tegak.
 category: other
 order: 10
 status: wip
@@ -22,9 +22,9 @@ screenshots:
 ---
 Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Di mode utama, pemain mencocokkan lima kartu kata kanji (三日) dengan cara bacanya (みっか), dengan satu kartu pengecoh di antaranya. Kombo menaikkan level dan mengisi pot yang dapat diamankan atau hilang.
 
-- **Tiga mode:** Words, seperti di atas; Kanji, yang meminta semua cara baca dari satu kanji; dan Bunpou, tempat pemain menyusun ubin tata bahasa secara berurutan untuk membangun cerita pendek yang dibuat otomatis.
+- **Mode:** Words, seperti di atas; Kanji, yang meminta semua cara baca dari satu kanji; Bunpou, tempat pemain menyusun ubin tata bahasa secara berurutan untuk membangun cerita pendek yang dibuat otomatis; dan Practice, yang mencampur kata, kanji, dan tata bahasa yang sudah pernah ditemui.
 - **Pengecoh dari kesalahan nyata:** setiap pengecoh adalah kesalahan yang umum: keliru pada vokal panjang, っ kecil, tanda dakuten, atau ゃ, ゅ, ょ kecil, atau cara baca lain dari kanji yang sama.
 - **Data kata:** dek untuk setiap level JLPT dari N5 sampai N1, dibangun dari OpenJLPT, yang bersumber dari JMdict, KANJIDIC2, daftar JLPT Jonathan Waller, dan Tatoeba. Dek-deknya dibagikan dengan lisensi CC BY-SA 4.0, sama seperti sumbernya.
 - **Tanpa server:** aplikasi web statis. Tidak ada akun, dan kemajuan pemain tersimpan di peramban. Setiap push ke cabang main yang lolos lint, pemeriksaan tipe, tes, dan build akan dipublikasikan ke GitHub Pages.
 - **Mengukurnya:** pemeriksaan harian opsional dirancang untuk mengukur apakah bermain meningkatkan daya ingat. Belum ada pelajar yang diukur, jadi belum ada hasil untuk dilaporkan.
-- **Status:** masih dikembangkan, dan sudah dapat dimainkan. Paling nyaman di laptop atau komputer desktop, karena tata letaknya belum dibuat untuk ponsel. Kodenya belum memiliki lisensi.
+- **Status:** masih dikembangkan, dan sudah dapat dimainkan di peramban, di laptop, tablet, dan ponsel dalam posisi tegak. Kodenya belum memiliki lisensi.

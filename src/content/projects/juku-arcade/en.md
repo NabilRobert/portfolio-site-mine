@@ -1,6 +1,6 @@
 ---
 title: "juku-arcade: a Japanese learning card game with score combos"
-summary: An original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In progress, and playable in the browser, best on a laptop or desktop.
+summary: An original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In progress, and playable in the browser on laptops, tablets and phones held upright.
 category: other
 order: 10
 status: wip
@@ -22,9 +22,9 @@ screenshots:
 ---
 A Japanese learning game, built for Japanese learners: an original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In the main mode you match five kanji word cards (三日) to their readings (みっか), with a decoy in the mix. Combos raise the level and fill a pot that you can bank or lose.
 
-- **Three modes:** Words, as above; Kanji, which asks for every reading of one kanji; and Bunpou, where you put grammar tiles in order to build a short generated tale.
+- **Modes:** Words, as above; Kanji, which asks for every reading of one kanji; Bunpou, where you put grammar tiles in order to build a short generated tale; and Practice, which mixes the words, kanji and grammar you’ve already met.
 - **Decoys made from real mistakes:** each decoy is a common slip: a mistake with a long vowel, the small っ, a dakuten mark or a small ゃ, ゅ or ょ, or another reading of the same kanji.
 - **Word data:** decks for every JLPT level from N5 to N1, built from OpenJLPT, which draws on JMdict, KANJIDIC2, Jonathan Waller’s JLPT lists and Tatoeba. The decks are shared under CC BY-SA 4.0, like their source.
 - **No server:** a static web app. There are no accounts, and progress stays in the browser. Every push to the main branch that passes the lint, type check, tests and build deploys to GitHub Pages.
 - **Measuring it:** an optional daily check-up is designed to measure whether playing improves recall. No learners have been measured yet, so there is no result to report.
-- **Status:** in progress, and playable now. It’s best on a laptop or desktop, because the layout isn’t made for phones yet. The code has no licence yet.
+- **Status:** in progress, and playable now in the browser, on laptops, tablets and phones held upright. The code has no licence yet.
