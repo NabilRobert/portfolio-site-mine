@@ -1,0 +1,6 @@
+kanji.webp: a screenshot of juku-arcade's Kanji mode at level N5, from the
+live game at https://nabilrobert.github.io/juku-arcade/, taken on
+26 November 2026 in a desktop browser (1280 x 800, at 1.25x) at the start of
+a run, and saved as WebP at quality 85, 1600 px wide. No other edits. The
+screen holds no personal data: the game has no accounts, and this was a fresh
+browser with no progress.
