@@ -1,0 +1,13 @@
+cover.svg: an original illustration, drawn as SVG for this site in the style of
+the other covers ("FLIGHT" at the top, "SCHOOL" letter-spaced at the bottom),
+using only the site's palette. It uses no outside material.
+
+It shows what AI Flight School does, as its README describes it
+(NabilRobert/ai-flight-school, main at 03c6d73): a paper plane (the agent)
+held at a lowered barrier (the release gate) on a runway; two chat bubbles (a
+simulated customer and the agent talking); and a board of the agent's tool
+calls, each checked by code, two passed and one stopped. The caption "Support
+bot release gate" says what it is.
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers. Drawn on 26 November 2026.

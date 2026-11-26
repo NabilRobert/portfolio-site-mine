@@ -27,4 +27,4 @@ A Japanese learning game, built for Japanese learners: an original arcade card g
 - **Word data:** decks for every JLPT level from N5 to N1, built from OpenJLPT, which draws on JMdict, KANJIDIC2, Jonathan Waller’s JLPT lists and Tatoeba. The decks are shared under CC BY-SA 4.0, like their source.
 - **No server:** a static web app. There are no accounts, and progress stays in the browser. Every push to the main branch that passes the lint, type check, tests and build deploys to GitHub Pages.
 - **Measuring it:** an optional daily check-up is designed to measure whether playing improves recall. No learners have been measured yet, so there is no result to report.
-- **Status:** in progress, and playable now in the browser, on laptops, tablets and phones held upright. The code has no licence yet.
+- **Status:** in progress, and playable now in the browser, on laptops, tablets and phones held upright. The code is all rights reserved: public to read, not to reuse. The word decks are CC BY-SA 4.0.

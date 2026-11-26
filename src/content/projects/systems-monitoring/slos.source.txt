@@ -1,8 +1,11 @@
 slos.svg (English), slos.ja.svg (Japanese) and slos.id.svg (Indonesian): a
-diagram drawn for this site of the systems-monitoring plan. Nothing it shows is
-built yet; it is marked "Planned".
+diagram drawn for this site of Juku's draft service level objectives in
+systems-monitoring.
 
-Drawn from docs/planning in systems-monitoring (main at 70d7207; not yet
-public): ADR-008 (Juku's draft SLOs and error budgets, over a rolling 28 days). The decisions there are recommendations until Arthur agrees,
-and the SLO targets are drafts until two weeks of Juku's real traffic.
-Generated as SVG by a short script on 28 October 2026, in the site's palette.
+Drawn on 28 October 2026 from ADR-008 (Juku's draft SLOs and error budgets,
+over a rolling 28 days). Checked on 26 November 2026 against
+NabilRobert/systems-monitoring, main at 447fb77, where ADR-008 is unchanged and
+still a draft until Juku is live and has two weeks of real traffic. The only
+change: the badge "Planned" became "Draft".
+
+Generated as SVG in the site's palette; plain text and shapes, edited by hand.

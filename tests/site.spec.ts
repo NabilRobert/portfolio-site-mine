@@ -1,7 +1,8 @@
 // What search engines and link previews see: the sitemap and robots.txt the
 // build writes, and each page's head (canonical address, its versions in the
 // other languages, and its title and description for previews).
-import { existsSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
@@ -28,10 +29,23 @@ describe('sitemap', () => {
     expect(xml.match(/<xhtml:link/g)).toHaveLength(2 * 3 * 3)
   })
 
-  it('includes published projects and leaves drafts out', () => {
+  it('includes published projects', () => {
     expect(publishedSlugs()).toContain('pitstop')
     expect(publishedSlugs()).toContain('juku-arcade')
-    expect(publishedSlugs()).not.toContain('systems-monitoring')
+  })
+
+  // A folder of its own, because no real project may be a draft at a given time.
+  it('leaves drafts out', () => {
+    const projects = mkdtempSync(join(tmpdir(), 'projects-'))
+    const folders: [slug: string, extraFrontMatter: string][] = [
+      ['shown', ''],
+      ['hidden', 'draft: true\n'],
+    ]
+    for (const [slug, extra] of folders) {
+      mkdirSync(join(projects, slug))
+      writeFileSync(join(projects, slug, 'en.md'), `---\ntitle: ${slug}\n${extra}---\n`)
+    }
+    expect(publishedSlugs(projects)).toEqual(['shown'])
   })
 })
 
@@ -113,7 +127,6 @@ describe('the HTML each page is served with', () => {
       '404.html',
     ])
       expect(names).toContain(name)
-    expect(names.some((name) => name.includes('systems-monitoring'))).toBe(false)
   })
 
   it("carries the page's own title, description, address and language for link previews", () => {

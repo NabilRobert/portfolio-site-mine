@@ -4,8 +4,11 @@ using only the site's palette. It uses no outside material.
 
 It shows an error budget burning down past its threshold (the fast burn in red),
 a bell, and the alert arriving on the operator's phone. The caption
-"SLOs · Error budgets · Runbooks" names what the project plans to deliver, from
-its planning documents (systems-monitoring, docs/planning; not yet public).
+"SLOs · Error budgets · Runbooks" names what the project delivers. Drawn on
+28 October 2026 from its planning documents; checked on 26 November 2026
+against its README (NabilRobert/systems-monitoring, main at 447fb77), where
+availability SLOs with error-budget burn alerts, and a runbook for every alert,
+are built. Unchanged since.
 
 Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
 other covers.

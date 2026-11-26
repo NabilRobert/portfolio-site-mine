@@ -27,4 +27,4 @@ Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu ar
 - **Data kata:** dek untuk setiap level JLPT dari N5 sampai N1, dibangun dari OpenJLPT, yang bersumber dari JMdict, KANJIDIC2, daftar JLPT Jonathan Waller, dan Tatoeba. Dek-deknya dibagikan dengan lisensi CC BY-SA 4.0, sama seperti sumbernya.
 - **Tanpa server:** aplikasi web statis. Tidak ada akun, dan kemajuan pemain tersimpan di peramban. Setiap push ke cabang main yang lolos lint, pemeriksaan tipe, tes, dan build akan dipublikasikan ke GitHub Pages.
 - **Mengukurnya:** pemeriksaan harian opsional dirancang untuk mengukur apakah bermain meningkatkan daya ingat. Belum ada pelajar yang diukur, jadi belum ada hasil untuk dilaporkan.
-- **Status:** masih dikembangkan, dan sudah dapat dimainkan di peramban, di laptop, tablet, dan ponsel dalam posisi tegak. Kodenya belum memiliki lisensi.
+- **Status:** masih dikembangkan, dan sudah dapat dimainkan di peramban, di laptop, tablet, dan ponsel dalam posisi tegak. Kodenya dilindungi hak cipta sepenuhnya (all rights reserved): terbuka untuk dibaca, tetapi tidak untuk digunakan ulang. Dek katanya berlisensi CC BY-SA 4.0.

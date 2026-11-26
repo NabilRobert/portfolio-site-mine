@@ -1,0 +1,15 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("CHAT" at the top, "RESEARCH" letter-spaced at the
+bottom), using only the site's palette. It uses no outside material.
+
+It shows three WhatsApp-style chat bubbles, as the project's README describes
+the chats it works on (NabilRobert/id-chat-research, main at 6bdaa5a). Ordinary
+words are plain bars; the personal data in the customer's messages is covered by
+dark blocks carrying the anonymiser's placeholder types, NAMA, TELEPON and
+ALAMAT (name, phone, address), the labels the project uses. A red magnifying
+glass checks one of them, for an anonymiser measured by what it misses. No real
+or generated chat text appears. The caption "Personal data, removed" says what
+the first tool does.
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers. Drawn on 26 November 2026.

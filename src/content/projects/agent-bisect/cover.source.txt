@@ -1,0 +1,15 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("BISECT" at the top, "DEBUGGING" letter-spaced at the
+bottom), using only the site's palette. It uses no outside material.
+
+It shows the planned method, not a result, as the project's measurement plan
+describes it (NabilRobert/agent-bisect, docs/planning/measurement-plan.md, main
+at ecd4924): a failing agent run of eight steps (model calls as circles, tool
+calls as squares); above them, the failure rate after keeping each step of the
+bad run, which jumps past the two thresholds (the dashed lines, 0.2 and 0.8) at
+the decisive step, in yellow; below, the binary search narrowing to that step.
+The bar heights are illustrative, not data: nothing has been measured yet. The
+caption "Finding the broken step" says what it is.
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers. Drawn on 26 November 2026.
