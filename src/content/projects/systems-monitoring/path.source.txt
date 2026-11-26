@@ -1,8 +1,15 @@
 path.svg (English), path.ja.svg (Japanese) and path.id.svg (Indonesian): a
-diagram drawn for this site of the systems-monitoring plan. Nothing it shows is
-built yet; it is marked "Planned".
+diagram drawn for this site of how an alert travels in systems-monitoring.
 
-Drawn from docs/planning in systems-monitoring (main at 70d7207; not yet
-public): the system overview diagram, ADR-001 (Alertmanager as the only delivery path) and ADR-002 (Telegram, page and ticket). The decisions there are recommendations until Arthur agrees,
-and the SLO targets are drafts until two weeks of Juku's real traffic.
-Generated as SVG by a short script on 28 October 2026, in the site's palette.
+First drawn on 28 October 2026 from the project's plan, marked "Planned".
+Updated on 26 November 2026 from NabilRobert/systems-monitoring, main at
+447fb77: README.md (slices 1 and 3, the alert tables), ADR-001 (Alertmanager as
+the only delivery path), ADR-002 (Telegram, page and ticket) and
+deploy/alertmanager/alertmanager.yml. Changes: the badge now says "Built"; the
+security source is Vector, which replaced the planned custom watcher
+("authwatch"); slo-check is drawn dashed, as not built until Juku is live; the
+ticket examples now match the rules (a slow budget burn is a page on main); and
+the line about links to agent-observability traces, not built yet, became
+"Built and tested in Docker; not yet deployed."
+
+Generated as SVG in the site's palette; plain text and shapes, edited by hand.

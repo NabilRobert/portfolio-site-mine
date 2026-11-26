@@ -1,8 +1,13 @@
 slices.svg (English), slices.ja.svg (Japanese) and slices.id.svg (Indonesian): a
-diagram drawn for this site of the systems-monitoring plan. Nothing it shows is
-built yet; it is marked "Planned".
+diagram drawn for this site of the order in which systems-monitoring is built.
 
-Drawn from docs/planning in systems-monitoring (main at 70d7207; not yet
-public): slice-plan.md (the slices, the checkpoint, the cut order and the spend plan). The decisions there are recommendations until Arthur agrees,
-and the SLO targets are drafts until two weeks of Juku's real traffic.
-Generated as SVG by a short script on 28 October 2026, in the site's palette.
+First drawn on 28 October 2026 from the plan, marked "Planned". Updated on
+26 November 2026 from NabilRobert/systems-monitoring, main at 447fb77:
+docs/planning/slice-plan.md (the slices, the checkpoint, and the progress note
+that slices 0, 1, 3 and 4 are done locally), README.md (status: nothing
+deployed yet) and ADR-004 (GlitchTip failed its memory gate). Changes: the
+badge now says "In progress"; slices 1, 3 and 4 are marked done; slice 2, the
+deploy, is marked next; slice 3's line adds availability SLOs; slice 4's line
+says GlitchTip failed its memory gate and the fallback is in use.
+
+Generated as SVG in the site's palette; plain text and shapes, edited by hand.

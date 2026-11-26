@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 614" width="640" height="614">
-<!-- Drawn from systems-monitoring docs/planning; see the matching .source.txt. -->
+<!-- Drawn from systems-monitoring main (README, docs); see the matching .source.txt. -->
 <rect width="640" height="614" fill="#1a222c"/>
 <g font-family="'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif">
 <text x="24" y="44" font-size="22" font-weight="700" fill="#ebd4c1">Juku’s service level objectives</text>
 <text x="24" y="70" font-size="14.5" fill="#f9b288">Draft targets over a rolling 28 days, confirmed after two weeks of real traffic</text>
 <rect x="524" y="26" width="92" height="26" rx="4" fill="none" stroke="#ffea35" stroke-width="2"/>
-<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">PLANNED</text>
+<text x="570" y="44" font-size="12.5" font-weight="700" letter-spacing="1.5" text-anchor="middle" fill="#ffea35">DRAFT</text>
 <text x="38" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" fill="#f9b288">OBJECTIVE</text>
 <text x="466" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" text-anchor="end" fill="#f9b288">TARGET</text>
 <text x="602" y="106" font-size="12.5" font-weight="700" letter-spacing="1.2" text-anchor="end" fill="#f9b288">BUDGET</text>
