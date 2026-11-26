@@ -14,7 +14,7 @@ usePageHead(() => homeHead(t.value))
 
 <template>
   <div class="grid gap-24 md:gap-32">
-    <ProjectGrid v-for="g in groups" :key="g.id" :category="g.id" :projects="g.projects" />
+    <ProjectGrid v-for="(g, i) in groups" :key="g.id" :category="g.id" :projects="g.projects" :is-first="i === 0" />
     <AboutSection />
   </div>
 </template>

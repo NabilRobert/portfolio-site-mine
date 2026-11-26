@@ -19,6 +19,6 @@ usePageHead(() => projectsHead(t.value))
     <p class="mt-5 text-lg leading-relaxed text-skin sm:text-xl">{{ t.projectsPage.lead }}</p>
   </header>
   <div class="mt-16 grid gap-24 md:mt-20 md:gap-32">
-    <ProjectGrid v-for="g in groups" :key="g.id" :category="g.id" :projects="g.projects" />
+    <ProjectGrid v-for="(g, i) in groups" :key="g.id" :category="g.id" :projects="g.projects" :is-first="i === 0" />
   </div>
 </template>

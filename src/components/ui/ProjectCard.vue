@@ -12,6 +12,8 @@ const props = defineProps<{
   project: Project
   /** Position in the grid, from 1; shown as "01". */
   number: number
+  /** Load the cover straight away, for the first card on the screen. */
+  eager?: boolean
 }>()
 const { t, localePath } = useLocale()
 const name = computed(() => shortTitle(props.project.title))
@@ -19,7 +21,7 @@ const name = computed(() => shortTitle(props.project.title))
 
 <template>
   <RouterLink :to="localePath(`/projects/${project.slug}`)" class="group block focus-visible:outline-offset-8">
-    <CoverImage :src="project.cover" :glyph="name.charAt(0)" />
+    <CoverImage :src="project.cover" :glyph="name.charAt(0)" :eager />
     <div class="mt-5 grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-2">
       <span class="eyebrow pt-1 text-skin tabular-nums">{{ String(number).padStart(2, '0') }}</span>
       <!-- Tags sit beside the name rather than on the cover, where they would hide its lettering. -->

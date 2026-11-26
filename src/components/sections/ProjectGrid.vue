@@ -9,6 +9,8 @@ import { useLocale } from '@/composables/useLocale'
 defineProps<{
   category: Category
   projects: Project[]
+  /** The first grid on the page: its first cover is on the first screen, so it loads straight away. */
+  isFirst?: boolean
 }>()
 const { t } = useLocale()
 </script>
@@ -18,7 +20,7 @@ const { t } = useLocale()
     <SectionLabel :id="`category-${category}`">{{ t.categories[category] }}</SectionLabel>
     <ul class="mt-8 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-12 xl:gap-x-16">
       <li v-for="(p, i) in projects" :key="p.slug">
-        <ProjectCard :project="p" :number="i + 1" />
+        <ProjectCard :project="p" :number="i + 1" :eager="isFirst && i === 0" />
       </li>
     </ul>
   </section>
