@@ -8,7 +8,8 @@ import { useLocale } from '@/composables/useLocale'
 // The masthead: page links on the left, the wordmark in the centre and the
 // language switch on the right, like a magazine cover. On a phone the three
 // stack, centred. On the home page the wordmark is the page's h1; elsewhere
-// each page has its own.
+// each page has its own. Links get padding offset by an equal negative
+// margin: a tap area of about 40 px on a phone, with nothing on screen moving.
 const route = useRoute()
 const { t, localePath } = useLocale()
 const page = computed(() => String(route.name ?? ''))
@@ -42,7 +43,7 @@ const links = computed(() => [
             >{{ i < nameParts.length - 1 && !part.endsWith('・') ? ' ' : '' }}</template
           >
         </span>
-        <span class="display mt-2.5 block pl-[0.4em] text-[0.7rem] font-medium tracking-[0.4em] text-skin sm:text-xs">{{
+        <span class="display mt-2.5 block pl-[0.4em] text-xs font-medium tracking-[0.4em] text-skin">{{
           t.about.role
         }}</span>
       </RouterLink>
@@ -56,7 +57,7 @@ const links = computed(() => [
             :aria-current="l.current ? 'page' : undefined"
             active-class=""
             exact-active-class=""
-            class="text-cream aria-[current=page]:text-yellow underline-offset-[0.4em] transition-colors hover:text-yellow hover:underline"
+            class="-mx-2 -my-2.5 inline-block px-2 py-2.5 text-cream aria-[current=page]:text-yellow underline-offset-[0.4em] transition-colors hover:text-yellow hover:underline"
             >{{ l.label }}</RouterLink
           >
         </li>

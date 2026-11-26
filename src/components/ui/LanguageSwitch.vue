@@ -17,7 +17,7 @@ const { lang, t, switchPath } = useLocale()
           :hreflang="code"
           :lang="code"
           :aria-current="code === lang ? 'true' : undefined"
-          class="underline-offset-[0.4em] transition-colors hover:text-cream"
+          class="-mx-2 -my-2.5 px-2 py-2.5 underline-offset-[0.4em] transition-colors hover:text-cream"
           :class="code === lang ? 'text-yellow underline decoration-1' : 'text-skin'"
           >{{ l.label }}</RouterLink
         >
