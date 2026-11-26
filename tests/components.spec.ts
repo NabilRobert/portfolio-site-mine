@@ -75,6 +75,15 @@ describe('ProjectCard', () => {
   const project = getProject('ja', 'pitstop')
   if (!project) throw new Error('pitstop is missing')
 
+  it('loads its cover straight away, and first, only when asked to', async () => {
+    const eager = (await withRouter(ProjectCard, '/', { project, number: 1, eager: true })).wrapper.find('img')
+    expect(eager.attributes('loading')).toBe('eager')
+    expect(eager.attributes('fetchpriority')).toBe('high')
+    const lazy = (await withRouter(ProjectCard, '/', { project, number: 2 })).wrapper.find('img')
+    expect(lazy.attributes('loading')).toBe('lazy')
+    expect(lazy.attributes('fetchpriority')).toBeUndefined()
+  })
+
   it('links to the project in the current language and names it in a heading', async () => {
     const { wrapper } = await withRouter(ProjectCard, '/ja', { project, number: 3 })
     expect(wrapper.find('a').attributes('href')).toBe('/ja/projects/pitstop')
