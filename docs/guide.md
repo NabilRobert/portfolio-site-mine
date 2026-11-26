@@ -206,7 +206,8 @@ built here.
   JavaScript (see step 9 of the flow), so a preview service that doesn't run
   JavaScript won't see them.
 - **CI:** the checks GitHub runs on every pull request and every push to `main`
-  (`.github/workflows/ci.yml`): the same `npm run check` you run locally.
+  (`.github/workflows/ci.yml`): the same `npm run check` you run locally,
+  then a gitleaks scan of every commit for secrets.
 
 ## Layout
 
