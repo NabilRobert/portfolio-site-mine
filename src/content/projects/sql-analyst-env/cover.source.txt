@@ -1,0 +1,13 @@
+cover.svg: an original illustration, drawn by hand as SVG for this site in the
+style of the other covers ("DATA" at the top, "ANALYST" letter-spaced at the
+bottom), using only the site's palette. It uses no outside material.
+
+It shows the project's grading idea as its README describes it
+(NabilRobert/sql-analyst-env, main at 34eaa8b): one submitted query (the card
+marked "SELECT") is run on two copies of the database, A (the one the agent
+explored) and B (hidden, with different data), and counts only if it is right
+on both (the two ticks). It is a picture of the idea, not of a particular run.
+The caption "An RL environment" says what it is.
+
+Lettering: Cinzel (SIL Open Font License 1.1), converted to outlines, as on the
+other covers. Drawn on 26 November 2026.
