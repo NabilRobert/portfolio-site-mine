@@ -7,7 +7,7 @@ status: wip
 stack: Vue 3 · TypeScript · Tailwind CSS · Vite · Dexie
 coverAlt: "Sampul bertuliskan “Juku” di atas papan permainan di meja biru: tiga kartu kata kanji (本, 三日, 上) di atas empat kartu cara baca yang tersusun seperti kipas (ほん, みっか, みか, うえ); keterangannya “A Japanese learning game”, dengan tulisan “Arcade” di bagian bawah."
 links:
-  - { label: Mainkan, href: "https://nabilrobert.github.io/juku-arcade/", primary: true }
+  - { label: Mainkan, href: "https://arcade.nabilrobert.my.id/", primary: true }
   - { label: Repositori, href: "https://github.com/NabilRobert/juku-arcade" }
 screenshots:
   - src: board.webp
@@ -40,9 +40,11 @@ screenshots:
 ---
 Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Di mode utama, pemain mencocokkan lima kartu kata kanji (三日) dengan cara bacanya (みっか), dengan satu kartu pengecoh di antaranya. Kombo menaikkan level dan mengisi pot yang dapat diamankan atau hilang.
 
+**Untuk memainkan demo daring:** demo meminta nama pengguna dan kata sandi. Nama pengguna: `demo`. Kata sandi: `UuDQe55SrZ6WRjOz`.
+
 - **Mode:** Words, seperti di atas; Kanji, yang meminta semua cara baca dari satu kanji; Bunpou, tempat pemain menyusun ubin tata bahasa secara berurutan untuk membangun cerita pendek yang dibuat otomatis; dan Practice, yang mencampur kata, kanji, dan tata bahasa yang sudah pernah ditemui.
 - **Pengecoh dari kesalahan nyata:** setiap pengecoh adalah kesalahan yang umum: keliru pada vokal panjang, っ kecil, tanda dakuten, atau ゃ, ゅ, ょ kecil, atau cara baca lain dari kanji yang sama.
 - **Data kata:** dek untuk setiap level JLPT dari N5 sampai N1, dibangun dari OpenJLPT, yang bersumber dari JMdict, KANJIDIC2, daftar JLPT Jonathan Waller, dan Tatoeba. Dek-deknya dibagikan dengan lisensi CC BY-SA 4.0, sama seperti sumbernya.
-- **Tanpa server:** aplikasi web statis. Tidak ada akun, dan kemajuan pemain tersimpan di peramban. Setiap push ke cabang main yang lolos lint, pemeriksaan tipe, tes, dan build akan dipublikasikan ke GitHub Pages.
+- **Tanpa backend:** aplikasi web statis. Tidak ada akun, dan kemajuan pemain tersimpan di peramban. Demo daringnya berupa berkas statis yang sama, dan server web meminta nama pengguna serta kata sandi di atas sebelum mengirim berkas apa pun.
 - **Mengukurnya:** pemeriksaan harian opsional dirancang untuk mengukur apakah bermain meningkatkan daya ingat. Belum ada pelajar yang diukur, jadi belum ada hasil untuk dilaporkan.
 - **Status:** masih dikembangkan, dan sudah dapat dimainkan di peramban, di laptop, tablet, dan ponsel dalam posisi tegak. Kodenya dilindungi hak cipta sepenuhnya (all rights reserved): terbuka untuk dibaca, tetapi tidak untuk digunakan ulang. Dek katanya berlisensi CC BY-SA 4.0.

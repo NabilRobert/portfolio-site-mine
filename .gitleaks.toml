@@ -1,0 +1,17 @@
+# Secret-scan settings. gitleaks reads this file from the repo root, both in
+# CI (.github/workflows/ci.yml) and when run by hand.
+
+[extend]
+useDefault = true
+
+# juku-arcade's demo login is published on purpose: the game's own docs say
+# the portfolio shows it, so anyone who finds the portfolio can play
+# (juku-arcade ops/caddy-demo.md, D76). Its English line reads like a
+# "Password: <value>" leak to the generic-api-key rule. This allows that one
+# line, found by its bold label in each language, and nothing else. (A path
+# condition was tried too: gitleaks then allowed the whole file, so it's left
+# out. A token planted elsewhere in the same file is still caught.)
+[[allowlists]]
+description = "juku-arcade's public demo login"
+regexTarget = "line"
+regexes = ['''\*\*(To play the online demo|オンラインデモを遊ぶには|Untuk memainkan demo daring):''']
