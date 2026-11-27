@@ -7,7 +7,7 @@ status: wip
 stack: Vue 3 · TypeScript · Tailwind CSS · Vite · Dexie
 coverAlt: "Cover with the word “Juku” over a game board on a blue table: three kanji word cards (本, 三日, 上) above a fan of four reading cards (ほん, みっか, みか, うえ), captioned “A Japanese learning game”, with “Arcade” spelled out below."
 links:
-  - { label: Play it, href: "https://nabilrobert.github.io/juku-arcade/", primary: true }
+  - { label: Play it, href: "https://arcade.nabilrobert.my.id/", primary: true }
   - { label: Repository, href: "https://github.com/NabilRobert/juku-arcade" }
 screenshots:
   - src: board.webp
@@ -40,9 +40,11 @@ screenshots:
 ---
 A Japanese learning game, built for Japanese learners: an original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In the main mode you match five kanji word cards (三日) to their readings (みっか), with a decoy in the mix. Combos raise the level and fill a pot that you can bank or lose.
 
+**To play the online demo:** it asks for a username and password. Username: `USERNAME-HERE`. Password: `PASSWORD-HERE`.
+
 - **Modes:** Words, as above; Kanji, which asks for every reading of one kanji; Bunpou, where you put grammar tiles in order to build a short generated tale; and Practice, which mixes the words, kanji and grammar you’ve already met.
 - **Decoys made from real mistakes:** each decoy is a common slip: a mistake with a long vowel, the small っ, a dakuten mark or a small ゃ, ゅ or ょ, or another reading of the same kanji.
 - **Word data:** decks for every JLPT level from N5 to N1, built from OpenJLPT, which draws on JMdict, KANJIDIC2, Jonathan Waller’s JLPT lists and Tatoeba. The decks are shared under CC BY-SA 4.0, like their source.
-- **No server:** a static web app. There are no accounts, and progress stays in the browser. Every push to the main branch that passes the lint, type check, tests and build deploys to GitHub Pages.
+- **No backend:** a static web app. There are no accounts, and progress stays in the browser. The online demo is the same static files, and the web server asks for the username and password above before it sends any of them.
 - **Measuring it:** an optional daily check-up is designed to measure whether playing improves recall. No learners have been measured yet, so there is no result to report.
 - **Status:** in progress, and playable now in the browser, on laptops, tablets and phones held upright. The code is all rights reserved: public to read, not to reuse. The word decks are CC BY-SA 4.0.
