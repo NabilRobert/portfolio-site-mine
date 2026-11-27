@@ -40,7 +40,7 @@ screenshots:
 ---
 Gim belajar bahasa Jepang, dibuat untuk para pelajar bahasa Jepang: gim kartu arkade orisinal dengan kombo skor, satu genre dengan Balatro, untuk mempelajari cara baca kata-kata bahasa Jepang. Di mode utama, pemain mencocokkan lima kartu kata kanji (三日) dengan cara bacanya (みっか), dengan satu kartu pengecoh di antaranya. Kombo menaikkan level dan mengisi pot yang dapat diamankan atau hilang.
 
-**Untuk memainkan demo daring:** demo meminta nama pengguna dan kata sandi. Nama pengguna: `USERNAME-HERE`. Kata sandi: `PASSWORD-HERE`.
+**Untuk memainkan demo daring:** demo meminta nama pengguna dan kata sandi. Nama pengguna: `demo`. Kata sandi: `UuDQe55SrZ6WRjOz`.
 
 - **Mode:** Words, seperti di atas; Kanji, yang meminta semua cara baca dari satu kanji; Bunpou, tempat pemain menyusun ubin tata bahasa secara berurutan untuk membangun cerita pendek yang dibuat otomatis; dan Practice, yang mencampur kata, kanji, dan tata bahasa yang sudah pernah ditemui.
 - **Pengecoh dari kesalahan nyata:** setiap pengecoh adalah kesalahan yang umum: keliru pada vokal panjang, っ kecil, tanda dakuten, atau ゃ, ゅ, ょ kecil, atau cara baca lain dari kanji yang sama.

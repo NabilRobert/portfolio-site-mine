@@ -40,7 +40,7 @@ screenshots:
 ---
 A Japanese learning game, built for Japanese learners: an original arcade card game with score combos, in the same genre as Balatro, for learning the readings of Japanese words. In the main mode you match five kanji word cards (三日) to their readings (みっか), with a decoy in the mix. Combos raise the level and fill a pot that you can bank or lose.
 
-**To play the online demo:** it asks for a username and password. Username: `USERNAME-HERE`. Password: `PASSWORD-HERE`.
+**To play the online demo:** it asks for a username and password. Username: `demo`. Password: `UuDQe55SrZ6WRjOz`.
 
 - **Modes:** Words, as above; Kanji, which asks for every reading of one kanji; Bunpou, where you put grammar tiles in order to build a short generated tale; and Practice, which mixes the words, kanji and grammar you’ve already met.
 - **Decoys made from real mistakes:** each decoy is a common slip: a mistake with a long vowel, the small っ, a dakuten mark or a small ゃ, ゅ or ょ, or another reading of the same kanji.
